@@ -1,0 +1,22 @@
+.iconadjust {
+  margin-top: 10px;
+}
+
+.font-vertical-fix {
+  position: relative;
+  bottom: -0.5em;
+}
+
+.font-filename-fix {
+  position: relative;
+  bottom: 0.2em;
+  margin-left: 5px;
+}
+
+.separate {
+  margin-bottom: 5px;
+}
+
+.pointer {
+  cursor: pointer;
+}

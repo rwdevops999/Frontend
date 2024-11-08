@@ -1,0 +1,22 @@
+.card {
+  width: 305px;
+  height: 35px;
+  margin-top: -15px;
+}
+
+.social-media a {
+  margin-right: 15px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.social-media a:last-child {
+  margin-right: 0;
+}
+
+.social-media a svg {
+  color: #ff5858;
+  transform: translatex(15px) translateY(10px);
+  width: 10px;
+  fill: currentColor;
+}

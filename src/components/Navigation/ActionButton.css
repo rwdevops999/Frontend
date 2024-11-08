@@ -1,0 +1,173 @@
+.actionbutton {
+  height: 48px;
+  width: 100px;
+  border: 1px solid green;
+  border-radius: 10px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.5s ease-in-out;
+  padding-top: 25px;
+  margin-right: 5px;
+}
+
+.actionbutton:disabled {
+  height: 48px;
+  width: 100px;
+  border: 1px solid rgb(0, 43, 0);
+  border-radius: 10px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.5s ease-in-out;
+  padding-top: 25px;
+  margin-right: 5px;
+}
+
+.typeDelete::after {
+  content: "All";
+  height: 40px;
+  width: 100px;
+  padding-bottom: 5px;
+  background-color: #008080;
+  color: #fff;
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  transform: translateY(50px);
+  font-size: var(--bs-body-font-size);
+  font-weight: var(--bs-body-font-weight);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.5s ease-in-out;
+  margin-top: 2px;
+}
+
+.typeDelete::before {
+  content: "Delete";
+  height: 40px;
+  width: 100px;
+  padding-bottom: 5px;
+  background-color: rgb(18, 59, 19);
+  color: rgb(7, 184, 7);
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  transform: translateY(0px) scale(1.2);
+  font-size: var(--bs-body-font-size);
+  font-weight: var(--bs-body-font-weight);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.5s ease-in-out;
+  margin-top: 2px;
+}
+
+.typeDelete:hover::after {
+  transform: translateY(0) scale(1.2);
+}
+
+.typeDelete:hover::before {
+  transform: translateY(-50px) scale(0) rotate(120deg);
+}
+
+.typeDelete:disabled:after {
+  transform: translateY(50px);
+  transition: all 0.5s ease-in-out;
+}
+
+.typeDelete:disabled::before {
+  content: "Delete";
+  height: 40px;
+  width: 100px;
+  padding-bottom: 5px;
+  background-color: black;
+  color: rgb(0, 43, 0);
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  transform: translateY(0px) scale(1.2);
+  font-size: var(--bs-body-font-size);
+  font-weight: var(--bs-body-font-weight);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.5s ease-in-out;
+  margin-top: 2px;
+  cursor: default;
+}
+
+.typePublish::after {
+  content: "All";
+  height: 40px;
+  width: 100px;
+  padding-bottom: 5px;
+  background-color: #008080;
+  color: #fff;
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  transform: translateY(50px);
+  font-size: var(--bs-body-font-size);
+  font-weight: var(--bs-body-font-weight);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.5s ease-in-out;
+  margin-top: 2px;
+}
+
+.typePublish::before {
+  content: "Publish";
+  height: 40px;
+  width: 100px;
+  padding-bottom: 5px;
+  background-color: rgb(18, 59, 19);
+  color: rgb(7, 184, 7);
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  transform: translateY(0px) scale(1.2);
+  font-size: var(--bs-body-font-size);
+  font-weight: var(--bs-body-font-weight);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.5s ease-in-out;
+  margin-top: 2px;
+}
+
+.typePublish:hover::after {
+  transform: translateY(0) scale(1.2);
+}
+
+.typePublish:hover::before {
+  transform: translateY(-50px) scale(0) rotate(120deg);
+}
+
+.typePublish:disabled:after {
+  transform: translateY(50px);
+  transition: all 0.5s ease-in-out;
+}
+
+.typePublish:disabled::before {
+  content: "Publish";
+  height: 40px;
+  width: 100px;
+  padding-bottom: 5px;
+  background-color: black;
+  color: rgb(0, 43, 0);
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  transform: translateY(0px) scale(1.2);
+  font-size: var(--bs-body-font-size);
+  font-weight: var(--bs-body-font-weight);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.5s ease-in-out;
+  margin-top: 2px;
+  cursor: default;
+}

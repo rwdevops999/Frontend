@@ -1,0 +1,29 @@
+:root {
+  --background-color: #efefef;
+  --font-color: #444444;
+}
+
+/* Changes the values of the CSS variables if the data-theme is "dark" */
+
+body[data-theme="dark"] {
+  --background-color: #032b43;
+  --font-color: #efefef;
+}
+
+body[data-theme="light"] {
+  --background-color: #efefef;
+  --font-color: #32b43;
+}
+
+/* And this is where the CSS variables are applied */
+
+body {
+  background-color: var(--background-color);
+  color: var(--font-color);
+  font-size: 1.2em;
+  margin: 40vh auto;
+  text-align: center;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  font-family: Helvetica, arial, sans-serif;
+}

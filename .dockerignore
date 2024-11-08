@@ -1,0 +1,17 @@
+**/build/
+**/dist/
+**/node_modules/
+**/tests
+
+vitest.config.ts
+tutorial_env.json
+
+Jenkinsfile
+
+.gitignore
+
+**/.vscode
+
+Dockerfile*
+.dockerignore
+

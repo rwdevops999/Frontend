@@ -1,0 +1,27 @@
+.color_dev {
+  color: orange;
+}
+
+.color_tst {
+  color: #f42b03;
+}
+
+.icon_30 {
+  height: 30px;
+  width: 30px;
+}
+
+.icon-15 {
+  height: 15px;
+  width: 15px;
+}
+
+.title {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  position: relative;
+  bottom: 7px;
+}
