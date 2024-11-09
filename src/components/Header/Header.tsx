@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { FaBookOpen, FaBucket, FaUser } from "react-icons/fa6";
+import { FaBucket, FaUser } from "react-icons/fa6";
 import { useAuth0 } from "@auth0/auth0-react";
 import HeaderActions from "./HeaderActions";
 import "./Header.css";
@@ -15,7 +15,7 @@ const Header = ({
   count: number;
 }) => {
   const { user, isAuthenticated } = useAuth0();
-  const { config } = useConfig();
+  const { config, setConfig } = useConfig();
 
   debugState("Header: AUTHENTICATED", isAuthenticated);
   debugState("Header: USER", user);
@@ -38,6 +38,14 @@ const Header = ({
     }
   };
 
+  const handleChangeMode = () => {
+    if (config.environment === "TST") {
+      setConfig({ environment: "DEV" });
+    } else {
+      setConfig({ environment: "TST" });
+    }
+  };
+
   return (
     <>
       <Box
@@ -46,12 +54,15 @@ const Header = ({
           width: "40%",
         }}
       >
-        <FaBookOpen
-          className={getClassName()}
+        <img
+          src="/public/book.ico"
+          className="icon_30"
           title={config.environment === "TST" ? "TST MODE" : "DEV MODE"}
         />
         &nbsp;
-        <strong className={getClassName(false)}>Tut-O-Pedia</strong>
+        <strong className={getClassName(false)} onClick={handleChangeMode}>
+          Tut-O-Pedia
+        </strong>
       </Box>
 
       <Box

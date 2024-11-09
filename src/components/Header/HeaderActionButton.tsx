@@ -27,7 +27,8 @@ const HeaderActionButton = ({
         count,
         "Go to admin page",
         HEADER_ADMIN,
-        "/admin"
+        "/admin",
+        bucket
       );
 
       navigate(tutopedia.routeURL!, buildState(tutopedia));

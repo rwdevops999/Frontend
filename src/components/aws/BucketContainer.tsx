@@ -9,7 +9,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import avatarIcon from "/src/assets/storage.png";
+import avatarIcon from "/src/assets/bucket.png";
 import { FaTrashAlt } from "react-icons/fa";
 
 import NumbersIcon from "@mui/icons-material/Numbers";
@@ -49,6 +49,11 @@ const BucketContainer = ({
 }) => {
   const { config } = useConfig();
   const navigate = useNavigate();
+
+  console.log(
+    "[BucketContainer] BUCKET DISBALED = " +
+      (bucket.id === undefined || bucket.selected)
+  );
 
   if (bucket) {
     console.log("[BucketContainer] DATE = " + bucket.updateDate);
@@ -179,7 +184,7 @@ const BucketContainer = ({
           count,
           "update default bucket",
           ADMIN_PAGE_DEFAULT_BUTTON,
-          "/admin",
+          "/buckets",
           bucket.name
         );
       } else {
@@ -222,12 +227,7 @@ const BucketContainer = ({
       >
         <Box sx={{ display: "flex", alignItems: "center" }}>
           <Box>
-            <Avatar
-              alt="OCI"
-              src={avatarIcon}
-              sx={{ width: 36, height: 36 }}
-              variant="square"
-            />
+            <Avatar alt="OCI" src={avatarIcon} sx={{ width: 36, height: 36 }} />
           </Box>
           <Box sx={{ width: "65%" }}>
             {bucket.name ? (
@@ -295,38 +295,40 @@ const BucketContainer = ({
         }}
       >
         <FormGroup>
-          <FormControlLabel
-            sx={{
-              marginTop: "-5px",
-              marginLeft: "0.5px",
-              "& > .MuiTypography-root": {
-                "&.Mui-disabled": {
-                  color: "#1976D2",
-                },
-              },
-            }}
-            control={
-              <Checkbox
-                inputProps={{
-                  id: bucket.name,
-                  placeholder: "S3_DISPLAY_BUCKET_DEFAULT_INPUT",
-                  disabled: bucket.selected,
-                }}
-                data-title="S3_DISPLAY_BUCKET_DEFAULT"
-                defaultChecked={bucket.selected}
-                color="secondary"
-                onChange={() => handleChangeDefault(bucket)}
-                sx={{
-                  color: "#0D3B69",
-                  "&.Mui-checked": {
-                    color: "#173A5E",
+          {bucket.id && (
+            <FormControlLabel
+              sx={{
+                marginTop: "-5px",
+                marginLeft: "0.5px",
+                "& > .MuiTypography-root": {
+                  "&.Mui-disabled": {
+                    color: "#1976D2",
                   },
-                }}
-                disabled={bucket.selected}
-              />
-            }
-            label="Default"
-          />
+                },
+              }}
+              control={
+                <Checkbox
+                  inputProps={{
+                    id: bucket.name,
+                    placeholder: "S3_DISPLAY_BUCKET_DEFAULT_INPUT",
+                    disabled: bucket.selected,
+                  }}
+                  data-title="S3_DISPLAY_BUCKET_DEFAULT"
+                  defaultChecked={bucket.selected}
+                  color="secondary"
+                  onChange={() => handleChangeDefault(bucket)}
+                  sx={{
+                    color: "#0D3B69",
+                    "&.Mui-checked": {
+                      color: "#173A5E",
+                    },
+                  }}
+                  disabled={bucket.selected}
+                />
+              }
+              label="Default"
+            />
+          )}
         </FormGroup>
       </Box>
       <Box

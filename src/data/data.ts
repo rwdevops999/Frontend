@@ -1,5 +1,7 @@
 import { ConnectionState } from "../hooks/useServerConnect";
 
+export const CODE_TENANT = 1;
+
 import {
   HEADER_ADMIN,
   HEADER_HOME,

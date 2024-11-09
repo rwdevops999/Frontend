@@ -1,5 +1,5 @@
 import { Box, Button, Typography } from "@mui/material";
-import { TutopediaTextFieldStandard } from "../components/MUI/TutopediaTextFieldStandard";
+import { TutopediaTextFieldStandard } from "../MUI/TutopediaTextFieldStandard";
 
 const OCISettings = ({
   name,
@@ -34,7 +34,11 @@ const OCISettings = ({
           sx={{ marginLeft: "2%", width: "50%" }}
           defaultValue={value}
         />
-        <Button sx={{ marginLeft: "2%" }} onClick={() => handleInput(code)}>
+        <Button
+          data-title="SETTINGS_PAGE_ACTION_BUTTON"
+          sx={{ marginLeft: "2%" }}
+          onClick={() => handleInput(code)}
+        >
           {value ? "Update" : "Create"}
         </Button>
       </Typography>

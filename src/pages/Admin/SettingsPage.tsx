@@ -1,5 +1,7 @@
+import OCIPanel from "../../components/Admin/OCIPanel";
+
 const SettingsPage = () => {
-  return <h1>Admin Settings</h1>;
+  return <OCIPanel />;
 };
 
 export default SettingsPage;

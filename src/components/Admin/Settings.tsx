@@ -1,24 +1,30 @@
 import { useNavigate } from "react-router-dom";
 import { buildState, buildTutopediaForAdmin } from "../../builders/Builders";
 import "./Settings.css";
+import { SETTINGS_PAGE_SETTINGS_BUTTON } from "../../data/consts";
 
-const Settings = () => {
+const Settings = ({ count }: { count: number }) => {
   const navigate = useNavigate();
 
   const handleSettings = () => {
     console.log("[SETTINGS] Go To Settings Page");
 
     const tutopedia = buildTutopediaForAdmin(
-      1,
+      count,
       "Go To Buckets",
-      "ME",
+      SETTINGS_PAGE_SETTINGS_BUTTON,
       "/settings"
     );
+
     navigate(tutopedia.routeURL!, buildState(tutopedia));
   };
 
   return (
-    <button className="settingsbutton" onClick={handleSettings}>
+    <button
+      data-title="SETTINGS_PAGE_SETTINGS_BUTTON"
+      className="settingsbutton"
+      onClick={handleSettings}
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="20"

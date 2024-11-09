@@ -17,6 +17,7 @@ import {
   buildState,
   buildTutopediaForFind,
   buildTutopediaForFindByKeyword,
+  buildTutopediaForViewAllTutorials,
 } from "../builders/Builders";
 import { FIND_PAGE_CANCEL_BUTTON, FIND_PAGE_FIND_BUTTON } from "../data/consts";
 import toast from "react-hot-toast";
@@ -96,11 +97,12 @@ const FindPage = () => {
   });
 
   const navigateToHome = (): void => {
-    const tutopedia = buildTutopediaForFind(
+    const tutopedia = buildTutopediaForViewAllTutorials(
       count,
-      "Cancel Find By Keywords",
+      "Return from the create page",
       FIND_PAGE_CANCEL_BUTTON,
-      "/tutorials"
+      "/tutorials",
+      true
     );
     navigate(tutopedia.routeURL!, buildState(tutopedia));
   };

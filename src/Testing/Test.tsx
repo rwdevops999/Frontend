@@ -20,7 +20,7 @@ const Test = () => {
   return (
     <Box id="SETTING_MAIN_BOX" width={"100%"} height={"20%"}>
       <OCISettings
-        name="Tendant ID"
+        name="Tenant ID"
         img="/src/assets/oci.png"
         value={val}
         handleInput={val ? handleUpdate : handleCreate}
