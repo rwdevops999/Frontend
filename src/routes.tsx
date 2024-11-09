@@ -7,6 +7,8 @@ import CreatePage from "./pages/CreatePage";
 import FindPage from "./pages/FindPage";
 import AwsPage from "./pages/AwsPage";
 import AdminPage from "./pages/AdminPage";
+import SettingsPage from "./pages/Admin/SettingsPage";
+import BucketsPage from "./pages/Admin/BucketsPage";
 
 const routes: RouteObject[] = [
   {
@@ -25,6 +27,8 @@ const routes: RouteObject[] = [
         ],
       },
       { path: "admin", element: <AdminPage /> },
+      { path: "settings", element: <SettingsPage /> },
+      { path: "buckets", element: <BucketsPage /> },
     ],
   },
 ];

@@ -61,8 +61,7 @@ const SearchGroup = ({
     <>
       <PlagiarismIcon style={iconStyles} />
       &nbsp;
-      <TutopediaTextFieldOutlined
-        // set 'data-title' on <input> tag'
+      <TutopediaTextFieldOutlined // set 'data-title' on <input> tag'
         slotProps={{
           htmlInput: {
             "data-title": "TUTORIALS_PAGE_NAVIGATION_BAR_SEARCH_INPUT",

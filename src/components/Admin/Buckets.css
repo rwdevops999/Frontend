@@ -1,0 +1,51 @@
+.bucketsbutton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 12px 8px 16px;
+  gap: 8px;
+  height: 40px;
+  width: 128px;
+  border: none;
+  background: #056bfa27;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.bucketslabel {
+  margin-top: 1px;
+  font-size: 19px;
+  line-height: 22px;
+  color: #056dfa;
+  letter-spacing: 1px;
+}
+
+.bucketsbutton:hover {
+  background: #056bfa49;
+}
+
+.bucketsbutton:hover .svg-icon {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  25% {
+    transform: rotate(-8deg);
+  }
+
+  50% {
+    transform: rotate(0deg);
+  }
+
+  75% {
+    transform: rotate(8deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}
