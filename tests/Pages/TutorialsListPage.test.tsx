@@ -14,44 +14,57 @@ import {
   expectToBeDisabled,
 } from "../testutils";
 import { createTutorials } from "../mock/database";
+import {
+  ROUTE_TUTORIALS,
+  TUTOPEDIA_CONTENT_CREATE_PAGE,
+  TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_ERROR,
+  TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_ITEMS,
+  TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_ITEMS_DELETE,
+  TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_ITEMS_ITEM,
+  TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_ITEMS_PUBLISH,
+  TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_ITEMS_UPDATE,
+  TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_LOADER,
+  TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL,
+  TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL_NON_PUBLISHED,
+  TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL_PUBLISHED,
+} from "../../src/data/layout/layout";
 
-describe.skip("TutorialsListPage", () => {
+describe("TutorialsListPage", () => {
   it("should show the loader if loading", () => {
     simulateDelay("http://localhost:8081/api/find");
-    renderRoute("/tutorials");
-    expectInDocumentByTestId("TUTORIALS_LIST_PAGE_LOADING");
+    renderRoute(`/${ROUTE_TUTORIALS}`);
+    expectInDocumentByTestId(`${TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_LOADER}`);
   });
 
   it("should show the error if any error occurs", async () => {
     simulateError("http://localhost:8081/api/find");
-    renderRoute("/tutorials");
-
-    /**
-     * This can't be put in a function because the test must be async
-     */
-    // await waitForElementToBeRemoved(
-    //   screen.queryByTestId("TUTORIALS_LIST_PAGE_LOADING")
-    // );
+    renderRoute(`/${ROUTE_TUTORIALS}`);
 
     await waitFor(() => {
-      expectInDocumentByTestId("TUTORIALS_LIST_PAGE_ERROR");
+      expectInDocumentByTestId(
+        `${TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_ERROR}`
+      );
     });
   });
 
   it("should show all tutorials when all tutorials is selected", async () => {
     createTutorials(10);
-    renderRoute("/tutorials");
+    renderRoute(`/${ROUTE_TUTORIALS}`);
 
-    expectToBeDisabled("TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL_TUTORIALS");
+    expectToBeDisabled(
+      `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL}`
+    );
 
     /**
      * This can't be put in a function because the test must be async
      */
     await waitForElementToBeRemoved(
-      screen.queryByTestId("TUTORIALS_LIST_PAGE_LOADING")
+      screen.queryByTestId(`${TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_LOADER}`)
     );
 
-    const items = screen.getAllByTestId("TUTORIALS_LIST_PAGE_TUTORIALS_ITEM");
+    const items = screen.getAllByTestId(
+      `${TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_ITEMS_ITEM}`
+    );
 
     const node: HTMLInputElement = screen.getByAltText(/pagination/i);
     expect(items.length).toBe(parseInt(node.value));
@@ -61,49 +74,55 @@ describe.skip("TutorialsListPage", () => {
     createTutorials(3, true, { published: true });
     createTutorials(2, false);
 
-    renderRoute("/tutorials");
+    renderRoute(`/${ROUTE_TUTORIALS}`);
 
-    clickButtonById("TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL_PUBLISHED");
+    clickButtonById(
+      `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL_PUBLISHED}`
+    );
 
     /**
      * This can't be put in a function because the test must be async
      */
     await waitForElementToBeRemoved(
-      screen.queryByTestId("TUTORIALS_LIST_PAGE_LOADING")
+      screen.queryByTestId(`${TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_LOADER}`)
     );
 
-    screen.debug(undefined, Infinity);
-
-    const items = screen.getAllByTestId("TUTORIALS_LIST_PAGE_TUTORIALS_ITEM");
+    const items = screen.getAllByTestId(
+      `${TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_ITEMS_ITEM}`
+    );
     expect(items.length).toBe(3);
   });
 
   it("should show all non-published tutorials when all non-published tutorials is selected", async () => {
     createTutorials(2);
-    renderRoute("/tutorials");
+    renderRoute(`/${ROUTE_TUTORIALS}`);
 
-    clickButtonById("TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL_NON-PUBLISHED");
+    clickButtonById(
+      `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL_NON_PUBLISHED}`
+    );
 
     /**
      * This can't be put in a function because the test must be async
      */
     await waitForElementToBeRemoved(
-      screen.queryByTestId("TUTORIALS_LIST_PAGE_LOADING")
+      screen.queryByTestId(`${TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_LOADER}`)
     );
 
-    const items = screen.getAllByTestId("TUTORIALS_LIST_PAGE_TUTORIALS_ITEM");
+    const items = screen.getAllByTestId(
+      `${TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_ITEMS_ITEM}`
+    );
     expect(items.length).toBe(2);
   });
 
   it("should show an published chip when the tutorial is published", async () => {
     createTutorials(1, true, { published: true });
-    renderRoute("/tutorials");
+    renderRoute(`/${ROUTE_TUTORIALS}`);
 
     /**
      * This can't be put in a function because the test must be async
      */
     await waitForElementToBeRemoved(
-      screen.queryByTestId("TUTORIALS_LIST_PAGE_LOADING")
+      screen.queryByTestId(`${TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_LOADER}`)
     );
 
     expectChipContainsValue("published");
@@ -111,29 +130,35 @@ describe.skip("TutorialsListPage", () => {
 
   it("should not contain any button when the tutorial is published", async () => {
     createTutorials(1, true, { published: true });
-    renderRoute("/tutorials");
+    renderRoute(`/${ROUTE_TUTORIALS}`);
 
     /**
      * This can't be put in a function because the test must be async
      */
     await waitForElementToBeRemoved(
-      screen.queryByTestId("TUTORIALS_LIST_PAGE_LOADING")
+      screen.queryByTestId(`${TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_LOADER}`)
     );
 
-    expectNotInDocumentByTestId("TUTORIALS_LIST_PAGE_TUTORIALS_ITEM_EDIT");
-    expectNotInDocumentByTestId("TUTORIALS_LIST_PAGE_TUTORIALS_ITEM_PUBLISH");
-    expectNotInDocumentByTestId("TUTORIALS_LIST_PAGE_TUTORIALS_ITEM_DELETE");
+    expectNotInDocumentByTestId(
+      `${TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_ITEMS_UPDATE}`
+    );
+    expectNotInDocumentByTestId(
+      `${TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_ITEMS_PUBLISH}`
+    );
+    expectNotInDocumentByTestId(
+      `${TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_ITEMS_DELETE}`
+    );
   });
 
   it("should show an not published chip when the tutorial is not published", async () => {
     createTutorials(1);
-    renderRoute("/tutorials");
+    renderRoute(`/${ROUTE_TUTORIALS}`);
 
     /**
      * This can't be put in a function because the test must be async
      */
     await waitForElementToBeRemoved(
-      screen.queryByTestId("TUTORIALS_LIST_PAGE_LOADING")
+      screen.queryByTestId(`${TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_LOADER}`)
     );
 
     expectChipContainsValue("not published");
@@ -141,54 +166,65 @@ describe.skip("TutorialsListPage", () => {
 
   it("should contain all buttons (edit, publish, delete) when the tutorial is not published", async () => {
     createTutorials(1);
-    renderRoute("/tutorials");
+    renderRoute(`/${ROUTE_TUTORIALS}`);
 
     /**
      * This can't be put in a function because the test must be async
      */
     await waitForElementToBeRemoved(
-      screen.queryByTestId("TUTORIALS_LIST_PAGE_LOADING")
+      screen.queryByTestId(`${TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_LOADER}`)
     );
 
-    expectInDocumentByTestId("TUTORIALS_LIST_PAGE_TUTORIALS_ITEM_EDIT");
-    expectInDocumentByTestId("TUTORIALS_LIST_PAGE_TUTORIALS_ITEM_PUBLISH");
-    expectInDocumentByTestId("TUTORIALS_LIST_PAGE_TUTORIALS_ITEM_DELETE");
+    expectInDocumentByTestId(
+      `${TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_ITEMS_UPDATE}`
+    );
+    expectInDocumentByTestId(
+      `${TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_ITEMS_PUBLISH}`
+    );
+    expectInDocumentByTestId(
+      `${TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_ITEMS_DELETE}`
+    );
   });
 
-  it("should render the create page as update when the edit button is clicked", async () => {
+  it("should render the create page as update when the update button is clicked", async () => {
     createTutorials(1);
-    renderRoute("/tutorials");
+    renderRoute(`/${ROUTE_TUTORIALS}`);
 
     /**
      * This can't be put in a function because the test must be async
      */
     await waitForElementToBeRemoved(
-      screen.queryByTestId("TUTORIALS_LIST_PAGE_LOADING")
+      screen.queryByTestId(`${TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_LOADER}`)
     );
 
-    expectInDocumentByTestId("TUTORIALS_LIST_PAGE_TUTORIALS_ITEM_EDIT");
-    clickButtonById("TUTORIALS_LIST_PAGE_TUTORIALS_ITEM_EDIT");
+    expectInDocumentByTestId(
+      `${TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_ITEMS_UPDATE}`
+    );
+    clickButtonById(`${TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_ITEMS_UPDATE}`);
 
-    expectInDocumentByTestId("TUTORIALS_CREATE_PAGE");
+    expectInDocumentByTestId(`${TUTOPEDIA_CONTENT_CREATE_PAGE}`);
   });
 
   it("should publish the tutorial and render the publish tutorials when the publish button is clicked", async () => {
     createTutorials(1);
-    renderRoute("/tutorials");
+    renderRoute(`/${ROUTE_TUTORIALS}`);
 
     /**
      * This can't be put in a function because the test must be async
      */
     await waitForElementToBeRemoved(
-      screen.queryByTestId("TUTORIALS_LIST_PAGE_LOADING")
+      screen.queryByTestId(`${TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_LOADER}`)
     );
 
-    expectInDocumentByTestId("TUTORIALS_LIST_PAGE_TUTORIALS_ITEM_PUBLISH");
+    expectInDocumentByTestId(
+      `${TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_ITEMS_PUBLISH}`
+    );
+
     /**
      * the button contains an awiait axios, so we have to wait also for that to finish
      */
     await waitFor(() => {
-      clickButtonById("TUTORIALS_LIST_PAGE_TUTORIALS_ITEM_PUBLISH");
+      clickButtonById(`${TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_ITEMS_PUBLISH}`);
     });
 
     expectChipContainsValue("published");
@@ -197,19 +233,17 @@ describe.skip("TutorialsListPage", () => {
   it("should remove the tutorial when the delete button is clicked", async () => {
     createTutorials(2);
 
-    renderRoute("/tutorials");
+    renderRoute(`/${ROUTE_TUTORIALS}`);
 
     /**
      * This can't be put in a function because the test must be async
      */
     await waitForElementToBeRemoved(
-      screen.queryByTestId("TUTORIALS_LIST_PAGE_LOADING")
+      screen.queryByTestId(`${TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_LOADER}`)
     );
 
-    // screen.debug(undefined, Infinity);
-
     const preDeleteItems = screen.getAllByTestId(
-      "TUTORIALS_LIST_PAGE_TUTORIALS_ITEM"
+      `${TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_ITEMS_ITEM}`
     ).length;
 
     /**
@@ -217,13 +251,13 @@ describe.skip("TutorialsListPage", () => {
      */
     await waitFor(() => {
       let deleteButton = screen.getAllByTestId(
-        "TUTORIALS_LIST_PAGE_TUTORIALS_ITEM_DELETE"
+        `${TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_ITEMS_DELETE}`
       )[0];
       clickButtonByElement(deleteButton);
     });
 
     const postDeleteItems = screen.getAllByTestId(
-      "TUTORIALS_LIST_PAGE_TUTORIALS_ITEM"
+      `${TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_ITEMS_ITEM}`
     ).length;
 
     expect(postDeleteItems).toBe(preDeleteItems - 1);

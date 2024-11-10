@@ -87,10 +87,19 @@ export const createTutorials = (
 
   console.log("[DB] createTutorials");
   for (let i = 0; i < num; i++) {
+    let tut = {
+      title: "Title " + i,
+      description: "Description " + i,
+      published: false,
+      filename: "File " + i,
+    };
+
     let { id } = createDBTutorial({
       ...defaultTutorial,
+      ...tut,
       ...tutorial,
     });
+    console.log("[DB] created Tutorial: " + id);
     tutorialIds.push(id);
   }
 };
