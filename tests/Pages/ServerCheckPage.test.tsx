@@ -1,13 +1,17 @@
 import { renderRoute } from "../render/render";
 import * as useServerConnectHook from "../../src/hooks/useServerConnect";
 import { expectInDocumentByTestId, expectInDocumentByText } from "../testutils";
+import {
+  ROUTE_TUTOPEDIA,
+  TUTOPEDIA_CONTENT_SERVER_CHECK_PAGE_LOADER,
+} from "../../src/data/layout/layout";
 
 const useServerConnectSpy = vi.spyOn(useServerConnectHook, "useServerConnect");
 
-describe.skip("ServerCheckPage", () => {
+describe("ServerCheckPage", () => {
   it("should render the loader", () => {
-    renderRoute("/");
-    expectInDocumentByTestId("SERVERCHECK_PAGE_LOADER");
+    renderRoute(`${ROUTE_TUTOPEDIA}`);
+    expectInDocumentByTestId(`${TUTOPEDIA_CONTENT_SERVER_CHECK_PAGE_LOADER}`);
   });
 
   it("should render `Connecting` if trying to connect", () => {
@@ -15,7 +19,7 @@ describe.skip("ServerCheckPage", () => {
       connectionState: useServerConnectHook.ConnectionState.connecting,
     });
 
-    renderRoute("/");
+    renderRoute(`${ROUTE_TUTOPEDIA}`);
 
     expectInDocumentByText(/^Connecting$/);
   });
@@ -25,7 +29,7 @@ describe.skip("ServerCheckPage", () => {
       connectionState: useServerConnectHook.ConnectionState.connected,
     });
 
-    renderRoute("/");
+    renderRoute(`${ROUTE_TUTOPEDIA}`);
 
     expectInDocumentByText(/^Connected$/);
   });
@@ -35,7 +39,7 @@ describe.skip("ServerCheckPage", () => {
       connectionState: useServerConnectHook.ConnectionState.failed,
     });
 
-    renderRoute("/");
+    renderRoute(`${ROUTE_TUTOPEDIA}`);
 
     expectInDocumentByText(/^Error$/);
   });
@@ -45,7 +49,7 @@ describe.skip("ServerCheckPage", () => {
       connectionState: useServerConnectHook.ConnectionState.failed,
     });
 
-    renderRoute("/");
+    renderRoute(`${ROUTE_TUTOPEDIA}`);
 
     expectInDocumentByText(/^Retry$/);
   });
@@ -55,7 +59,7 @@ describe.skip("ServerCheckPage", () => {
       connectionState: useServerConnectHook.ConnectionState.connected,
     });
 
-    renderRoute("/");
+    renderRoute(`${ROUTE_TUTOPEDIA}`);
 
     expectInDocumentByText(/^To Application$/);
   });
