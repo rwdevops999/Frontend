@@ -15,39 +15,39 @@ import {
 } from "../testutils";
 import { createTutorials } from "../mock/database";
 
-describe.skip("NavigationBar", () => {
-  it("should render the `navigation bar`", () => {
+describe("NavigationBar", () => {
+  it.skip("should render the `navigation bar`", () => {
     renderRoute("/tutorials");
 
     expectInDocumentByTestId("TUTORIALS_PAGE_NAVIGATION_BAR_NAVIGATION");
   });
 
   // NAVIGATION GROUP
-  it("should contain the `home button`", () => {
+  it.skip("should contain the `home button`", () => {
     renderRoute("/tutorials");
 
     expectInDocumentByTestId("TUTORIALS_PAGE_NAVIGATION_BAR_NAVIGATION_HOME");
   });
 
-  it("should contain the `create button`", () => {
+  it.skip("should contain the `create button`", () => {
     renderRoute("/tutorials");
 
     expectInDocumentByTestId("TUTORIALS_PAGE_NAVIGATION_BAR_NAVIGATION_CREATE");
   });
 
-  it("should contain the `find button`", () => {
+  it.skip("should contain the `find button`", () => {
     renderRoute("/tutorials");
 
     expectInDocumentByTestId("TUTORIALS_PAGE_NAVIGATION_BAR_NAVIGATION_FIND");
   });
 
-  it("should contain the `OCI button`", () => {
+  it.skip("should contain the `OCI button`", () => {
     renderRoute("/tutorials");
 
     expectInDocumentByTestId("TUTORIALS_PAGE_NAVIGATION_BAR_NAVIGATION_OCI");
   });
 
-  it("should render the `tutorials list page` when clicking the `home button` and arrange other buttons visibility", () => {
+  it.skip("should render the `tutorials list page` when clicking the `home button` and arrange other buttons visibility", () => {
     renderRoute("/tutorials");
 
     clickButton({ name: /^OCI$/ });
@@ -71,7 +71,7 @@ describe.skip("NavigationBar", () => {
     ]);
   });
 
-  it("should render the `create page` when clicking the `create button` and handle other buttons visibility", () => {
+  it.skip("should render the `create page` when clicking the `create button` and handle other buttons visibility", () => {
     renderRoute("/tutorials");
 
     clickButton({ name: /^Create$/ });
@@ -95,7 +95,7 @@ describe.skip("NavigationBar", () => {
     ]);
   });
 
-  it("should render the `find page` when clicking the `find button` and handle other buttons visibility", () => {
+  it.skip("should render the `find page` when clicking the `find button` and handle other buttons visibility", () => {
     renderRoute("/tutorials");
 
     clickButton({ name: /^Find$/ });
@@ -118,7 +118,7 @@ describe.skip("NavigationBar", () => {
     ]);
   });
 
-  it("should render the `OCI page` when clicking the `OCI button` and handle other buttons visibility", () => {
+  it.skip("should render the `OCI page` when clicking the `OCI button` and handle other buttons visibility", () => {
     renderRoute("/tutorials");
 
     clickButton({ name: /^OCI$/ });
@@ -141,7 +141,7 @@ describe.skip("NavigationBar", () => {
     ]);
   });
 
-  it("should render the `Home button` and `All Tutorials` button as disabled", () => {
+  it.skip("should render the `Home button` and `All Tutorials` button as disabled", () => {
     renderRoute("/tutorials");
 
     expectElementsDisabled([
@@ -151,13 +151,13 @@ describe.skip("NavigationBar", () => {
   });
 
   // VIEWS GROUP
-  it("should contain the `views group`", () => {
+  it.skip("should contain the `views group`", () => {
     renderRoute("/tutorials");
 
     expectByTestIdToBeInTheDocument("TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS");
   });
 
-  it("should contain the `All Tutorials` button", () => {
+  it.skip("should contain the `All Tutorials` button", () => {
     renderRoute("/tutorials");
 
     expectByTestIdToBeInTheDocument(
@@ -165,7 +165,7 @@ describe.skip("NavigationBar", () => {
     );
   });
 
-  it("should contain the `All Published Tutorials` button", () => {
+  it.skip("should contain the `All Published Tutorials` button", () => {
     renderRoute("/tutorials");
 
     expectInDocumentByTestId(
@@ -173,7 +173,7 @@ describe.skip("NavigationBar", () => {
     );
   });
 
-  it("should contain the `All Non-Published Tutorials` button", () => {
+  it.skip("should contain the `All Non-Published Tutorials` button", () => {
     renderRoute("/tutorials");
 
     expectInDocumentByTestId(
@@ -181,7 +181,7 @@ describe.skip("NavigationBar", () => {
     );
   });
 
-  it("should render the `Tutorials List Page` and handle other buttons visibility when clicking `All Tutorials` button", () => {
+  it.skip("should render the `Tutorials List Page` and handle other buttons visibility when clicking `All Tutorials` button", () => {
     renderRoute("/tutorials");
 
     clickButton({ name: /^All Published$/ });
@@ -203,7 +203,7 @@ describe.skip("NavigationBar", () => {
     ]);
   });
 
-  it("should render the `Tutorials List Page` and handle other buttons visibility when clicking `All Published` button", () => {
+  it.skip("should render the `Tutorials List Page` and handle other buttons visibility when clicking `All Published` button", () => {
     renderRoute("/tutorials");
 
     clickButton({ name: /^All Published$/ });
@@ -224,7 +224,7 @@ describe.skip("NavigationBar", () => {
     ]);
   });
 
-  it("should render the `Tutorials List Page` and handle other buttons visibility when clicking `All Non-Published` button", () => {
+  it.skip("should render the `Tutorials List Page` and handle other buttons visibility when clicking `All Non-Published` button", () => {
     renderRoute("/tutorials");
 
     clickButton({ name: /^All Non-Published$/ });
@@ -246,20 +246,20 @@ describe.skip("NavigationBar", () => {
   });
 
   // SEARCH GROUP
-  it("should render the `search` group", () => {
+  it.skip("should render the `search` group", () => {
     renderRoute("/tutorials");
 
     expectInDocumentByTestId("TUTORIALS_PAGE_NAVIGATION_BAR_SEARCH");
   });
 
   // ACTION GROUP
-  it("should render the `action` group", () => {
+  it.skip("should render the `action` group", () => {
     renderRoute("/tutorials");
 
     expectByTestIdToBeInTheDocument("TUTORIALS_PAGE_NAVIGATION_BAR_ACTION");
   });
 
-  it("should delete all the tutorials when the `delete all` button is clicked", async () => {
+  it.skip("should delete all the tutorials when the `delete all` button is clicked", async () => {
     createTutorials(10);
 
     renderRoute("/tutorials");
@@ -288,7 +288,7 @@ describe.skip("NavigationBar", () => {
     expectNotInDocumentByTestId("TUTORIALS_LIST_PAGE_TUTORIALS_ITEM");
   });
 
-  it("should publish all the tutorials when the `publish all` button is clicked", async () => {
+  it.skip("should publish all the tutorials when the `publish all` button is clicked", async () => {
     createTutorials(10);
     renderRoute("/tutorials");
 
