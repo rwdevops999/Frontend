@@ -28,7 +28,7 @@ describe("Tutorials", () => {
     ).toBeInTheDocument();
   });
 
-  it.skip("should render the `Tutorials List Page` when routing to `/tutorials`", () => {
+  it("should render the `Tutorials List Page` when routing to `/tutorials`", () => {
     renderRoute("/tutorials");
 
     expect(
