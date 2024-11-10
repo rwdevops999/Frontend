@@ -1,20 +1,26 @@
+import {
+  ROUTE_TUTOPEDIA,
+  TUTOPEDIA_FOOTER_COPYRIGHT,
+  TUTOPEDIA_FOOTER_SOCIAL_MEDIA,
+  TUTOPEDIA_FOOTER_TIME,
+} from "../../src/data/layout/layout";
 import { renderRoute } from "../render/render";
 import {
   expectInDocumentByAltText,
   expectInDocumentByTestId,
 } from "../testutils";
 
-describe.skip("Footer", () => {
+describe("Footer", () => {
   beforeEach(async () => {
-    renderRoute("/");
+    renderRoute(`${ROUTE_TUTOPEDIA}`);
   });
 
   it("should contain the `copyright`", () => {
-    expectInDocumentByTestId("TUTOPEDIA_FOOTER_COPYRIGHT");
+    expectInDocumentByTestId(`${TUTOPEDIA_FOOTER_COPYRIGHT}`);
   });
 
   it("should contain the `social media`", () => {
-    expectInDocumentByTestId("TUTOPEDIA_FOOTER_SOCIAL_MEDIA");
+    expectInDocumentByTestId(`${TUTOPEDIA_FOOTER_SOCIAL_MEDIA}`);
   });
 
   it("should contain all the `Social Media sites`", () => {
@@ -28,6 +34,6 @@ describe.skip("Footer", () => {
   });
 
   it("should contain the `time`", () => {
-    expectInDocumentByTestId("TUTOPEDIA_FOOTER_TIME");
+    expectInDocumentByTestId(`${TUTOPEDIA_FOOTER_TIME}`);
   });
 });
