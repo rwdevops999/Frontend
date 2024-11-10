@@ -1,16 +1,23 @@
+import {
+  ROUTE_TUTORIALS,
+  TUTOPEDIA_CONTENT_TUTORIALS_PAGE_CONTENT,
+  TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR,
+} from "../../src/data/layout/layout";
 import { renderRoute } from "../render/render";
 import { expectInDocumentByTestId } from "../testutils";
 
-describe.skip("TutorialsPage", () => {
+describe("TutorialsPage", () => {
   it("should render the navigation bar", () => {
-    renderRoute("/tutorials");
+    renderRoute(`/${ROUTE_TUTORIALS}`);
 
-    expectInDocumentByTestId("TUTORIALS_PAGE_NAVIGATION_BAR");
+    expectInDocumentByTestId(
+      `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR}`
+    );
   });
 
-  it("should render the outlet", () => {
-    renderRoute("/tutorials");
+  it("should render the content", () => {
+    renderRoute(`/${ROUTE_TUTORIALS}`);
 
-    expectInDocumentByTestId("TUTORIALS_PAGE_OUTLET");
+    expectInDocumentByTestId(`${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_CONTENT}`);
   });
 });
