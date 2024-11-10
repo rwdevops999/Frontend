@@ -10,6 +10,7 @@ import Loader from "../../components/Loader/Loader";
 import ErrorBanner from "../../components/Error/ErrorBanner";
 import BucketsDisplay from "../../components/OCI/BucketsDisplay";
 import "./BucketsPage.css";
+import { BUCKETS_PAGE } from "../../data/layout/layout";
 
 const BucketsPage = () => {
   let { debug } = useDebugContext();
@@ -212,9 +213,7 @@ const BucketsPage = () => {
 
   return (
     <>
-      <header className="" data-title="BUCKETS_MAIN_DISPLAY">
-        {renderBuckets()}
-      </header>
+      <header data-title={BUCKETS_PAGE}>{renderBuckets()}</header>
     </>
   );
 };

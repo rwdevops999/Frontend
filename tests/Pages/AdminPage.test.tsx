@@ -1,23 +1,45 @@
-import { screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { renderRoute } from "../render/render";
-import { User } from "@auth0/auth0-react";
-import { clickButtonById, mockAuthState } from "../testutils";
+import { clickButtonById, expectByTestIdToBeInTheDocument } from "../testutils";
+import {
+  BUCKETS_PAGE,
+  ROUTE_ADMIN,
+  SETTINGS_PAGE,
+  TUTOPEDIA_CONTENT_ADMIN_PAGE,
+  TUTOPEDIA_CONTENT_ADMIN_PAGE_BUCKETS,
+  TUTOPEDIA_CONTENT_ADMIN_PAGE_SETTINGS,
+} from "../../src/data/layout/layout";
 
-describe.skip("AdminPage", () => {
+describe("AdminPage", () => {
+  it("should render the admin page", async () => {
+    renderRoute(`/${ROUTE_ADMIN}`);
+
+    expectByTestIdToBeInTheDocument(`${TUTOPEDIA_CONTENT_ADMIN_PAGE}`);
+  });
+
   it("should render the settings button", async () => {
-    let loggedUser: User = {
-      name: "testuser",
-    };
+    renderRoute(`/${ROUTE_ADMIN}`);
 
-    mockAuthState({
-      isLoading: false,
-      isAuthenticated: true,
-      user: loggedUser,
-    });
+    expectByTestIdToBeInTheDocument(`${TUTOPEDIA_CONTENT_ADMIN_PAGE_SETTINGS}`);
+  });
 
-    renderRoute("/");
+  it("should render the buckets button", async () => {
+    renderRoute(`/${ROUTE_ADMIN}`);
 
-    clickButtonById("TUTOPEDIA_HEADER_ACTIONS_ADMIN");
-    screen.debug(undefined, Infinity);
+    expectByTestIdToBeInTheDocument(`${TUTOPEDIA_CONTENT_ADMIN_PAGE_BUCKETS}`);
+  });
+
+  it("should render the buckets page when clicking the buckets button", async () => {
+    renderRoute(`/${ROUTE_ADMIN}`);
+
+    clickButtonById(`${TUTOPEDIA_CONTENT_ADMIN_PAGE_BUCKETS}`);
+
+    expectByTestIdToBeInTheDocument(`${BUCKETS_PAGE}`);
+  });
+
+  it("should render the settings page", async () => {
+    renderRoute(`/${ROUTE_ADMIN}`);
+
+    expectByTestIdToBeInTheDocument(`${SETTINGS_PAGE}`);
   });
 });

@@ -12,6 +12,7 @@ const AdminControlItem = ({
   return (
     <label>
       <input
+        data-title={control.id}
         className="radio-input"
         type="radio"
         name="tutopedia"
