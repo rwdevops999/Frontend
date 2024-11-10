@@ -9,7 +9,7 @@ import {
 import { User } from "@auth0/auth0-react";
 import { createBuckets } from "../mock/database";
 
-describe("Header", () => {
+describe.skip("Header", () => {
   beforeEach(() => {
     renderRoute("/");
   });

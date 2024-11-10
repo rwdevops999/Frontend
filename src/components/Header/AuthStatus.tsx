@@ -3,7 +3,7 @@ import LoginButton from "./LoginButton";
 import LogoutButton from "./LogoutButton";
 
 const AuthStatus = () => {
-  const { isAuthenticated, isLoading } = useAuth0();
+  const { isAuthenticated } = useAuth0();
 
   if (isAuthenticated) {
     return <LogoutButton />;

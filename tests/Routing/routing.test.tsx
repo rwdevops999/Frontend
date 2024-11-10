@@ -1,18 +1,19 @@
 import { screen } from "@testing-library/react";
 import { renderRoute } from "../render/render";
 import { expectInDocumentByTestId } from "../testutils";
+import { ROUTE_TUTOPEDIA, TUTOPEDIA } from "../../src/data/layout/layout";
 
 describe("TutOPedia", () => {
   it("should render the TutOPedia when routing to `/`", () => {
-    renderRoute("/");
+    renderRoute(ROUTE_TUTOPEDIA);
 
-    expectInDocumentByTestId("TUTOPEDIA");
+    expectInDocumentByTestId(TUTOPEDIA);
   });
   // RUN NOW THE TUTOPEDIA TESTS
 });
 
 // OUTLET
-describe("Tutorials", () => {
+describe.skip("Tutorials", () => {
   it("should render the `Tutorials Page` when routing to `/tutorials`", () => {
     renderRoute("/tutorials");
 

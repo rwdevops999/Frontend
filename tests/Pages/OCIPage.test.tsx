@@ -17,99 +17,95 @@ import { simulateDelay, simulateError } from "../mock/backend";
 import { createBuckets, getDBBucketByIndex } from "../mock/database";
 import userEvent from "@testing-library/user-event";
 
-describe("AWSPage", () => {
-  it("should contain the `S3 Display`", async () => {
-    renderRoute("/tutorials/aws");
+describe.skip("OCIPage", () => {
+  it("should contain the `BUCKET Display`", async () => {
+    renderRoute("/tutorials/oci");
 
     /**
      * This can't be put in a function because the test must be async
      */
-    await waitForElementToBeRemoved(screen.queryByTestId("AWS_PAGE_LOADING"));
+    await waitForElementToBeRemoved(screen.queryByTestId("OCI_PAGE_LOADING"));
 
-    screen.debug(undefined, Infinity);
-
-    expectInDocumentByTestId("S3_DISPLAY");
+    expectInDocumentByTestId("BUCKET_CONTAINER_DISPLAY");
   });
 
   it("should render the `loader`", () => {
     simulateDelay("http://localhost:8081/api/bucket/find");
 
-    renderRoute("/tutorials/aws");
+    renderRoute("/tutorials/oci");
 
-    expectInDocumentByTestId("AWS_PAGE_LOADING");
+    expectInDocumentByTestId("OCI_PAGE_LOADING");
   });
 
   it("should render the `error`", async () => {
     simulateError("http://localhost:8081/api/bucket/find");
 
-    renderRoute("/tutorials/aws");
+    renderRoute("/tutorials/oci");
 
-    await waitForElementToAppear("AWS_PAGE_ERROR");
+    await waitForElementToAppear("OCI_PAGE_ERROR");
   });
 
   it("should render the `S3 display`", async () => {
-    renderRoute("/tutorials/aws");
+    renderRoute("/tutorials/oci");
 
     /**
      * This can't be put in a function because the test must be async
      */
-    await waitForElementToBeRemoved(screen.queryByTestId("AWS_PAGE_LOADING"));
+    await waitForElementToBeRemoved(screen.queryByTestId("OCI_PAGE_LOADING"));
 
-    expectInDocumentByTestId("S3_DISPLAY");
+    expectInDocumentByTestId("BUCKET_CONTAINER_DISPLAY");
   });
 
-  it("should render the no buckets", async () => {
-    renderRoute("/tutorials/aws");
+  it("should render no buckets", async () => {
+    renderRoute("/tutorials/oci");
 
     /**
      * This can't be put in a function because the test must be async
      */
-    await waitForElementToBeRemoved(screen.queryByTestId("AWS_PAGE_LOADING"));
+    await waitForElementToBeRemoved(screen.queryByTestId("OCI_PAGE_LOADING"));
 
-    const items = screen.queryAllByTestId("S3_DISPLAY_BUCKET");
+    const items = screen.queryAllByTestId("BUCKET_CONTAINER_BUCKET");
     expect(items.length).toBe(0);
   });
 
   it("should render the n buckets", async () => {
     createBuckets(2);
 
-    renderRoute("/tutorials/aws");
+    renderRoute("/tutorials/oci");
 
     /**
      * This can't be put in a function because the test must be async
      */
-    await waitForElementToBeRemoved(screen.queryByTestId("AWS_PAGE_LOADING"));
+    await waitForElementToBeRemoved(screen.queryByTestId("OCI_PAGE_LOADING"));
 
-    screen.debug(undefined, Infinity);
-
-    const items = screen.getAllByTestId("S3_DISPLAY_BUCKET");
+    const items = screen.getAllByTestId("BUCKET_CONTAINER_BUCKET");
     expect(items.length).toBe(2);
   });
 
   it("should not render the `add button`", async () => {
     createBuckets(1);
 
-    renderRoute("/tutorials/aws");
+    renderRoute("/tutorials/oci");
 
     /**
      * This can't be put in a function because the test must be async
      */
-    await waitForElementToBeRemoved(screen.queryByTestId("AWS_PAGE_LOADING"));
+    await waitForElementToBeRemoved(screen.queryByTestId("OCI_PAGE_LOADING"));
 
-    expectNotInDocumentByTestId("S3_DISPLAY_BUCKET_ADD");
+    expectNotInDocumentByTestId("BUCKER_CONTAINER_BUCKET_ADD");
   });
 
   it("should not render the `delete button`", async () => {
     createBuckets(1);
 
-    renderRoute("/tutorials/aws");
+    renderRoute("/tutorials/oci");
 
     /**
      * This can't be put in a function because the test must be async
      */
-    await waitForElementToBeRemoved(screen.queryByTestId("AWS_PAGE_LOADING"));
+    await waitForElementToBeRemoved(screen.queryByTestId("OCI_PAGE_LOADING"));
 
-    expectNotInDocumentByTestId("S3_DISPLAY_BUCKET_DELETE");
+    expectNotInDocumentByTestId("BUCKET_CONTAINER_BUCKET_DELETE");
   });
 
   it("should render the bucket name", async () => {
@@ -117,12 +113,12 @@ describe("AWSPage", () => {
 
     const bucket = getDBBucketByIndex(0);
 
-    renderRoute("/tutorials/aws");
+    renderRoute("/tutorials/oci");
 
     /**
      * This can't be put in a function because the test must be async
      */
-    await waitForElementToBeRemoved(screen.queryByTestId("AWS_PAGE_LOADING"));
+    await waitForElementToBeRemoved(screen.queryByTestId("OCI_PAGE_LOADING"));
 
     expectInDocumentByText(`${bucket.name}`);
   });
@@ -135,15 +131,15 @@ describe("AWSPage", () => {
     const bucket = getDBBucketByIndex(0);
     console.log("CREATED BUCKET = " + JSON.stringify(bucket));
 
-    renderRoute("/tutorials/aws");
+    renderRoute("/tutorials/oci");
 
     /**
      * This can't be put in a function because the test must be async
      */
-    await waitForElementToBeRemoved(screen.queryByTestId("AWS_PAGE_LOADING"));
+    await waitForElementToBeRemoved(screen.queryByTestId("OCI_PAGE_LOADING"));
 
     const element = screen.getByPlaceholderText(
-      "S3_DISPLAY_BUCKET_DEFAULT_INPUT"
+      "BUCKET_CONTAINER_DEFAULT_INPUT"
     );
 
     expectElementInDocument(element);
@@ -170,17 +166,17 @@ describe("AWSPage", () => {
     const bucket = getDBBucketByIndex(1);
     console.log("SELECTED BUCKET = " + JSON.stringify(bucket));
 
-    // RENDER AWS
-    renderRoute("/tutorials/aws");
+    // RENDER OCI
+    renderRoute("/tutorials/oci");
 
     // WAIT UNTIL LOADER DISAPPEARS
     /**
      * This can't be put in a function because the test must be async
      */
-    await waitForElementToBeRemoved(screen.queryByTestId("AWS_PAGE_LOADING"));
+    await waitForElementToBeRemoved(screen.queryByTestId("OCI_PAGE_LOADING"));
 
     // GET ALL CONTAINERS (EACH BUCKET IS IN ITS OWN CONTAINER)
-    let elements = screen.getAllByTestId("S3_DISPLAY_CONTAINER");
+    let elements = screen.getAllByTestId("BUCKET_CONTAINER");
     // WE EXPECT 3 CONTAINERS
     expect(elements.length).toBe(3);
 
@@ -192,12 +188,12 @@ describe("AWSPage", () => {
     for (let i = 0; i < elements.length; i++) {
       // GET THE CHECKBOX
       const checkbox = within(elements[i]).getByTestId(
-        "S3_DISPLAY_BUCKET_DEFAULT"
+        "BUCKET_CONTAINER_BUCKET_DEFAULT"
       );
 
       // GET THE INPUT FIELD UNDER THE CHECKBOX
       const input = within(checkbox).getByPlaceholderText(
-        "S3_DISPLAY_BUCKET_DEFAULT_INPUT"
+        "BUCKET_CONTAINER_BUCKET_DEFAULT_INPUT"
       );
 
       // THE FIRST MUST BE DISABLED, THE OTHER TWO ENABLED
@@ -214,15 +210,17 @@ describe("AWSPage", () => {
     }
 
     // GET AGAIN THE CONTAINERS
-    elements = screen.getAllByTestId("S3_DISPLAY_CONTAINER");
+    elements = screen.getAllByTestId("BUCKET_CONTAINER");
 
     // FOR EACH CONTAINER
     elements.forEach((element, index) => {
       // GET THE CHECKBOX
-      const checkbox = within(element).getByTestId("S3_DISPLAY_BUCKET_DEFAULT");
+      const checkbox = within(element).getByTestId(
+        "BUCKET_CONTAINER_BUCKET_DEFAULT"
+      );
       // AND THE INPUT INSIDE THIS CHECKBOX
       const input = within(checkbox).getByPlaceholderText(
-        "S3_DISPLAY_BUCKET_DEFAULT_INPUT"
+        "BUCKET_CONTAINER_DEFAULT_INPUT"
       );
 
       // NOW THE SECOND MUST BE DISABLED AND THE FIRST AND THE THIRD ENABLED

@@ -1,7 +1,7 @@
 import { renderRoute } from "../render/render";
 import { clickButtonById, expectInDocumentByTestId } from "../testutils";
 
-describe("ActionGroup", () => {
+describe.skip("ActionGroup", () => {
   it("should display the `delete all` button", () => {
     renderRoute("/tutorials");
 

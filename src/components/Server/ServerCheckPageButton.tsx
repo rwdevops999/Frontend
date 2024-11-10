@@ -6,6 +6,11 @@ import { debugState } from "../../data/utils";
 import { buildState, buildTutopediaForHome } from "../../builders/Builders";
 import { SERVER_APPLICATION, SERVER_RETRY } from "../../data/consts";
 import useDebugContext from "../../hooks/useDebugContext";
+import {
+  TUTOPEDIA_CONTENT_SERVER_CHECK_PAGE_ACTION,
+  TUTOPEDIA_CONTENT_SERVER_CHECK_PAGE_ACTION_APPLICATION,
+  TUTOPEDIA_CONTENT_SERVER_CHECK_PAGE_ACTION_RETRY,
+} from "../../data/layout/layout";
 
 const ServerCheckPageButton = ({
   count,
@@ -19,46 +24,37 @@ const ServerCheckPageButton = ({
   const navigate = useNavigate();
   const { debug } = useDebugContext();
 
-  if (debug) {
-    console.log("[SCPB] COUNT = " + count);
-  }
-
   let buttonId = connectState === ConnectionState.failed ? 0 : 1;
 
   const handleClick = (actionId: string) => {
-    if (debug) {
-      console.log("SCP Click: " + actionId + "(" + count + ")");
-    }
-
     let tutopedia: TutopediaState | undefined = undefined;
 
     switch (actionId) {
-      case SERVER_APPLICATION:
+      case TUTOPEDIA_CONTENT_SERVER_CHECK_PAGE_ACTION_APPLICATION:
         tutopedia = buildTutopediaForHome(
           count,
           "Go to the application",
-          SERVER_APPLICATION,
+          TUTOPEDIA_CONTENT_SERVER_CHECK_PAGE_ACTION_RETRY,
           "tutorials"
         );
         break;
-      case SERVER_RETRY:
+      case TUTOPEDIA_CONTENT_SERVER_CHECK_PAGE_ACTION_RETRY:
         // [TODO]
         break;
       default:
-        console.log("INVALID SERVER ACTION: " + actionId);
+        console.log(
+          `[${TUTOPEDIA_CONTENT_SERVER_CHECK_PAGE_ACTION}] INVALID SERVER ACTION: ${actionId}`
+        );
     }
 
     if (tutopedia) {
-      if (debug) {
-        debugState("[ServerCheckPageButton] state = ", tutopedia);
-      }
       navigate(tutopedia.routeURL!, buildState(tutopedia));
     }
   };
 
   return (
     <button
-      data-title={`SERVERCHECK_PAGE_ACTION_${buttons[buttonId].id}`}
+      data-title={`${TUTOPEDIA_CONTENT_SERVER_CHECK_PAGE_ACTION}_${buttons[buttonId].id}`}
       className="spbutton"
       onClick={() => handleClick(buttons[buttonId].actionId)}
     >

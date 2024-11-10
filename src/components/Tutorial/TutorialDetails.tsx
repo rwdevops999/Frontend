@@ -21,19 +21,23 @@ import useDebugContext from "../../hooks/useDebugContext";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useConfig } from "../../configuration/useConfig";
+import {
+  ROUTE_CREATE,
+  ROUTE_TUTORIALS,
+  TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_ITEMS_DELETE,
+  TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_ITEMS_ITEM_CHIP,
+  TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_ITEMS_PUBLISH,
+  TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_ITEMS_UPDATE,
+} from "../../data/layout/layout";
 
 const TutorialDetails = ({
   count,
   tutorial,
   setReload,
-}: // deleteTutorialById,
-// publishTutorialById,
-{
+}: {
   count: number;
   tutorial: Tutorial;
   setReload(value: any): any;
-  // deleteTutorialById(id: number): void;
-  // publishTutorialById(id: number): void;
 }) => {
   const navigate = useNavigate();
   const { config } = useConfig();
@@ -41,61 +45,42 @@ const TutorialDetails = ({
   const { debug } = useDebugContext();
 
   const editTutorial = (id: number): void => {
-    if (debug) {
-      console.log("[DetailsEditButton] Update ID = " + id);
-    }
-
     const tutopedia = buildTutopediaForCreate(
       count,
       "Update tutorial",
-      LISTVIEW_UPDATE,
-      "create",
+      TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_ITEMS_UPDATE,
+      `${ROUTE_CREATE}`,
       id,
       true
     );
 
     const state = buildState(tutopedia);
 
-    if (debug) {
-      console.log(
-        "[DetailsEditButton] NAVIGATION: STATE = ",
-        state + " URL = " + tutopedia.routeURL!
-      );
-
-      console.log("[DetailsEditButton] NAVIGATE AWAY TO " + tutopedia.routeURL);
-    }
-
     navigate(tutopedia.routeURL!, state);
   };
 
   const publishTutorialById = async (id: number) => {
-    console.log("[TutorialDetails] publish: " + id);
-
     await axios.put("/publish/" + id).then(() => {
       console.log("[TutorialDetails] PUBLISHED");
 
       const tutopedia = buildTutopediaForViewAllPublishedTutorials(
         count,
         "Publish tutorial",
-        LISTVIEW_PUBLISH,
-        "/tutorials",
+        TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_ITEMS_PUBLISH,
+        `/${ROUTE_TUTORIALS}`,
         true
       );
 
-      console.log("[TutorialDetails] RENAVIGATE");
       if (config.environment != "TST") {
         toast.loading("Publish tutorial: " + id);
       }
+
       navigate(tutopedia.routeURL!, buildState(tutopedia));
     });
   };
 
   const deleteTutorialById = async (id: number) => {
-    console.log("[TutorialDetails] delete: " + id);
-
     await axios.delete("/delete/" + id).then(() => {
-      console.log("[TutorialDetails] DELETED");
-
       if (config.environment != "TST") {
         toast.loading("Delete tutorial: " + id);
       }
@@ -105,7 +90,10 @@ const TutorialDetails = ({
 
   return (
     <div className="separate">
-      <Box display={"flex"} data-title="TUTORIALS_LIST_PAGE_TUTORIALS_ITEM">
+      <Box
+        display={"flex"}
+        data-title="TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_ITEMS_ITEM"
+      >
         <Box sx={{ width: "80%" }}>
           <CardContent
             sx={{
@@ -150,7 +138,7 @@ const TutorialDetails = ({
             }}
           >
             <Chip
-              data-title="TUTORIALS_LIST_PAGE_TUTORIALS_ITEM_CHIP"
+              data-title={TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_ITEMS_ITEM_CHIP}
               size="small"
               label={tutorial.published ? "published" : "not published"}
               variant="outlined"
@@ -162,21 +150,27 @@ const TutorialDetails = ({
             {!tutorial.published && (
               <CardActions sx={{ background: "lightgray", color: "black" }}>
                 <FaPenFancy
-                  data-title="TUTORIALS_LIST_PAGE_TUTORIALS_ITEM_EDIT"
+                  data-title={
+                    TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_ITEMS_UPDATE
+                  }
                   className="tooltip-test pointer"
                   title="update"
                   onClick={() => editTutorial(tutorial.id!)}
                 />
                 <Divider orientation="vertical" />
                 <FaFileExport
-                  data-title="TUTORIALS_LIST_PAGE_TUTORIALS_ITEM_PUBLISH"
+                  data-title={
+                    TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_ITEMS_PUBLISH
+                  }
                   className="tooltip-test pointer"
                   title="publish"
                   onClick={() => publishTutorialById(tutorial.id!)}
                 />
                 <Divider orientation="vertical" />
                 <FaTrashAlt
-                  data-title="TUTORIALS_LIST_PAGE_TUTORIALS_ITEM_DELETE"
+                  data-title={
+                    TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_ITEMS_DELETE
+                  }
                   className="tooltip-test pointer"
                   title="delete"
                   onClick={() => deleteTutorialById(tutorial.id!)}

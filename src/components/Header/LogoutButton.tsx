@@ -1,5 +1,6 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import "./HeaderActionButtons.css";
+import { TUTOPEDIA_HEADER_ACTION_BUTTON_LOGOUT } from "../../data/layout/layout";
 
 const LogoutButton = () => {
   const { logout } = useAuth0();
@@ -7,7 +8,7 @@ const LogoutButton = () => {
   return (
     <div className={`child child-3`}>
       <button
-        data-title={`TOP_MAIN_HEADER_CONTENT_ACTIONS_LOGOUT`}
+        data-title={TUTOPEDIA_HEADER_ACTION_BUTTON_LOGOUT}
         className={`button btn-3 tooltip-test`}
         title="logout"
         onClick={() =>
@@ -17,7 +18,7 @@ const LogoutButton = () => {
         <img
           className="icon-15 tooltip-test filter-red"
           title="logout"
-          src="/src/assets/login.svg"
+          src="/src/assets/logout.svg"
         />
       </button>
     </div>

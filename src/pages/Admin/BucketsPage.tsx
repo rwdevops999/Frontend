@@ -8,7 +8,8 @@ import { useConfig } from "../../configuration/useConfig";
 import { Bucket } from "../../entities/Bucket";
 import Loader from "../../components/Loader/Loader";
 import ErrorBanner from "../../components/Error/ErrorBanner";
-import S3Display from "../../components/aws/S3Display";
+import BucketsDisplay from "../../components/OCI/BucketsDisplay";
+import "./BucketsPage.css";
 
 const BucketsPage = () => {
   let { debug } = useDebugContext();
@@ -195,7 +196,7 @@ const BucketsPage = () => {
               }}
               marginTop={1}
             >
-              <S3Display
+              <BucketsDisplay
                 isAdmin={true}
                 count={count}
                 buckets={paginatedBuckets}
@@ -211,7 +212,9 @@ const BucketsPage = () => {
 
   return (
     <>
-      <header data-title="TUTORIALS_ADMIN_PAGE">{renderBuckets()}</header>
+      <header className="" data-title="BUCKETS_MAIN_DISPLAY">
+        {renderBuckets()}
+      </header>
     </>
   );
 };

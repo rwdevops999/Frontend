@@ -1,3 +1,4 @@
+import { NavigationPageNames } from "../../data/data";
 import NavigationButton from "./NavigationButton";
 
 const NavigationGroup = ({
@@ -6,10 +7,9 @@ const NavigationGroup = ({
   selectedPage,
 }: {
   count: number;
-  pages: string[];
   selectedPage: any;
 }) => {
-  return pages.map((page: string) => (
+  return Object.values(NavigationPageNames).map((page: string) => (
     <NavigationButton
       key={page}
       count={count}

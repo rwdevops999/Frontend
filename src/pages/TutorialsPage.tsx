@@ -8,26 +8,24 @@ import {
   buildTutopediaForStartup,
 } from "../builders/Builders";
 import { Toaster } from "react-hot-toast";
-import { TUTOPEDIA } from "../data/consts";
 import { useConfig } from "../configuration/useConfig";
+import {
+  TUTOPEDIA_CONTENT_TUTORIALS_PAGE,
+  TUTOPEDIA_CONTENT_TUTORIALS_PAGE_CONTENT,
+  TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR,
+} from "../data/layout/layout";
 
 const TutorialsPage = () => {
   let { debug } = useDebugContext();
   const { config } = useConfig();
 
   const location = useLocation();
-  if (location.state === null) {
-    if (debug) {
-      console.log("[TutorialsPage] Building a NEW STATE");
-    }
-
-    const tutopedia = buildTutopediaForStartup(0, "Startup", TUTOPEDIA, "/");
-    location.state = buildStateWithoutStateKeyword(tutopedia);
-  }
+  // if (location.state === null) {
+  //   const tutopedia = buildTutopediaForStartup(0, "Startup", TUTOPEDIA, "/");
+  //   location.state = buildStateWithoutStateKeyword(tutopedia);
+  // }
 
   const state = location.state;
-
-  console.log("[TP] STATE = " + JSON.stringify(state));
 
   const layout = state.tutopedia.layout;
   const application = state.tutopedia.application;
@@ -37,16 +35,9 @@ const TutorialsPage = () => {
     count++;
   }
 
-  if (debug) {
-    console.log("[TutorialsPage]: " + state + " => " + JSON.stringify(state));
-    console.log("[TutorialsPage]: COUNT " + count);
-    debugState("TutorialsPage [LAYOUT]", layout);
-    debugState("TutorialsPage [APPLICATION]", application);
-  }
-
   return (
-    <header data-title="TUTORIALS_PAGE">
-      <Box data-title="TUTORIALS_PAGE_NAVIGATION_BAR">
+    <header data-title={TUTOPEDIA_CONTENT_TUTORIALS_PAGE}>
+      <Box data-title={TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR}>
         <NavigationBar
           count={count}
           layout={layout}
@@ -54,7 +45,10 @@ const TutorialsPage = () => {
         />
       </Box>
       <Box display="flex">
-        <Box sx={{ width: "100%" }} data-title="TUTORIALS_PAGE_OUTLET">
+        <Box
+          sx={{ width: "100%" }}
+          data-title={TUTOPEDIA_CONTENT_TUTORIALS_PAGE_CONTENT}
+        >
           <Outlet />
           {config.environment != "TST" && <Toaster />}
         </Box>

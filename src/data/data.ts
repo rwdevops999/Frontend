@@ -1,53 +1,50 @@
 import { ConnectionState } from "../hooks/useServerConnect";
+import {
+  TUTOPEDIA_CONTENT_SERVER_CHECK_PAGE_ACTION_APPLICATION,
+  TUTOPEDIA_CONTENT_SERVER_CHECK_PAGE_ACTION_RETRY,
+  TUTOPEDIA_HEADER_ACTION_BUTTON_ADMIN,
+  TUTOPEDIA_HEADER_ACTION_BUTTON_HOME,
+} from "./layout/layout";
 
 export const CODE_TENANT = 1;
-
-import {
-  HEADER_ADMIN,
-  HEADER_HOME,
-  SERVER_APPLICATION,
-  SERVER_RETRY,
-} from "./consts";
 
 export const HeaderActionButtons = [
   {
     id: 1,
     title: "admin",
     src: "/src/assets/admin.svg",
-    actionId: HEADER_ADMIN,
+    actionId: TUTOPEDIA_HEADER_ACTION_BUTTON_ADMIN,
   },
   {
     id: 2,
     title: "home",
     src: "/src/assets/house.svg",
-    actionId: HEADER_HOME,
+    actionId: TUTOPEDIA_HEADER_ACTION_BUTTON_HOME,
   },
 ];
 
 export const ServerPageButtons = [
   {
     type: ConnectionState.failed,
-    id: "retry",
+    id: "RETRY",
     title: "Retry",
     icon: "/src/assets/retry.svg",
-    actionId: SERVER_RETRY,
+    actionId: TUTOPEDIA_CONTENT_SERVER_CHECK_PAGE_ACTION_RETRY,
   },
   {
     type: ConnectionState.connected,
-    id: "application",
+    id: "APPLICATION",
     title: "To Application",
     icon: "/src/assets/application.svg",
-    actionId: SERVER_APPLICATION,
+    actionId: TUTOPEDIA_CONTENT_SERVER_CHECK_PAGE_ACTION_APPLICATION,
   },
 ];
-
-// ###
 
 export const NavigationPageNames = {
   Home: "Home",
   Create: "Create",
   Find: "Find",
-  Aws: "OCI",
+  OCI: "OCI",
 };
 
 export const NavigationViewNames = {

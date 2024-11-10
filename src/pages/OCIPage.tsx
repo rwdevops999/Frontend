@@ -1,6 +1,5 @@
 import { useLocation } from "react-router-dom";
 import useDebugContext from "../hooks/useDebugContext";
-import S3Display from "../components/aws/S3Display";
 import { Bucket } from "../entities/Bucket";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
@@ -9,13 +8,20 @@ import toast from "react-hot-toast";
 import { Box, Pagination } from "@mui/material";
 import Loader from "../components/Loader/Loader";
 import ErrorBanner from "../components/Error/ErrorBanner";
+import BucketsDisplay from "../components/OCI/BucketsDisplay";
+import {
+  TUTOPEDIA_CONTENT_OCI_PAGE,
+  TUTOPEDIA_CONTENT_OCI_PAGE_BUCKETS,
+  TUTOPEDIA_CONTENT_OCI_PAGE_ERROR,
+  TUTOPEDIA_CONTENT_OCI_PAGE_LOADER,
+} from "../data/layout/layout";
 
-const AwsPage = () => {
+const OCIPage = () => {
   let { debug } = useDebugContext();
   let { state } = useLocation();
   const { config } = useConfig();
 
-  console.log("[AWS Page] IN");
+  console.log("[OCI Page] IN");
 
   let count = state.tutopedia.count;
   if (count >= 0) {
@@ -23,8 +29,8 @@ const AwsPage = () => {
   }
 
   if (debug) {
-    console.log("[AWS Page] count: " + state.tutopedia.count);
-    console.log("[AWS Page] State: " + JSON.stringify(state));
+    console.log("[OCI Page] count: " + state.tutopedia.count);
+    console.log("[OCI Page] State: " + JSON.stringify(state));
   }
 
   // FUNCTIONALITY
@@ -44,16 +50,16 @@ const AwsPage = () => {
 
   useEffect(() => {
     async function getBuckets() {
-      console.log("[AWSPage] SET LOADING ON");
+      console.log("[OCIPage] SET LOADING ON");
       setLoading(true);
-      console.log("[AWSPage] CALLING AXIOS");
+      console.log("[OCIPage] CALLING AXIOS");
       await axios
         .get("/bucket/find")
         .then((response) => {
           if (response.data) {
-            console.log("[AWSPage] SET DATA: " + JSON.stringify(response.data));
+            console.log("[OCIPage] SET DATA: " + JSON.stringify(response.data));
             setBuckets([...response.data]);
-            console.log("[AWSPage] SET LOADING OFF");
+            console.log("[OCIPage] SET LOADING OFF");
             // setPage(response.data);
             if (config.environment != "TST") {
               toast.dismiss();
@@ -62,19 +68,19 @@ const AwsPage = () => {
             // setBeginOffset(0);
             setLoading(false);
           } else {
-            console.log("[AWSPage] NO DATA");
+            console.log("[OCIPage] NO DATA");
           }
         })
         .catch(function (error) {
-          console.log("[AWSPage] AXIOS ERROR");
-          console.log("[AWSPage] SET LOADING OFF");
+          console.log("[OCIPage] AXIOS ERROR");
+          console.log("[OCIPage] SET LOADING OFF");
           setLoading(false);
           if (config.environment !== "TST") {
             if (error.response && error.reponse.status === 404) {
               setBuckets([]);
               toast.error("No Buckets found");
             } else {
-              console.log("[AWSPage] SET ERROR");
+              console.log("[OCIPage] SET ERROR");
               setError(error.message);
             }
           } else {
@@ -86,7 +92,7 @@ const AwsPage = () => {
 
     setError(undefined);
 
-    console.log("[AWS Page] LOADING BUCKETS");
+    console.log("[OCIPage] LOADING BUCKETS");
     getBuckets();
   }, [reload, setReload]);
 
@@ -98,10 +104,10 @@ const AwsPage = () => {
 
   const handlePageChange = (page: number): void => {
     currentPage.current = page;
-    console.log("[AWSPage] HANDLE PAGE CHANGE TO " + page);
+    console.log("[OCIPage] HANDLE PAGE CHANGE TO " + page);
 
     const newOffset = ((page - 1) * bucketsPerPage) % buckets.length;
-    console.log("[AWSPage] HANDLE PAGE CHANGE: NEW OFFSET = " + newOffset);
+    console.log("[OCIPage] HANDLE PAGE CHANGE: NEW OFFSET = " + newOffset);
     setBeginOffset(newOffset);
   };
 
@@ -117,28 +123,23 @@ const AwsPage = () => {
   };
 
   const renderBuckets = () => {
-    console.log("[AWSPage] RENDER DOM");
-
     if (loading) {
-      console.log("[AWSPage] RENDER LOADING: " + config.environment);
       return (
-        <Box data-title="AWS_PAGE_LOADING">
+        <Box data-title={TUTOPEDIA_CONTENT_OCI_PAGE_LOADER}>
           <Loader />
         </Box>
       );
     }
 
     if (error) {
-      console.log("[AWSPage] RENDER ERROR");
       return (
-        <Box data-title="AWS_PAGE_ERROR">
+        <Box data-title={TUTOPEDIA_CONTENT_OCI_PAGE_ERROR}>
           <ErrorBanner message={error} goBack={goBack} />
         </Box>
       );
     }
 
     if (buckets) {
-      console.log("[AWSPage] RENDERING BUCKETS: " + buckets.length);
       paginatedBuckets = Array.from(buckets)
         .sort((a, b) => a.id! - b.id!)
         .slice(beginOffset, endOffset);
@@ -166,7 +167,7 @@ const AwsPage = () => {
               hidePrevButton={currentPage.current <= 1}
             />
             <Box
-              data-title="AWS_PAGE_BUCKETS"
+              data-title={TUTOPEDIA_CONTENT_OCI_PAGE_BUCKETS}
               overflow={"hidden"}
               sx={{
                 width: "100%",
@@ -175,7 +176,7 @@ const AwsPage = () => {
               }}
               marginTop={1}
             >
-              <S3Display
+              <BucketsDisplay
                 isAdmin={false}
                 count={count}
                 buckets={paginatedBuckets}
@@ -191,9 +192,9 @@ const AwsPage = () => {
 
   return (
     <>
-      <header data-title="TUTORIALS_AWS_PAGE">{renderBuckets()}</header>
+      <header data-title={TUTOPEDIA_CONTENT_OCI_PAGE}>{renderBuckets()}</header>
     </>
   );
 };
 
-export default AwsPage;
+export default OCIPage;

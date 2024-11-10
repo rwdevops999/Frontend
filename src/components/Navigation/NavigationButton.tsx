@@ -11,17 +11,18 @@ import { debugString } from "../../data/utils";
 import { TutopediaState } from "../../data/states";
 import {
   buildState,
-  buildTutopediaForAws,
   buildTutopediaForCreate,
   buildTutopediaForFind,
   buildTutopediaForHome,
+  buildTutopediaForOCI,
 } from "../../builders/Builders";
 import {
-  NAVBAR_AWS,
-  NAVBAR_CREATE,
-  NAVBAR_FIND,
-  NAVBAR_HOME,
-} from "../../data/consts";
+  TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_GROUPS,
+  TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_GROUPS_CREATE,
+  TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_GROUPS_FIND,
+  TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_GROUPS_HOME,
+  TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_GROUPS_OCI,
+} from "../../data/layout/layout";
 
 const NavigationButton = ({
   count,
@@ -41,8 +42,8 @@ const NavigationButton = ({
       case NavigationPageNames.Home:
         tutopedia = buildTutopediaForHome(
           count,
-          "Render the list(home) page",
-          NAVBAR_HOME,
+          "Render the Tutorials Home page",
+          TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_GROUPS_HOME,
           "/tutorials"
         );
         break;
@@ -50,7 +51,7 @@ const NavigationButton = ({
         tutopedia = buildTutopediaForCreate(
           count,
           "Render the create page",
-          NAVBAR_CREATE,
+          TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_GROUPS_CREATE,
           "create"
         );
         break;
@@ -58,20 +59,22 @@ const NavigationButton = ({
         tutopedia = buildTutopediaForFind(
           count,
           "Render the find by keywords page",
-          NAVBAR_FIND,
+          TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_GROUPS_FIND,
           "find"
         );
         break;
-      case NavigationPageNames.Aws:
-        tutopedia = buildTutopediaForAws(
+      case NavigationPageNames.OCI:
+        tutopedia = buildTutopediaForOCI(
           count,
-          "Render the AWS page",
-          NAVBAR_AWS,
-          "aws"
+          "Render the OCI page",
+          TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_GROUPS_OCI,
+          "OCI"
         );
         break;
       default:
-        debugString("NavigationButton", `INVALID PAGE ${page}`);
+        console.log(
+          `[${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_GROUPS}] INVALID PAGE ${page}`
+        );
         break;
     }
 
@@ -93,7 +96,7 @@ const NavigationButton = ({
       return <ImageSearchIcon />;
     }
 
-    if (page === NavigationPageNames.Aws) {
+    if (page === NavigationPageNames.OCI) {
       return <GrOracle />;
     }
   };
@@ -116,7 +119,7 @@ const NavigationButton = ({
   return (
     <span>
       <ToggleButton
-        data-title={`TUTORIALS_PAGE_NAVIGATION_BAR_NAVIGATION_${page.toUpperCase()}`}
+        data-title={`${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_GROUPS}_${page.toUpperCase()}`}
         value="check"
         id={`btn-${page}`}
         selected={page === selectedPage}

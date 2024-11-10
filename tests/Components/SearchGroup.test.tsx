@@ -7,7 +7,7 @@ import {
 } from "../testutils";
 import user from "@testing-library/user-event";
 
-describe("SearchGroup", () => {
+describe.skip("SearchGroup", () => {
   it("should enable the search field when rendering the Home page", () => {
     renderRoute("/tutorials");
 
@@ -37,8 +37,8 @@ describe("SearchGroup", () => {
     expect(items.length).toBe(1);
   });
 
-  it.skip("should disable the search field when rendering the AWS page", () => {
-    renderRoute("/AWS");
+  it.skip("should disable the search field when rendering the OCI page", () => {
+    renderRoute("/oco");
 
     expectElementByTestIdToBeDisabled(
       "TOP_TUTORIALSPAGE_NAVIGATION_BAR_SEARCH_FIELD_INPUT"

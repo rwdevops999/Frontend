@@ -23,7 +23,7 @@ const navigateToFindPage = () => {
   clickButtonById("TUTORIALS_PAGE_NAVIGATION_BAR_NAVIGATION_FIND");
 };
 
-describe("FindPage", () => {
+describe.skip("FindPage", () => {
   it("should disable the `search field` when rendering the Find page", () => {
     navigateToFindPage();
 

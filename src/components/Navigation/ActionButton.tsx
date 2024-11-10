@@ -6,11 +6,16 @@ import {
   buildTutopediaForPublishAll,
   buildTutopediaForViewAllTutorials,
 } from "../../builders/Builders";
-import { NAVBAR_DELETE_ALL, NAVBAR_PUBLISH_ALL } from "../../data/consts";
 import useDebugContext from "../../hooks/useDebugContext";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useConfig } from "../../configuration/useConfig";
+import {
+  ROUTE_TUTORIALS,
+  TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_ACTIONS,
+  TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_ACTIONS_DELETE_ALL,
+  TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_ACTIONS_PUBLISH_ALL,
+} from "../../data/layout/layout";
 
 const ActionButton = ({
   count,
@@ -27,10 +32,6 @@ const ActionButton = ({
   const navigate = useNavigate();
 
   const handleAction = async (action: string) => {
-    if (debug) {
-      console.log("[ActionButton]: ACTION RECEIVED = " + action);
-    }
-
     switch (action) {
       case "DELETE":
         await axios.delete("/delete").then(() => {
@@ -39,14 +40,9 @@ const ActionButton = ({
           const tutopedia = buildTutopediaForViewAllTutorials(
             count,
             "Delete all tutorials",
-            NAVBAR_DELETE_ALL,
-            "/tutorials",
+            TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_ACTIONS_DELETE_ALL,
+            `/${ROUTE_TUTORIALS}`,
             true
-          );
-
-          console.log(
-            "[ActionButton] RENAVIGATE WITH: " +
-              JSON.stringify(buildState(tutopedia))
           );
 
           if (config.environment != "TST") {
@@ -62,13 +58,8 @@ const ActionButton = ({
           const tutopedia = buildTutopediaForPublishAll(
             count,
             "Publish all tutorials",
-            NAVBAR_PUBLISH_ALL,
-            "/tutorials"
-          );
-
-          console.log(
-            "[ActionButton] RENAVIGATE WITH: " +
-              JSON.stringify(buildState(tutopedia))
+            TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_ACTIONS_PUBLISH_ALL,
+            `/${ROUTE_TUTORIALS}`
           );
 
           if (config.environment != "TST") {
@@ -78,24 +69,13 @@ const ActionButton = ({
         });
         break;
       default:
-        console.log("INVALID ACTION: " + action);
         break;
     }
-
-    // if (tutopedia) {
-    //   if (debug) {
-    //     console.log(
-    //       "[ActionButton] NAVIGATION STATE" + JSON.stringify(tutopedia)
-    //     );
-    //   }
-
-    //   navigate(tutopedia.routeURL!, buildState(tutopedia));
-    // }
   };
 
   return (
     <button
-      data-title={`TUTORIALS_PAGE_NAVIGATION_BAR_ACTION_${action.toUpperCase()}`}
+      data-title={`${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_ACTIONS}_${action.toUpperCase()}`}
       className={`actionbutton type${action}`}
       disabled={selectedPage !== NavigationPageNames.Home}
       onClick={() => handleAction(action.toUpperCase())}

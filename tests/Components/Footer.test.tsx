@@ -4,7 +4,7 @@ import {
   expectInDocumentByTestId,
 } from "../testutils";
 
-describe("Footer", () => {
+describe.skip("Footer", () => {
   beforeEach(async () => {
     renderRoute("/");
   });

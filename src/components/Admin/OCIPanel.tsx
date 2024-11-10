@@ -14,7 +14,7 @@ const OCIPanel = () => {
   };
 
   return (
-    <Box id="SETTINGS_MAIN_BOX" width={"100%"} height={"20%"}>
+    <Box id="SETTINGS_MAIN_DISPLAY" width={"100%"} height={"20%"}>
       <OCISettings
         name="Tenant ID"
         img="/src/assets/oci.png"

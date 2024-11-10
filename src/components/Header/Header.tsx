@@ -6,6 +6,13 @@ import "./Header.css";
 import { HeaderState } from "../../data/states";
 import { debugState } from "../../data/utils";
 import { useConfig } from "../../configuration/useConfig";
+import {
+  TUTOPEDIA_HEADER,
+  TUTOPEDIA_HEADER_ACTION_BUTTONS,
+  TUTOPEDIA_HEADER_BUCKET_NAME,
+  TUTOPEDIA_HEADER_TITLE,
+  TUTOPEDIA_HEADER_USER_NAME,
+} from "../../data/layout/layout";
 
 const Header = ({
   header,
@@ -17,10 +24,8 @@ const Header = ({
   const { user, isAuthenticated } = useAuth0();
   const { config, setConfig } = useConfig();
 
-  debugState("Header: AUTHENTICATED", isAuthenticated);
-  debugState("Header: USER", user);
-
-  debugState("Header", header);
+  console.log(`[${TUTOPEDIA_HEADER}]: AUTHENTICATED =  ${isAuthenticated}`);
+  console.log(`[${TUTOPEDIA_HEADER}]: USER =  ${user}`);
 
   const getClassName = (icon: boolean = true): string => {
     if (config.environment) {
@@ -49,13 +54,13 @@ const Header = ({
   return (
     <>
       <Box
-        data-title="TUTOPEDIA_HEADER_TITLE"
+        data-title={TUTOPEDIA_HEADER_TITLE}
         sx={{
           width: "40%",
         }}
       >
         <img
-          src="/public/book.ico"
+          src="/book.ico"
           className="icon_30"
           title={config.environment === "TST" ? "TST MODE" : "DEV MODE"}
         />
@@ -66,7 +71,7 @@ const Header = ({
       </Box>
 
       <Box
-        data-title="TUTOPEDIA_HEADER_BUCKET"
+        data-title={TUTOPEDIA_HEADER_BUCKET_NAME}
         sx={{
           width: "15%",
           color: "green",
@@ -82,7 +87,7 @@ const Header = ({
       </Box>
 
       <Box
-        data-title="TUTOPEDIA_HEADER_USER"
+        data-title={TUTOPEDIA_HEADER_USER_NAME}
         sx={{
           width: "15%",
           color: "green",
@@ -94,7 +99,7 @@ const Header = ({
       </Box>
 
       <Box
-        data-title="TUTOPEDIA_HEADER_ACTIONS"
+        data-title={TUTOPEDIA_HEADER_ACTION_BUTTONS}
         sx={{
           width: "30%",
         }}

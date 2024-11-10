@@ -1,26 +1,29 @@
 import { useNavigate } from "react-router-dom";
 import { buildState, buildTutopediaForAdmin } from "../../builders/Builders";
 import "./Buckets.css";
-import { SETTINGS_PAGE_BUCKETS_BUTTON } from "../../data/consts";
+import {
+  ROUTE_BUCKETS,
+  TUTOPEDIA_CONTENT_ADMIN_PAGE_BUCKETS_BUTTON,
+} from "../../data/layout/layout";
 
 const Buckets = ({ count }: { count: number }) => {
   const navigate = useNavigate();
 
   const handleBuckets = () => {
-    console.log("[BUCKETS] Go To Buckets Page");
+    console.log("[ADMIN Page] Go To Buckets Page");
 
     const tutopedia = buildTutopediaForAdmin(
       count,
       "Go To Buckets",
-      SETTINGS_PAGE_BUCKETS_BUTTON,
-      "/buckets"
+      TUTOPEDIA_CONTENT_ADMIN_PAGE_BUCKETS_BUTTON,
+      `/${ROUTE_BUCKETS}`
     );
     navigate(tutopedia.routeURL!, buildState(tutopedia));
   };
 
   return (
     <button
-      data-title="SETTINGS_PAGE_BUCKETS_BUTTON"
+      data-title={TUTOPEDIA_CONTENT_ADMIN_PAGE_BUCKETS_BUTTON}
       className="bucketsbutton"
       onClick={handleBuckets}
     >

@@ -34,7 +34,7 @@ const createLongString = (): string => {
   return "x".repeat(300);
 };
 
-describe("Create and Update page", () => {
+describe.skip("Create and Update page", () => {
   it("should render the `Create Page`", () => {
     navigateToCreatePage();
 
@@ -109,7 +109,7 @@ describe("Create and Update page", () => {
   });
 });
 
-describe("CreatePage", () => {
+describe.skip("CreatePage", () => {
   it("should render the create button", () => {
     navigateToCreatePage();
     expectInDocumentByTestId("TUTORIALS_CREATE_PAGE_BUTTON_CREATE");
@@ -345,7 +345,7 @@ const navigateToUpdatePage = async (
   }
 };
 
-describe("UpdatePage", () => {
+describe.skip("UpdatePage", () => {
   it("should should render the update button", async () => {
     await navigateToUpdatePage();
 

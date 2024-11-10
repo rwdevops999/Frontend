@@ -8,6 +8,10 @@ import { NavigationPageNames } from "../../data/data";
 import { buildState, buildTutopediaForFindById } from "../../builders/Builders";
 import { useNavigate } from "react-router-dom";
 import { TutopediaTextFieldOutlined } from "../MUI/TutopediaTextFieldOutlined";
+import {
+  ROUTE_TUTORIALS,
+  TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_SEARCH_INPUT,
+} from "../../data/layout/layout";
 
 const iconStyles: CSS.Properties = {
   color: "#0D3B69",
@@ -36,8 +40,8 @@ const SearchGroup = ({
     const tutopedia = buildTutopediaForFindById(
       count,
       "Search By Id",
-      "TUTORIALS_PAGE_NAVIGATION_BAR_SEARCH_INPUT",
-      "/tutorials",
+      TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_SEARCH_INPUT,
+      `/${ROUTE_TUTORIALS}`,
       tutorialId
     );
 
@@ -64,7 +68,9 @@ const SearchGroup = ({
       <TutopediaTextFieldOutlined // set 'data-title' on <input> tag'
         slotProps={{
           htmlInput: {
-            "data-title": "TUTORIALS_PAGE_NAVIGATION_BAR_SEARCH_INPUT",
+            "data-title": {
+              TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_SEARCH_INPUT,
+            },
             id: "inputId",
           },
         }}

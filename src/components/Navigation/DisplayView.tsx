@@ -1,18 +1,17 @@
 import { ButtonGroup } from "@mui/material";
 import DisplayButton from "./DisplayButton";
+import { NavigationViewNames } from "../../data/data";
 
-const DisplayGroup = ({
+const DisplayView = ({
   count,
-  views,
   selectedView,
 }: {
   count: number;
-  views: string[];
   selectedView: any;
 }) => {
   return (
     <ButtonGroup>
-      {views.map((view: string) => (
+      {Object.values(NavigationViewNames).map((view: string) => (
         <DisplayButton
           key={view}
           count={count}
@@ -24,4 +23,4 @@ const DisplayGroup = ({
   );
 };
 
-export default DisplayGroup;
+export default DisplayView;

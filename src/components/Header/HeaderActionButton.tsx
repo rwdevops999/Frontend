@@ -4,8 +4,11 @@ import {
   buildTutopediaForAdmin,
   buildTutopediaForServerCheckPage,
 } from "../../builders/Builders";
-import { HEADER_ADMIN, HEADER_HOME } from "../../data/consts";
 import "./HeaderActionButtons.css";
+import {
+  TUTOPEDIA_HEADER_ACTION_BUTTON_ADMIN,
+  TUTOPEDIA_HEADER_ACTION_BUTTON_HOME,
+} from "../../data/layout/layout";
 
 const HeaderActionButton = ({
   action,
@@ -22,11 +25,11 @@ const HeaderActionButton = ({
 
   const handleHeaderAction = (action: any) => {
     console.log("ACTION = " + action.id);
-    if (action.actionId === HEADER_ADMIN) {
+    if (action.actionId === TUTOPEDIA_HEADER_ACTION_BUTTON_ADMIN) {
       const tutopedia = buildTutopediaForAdmin(
         count,
         "Go to admin page",
-        HEADER_ADMIN,
+        TUTOPEDIA_HEADER_ACTION_BUTTON_ADMIN,
         "/admin",
         bucket
       );
@@ -34,11 +37,11 @@ const HeaderActionButton = ({
       navigate(tutopedia.routeURL!, buildState(tutopedia));
     }
 
-    if (action.actionId === HEADER_HOME) {
+    if (action.actionId === TUTOPEDIA_HEADER_ACTION_BUTTON_HOME) {
       const tutopedia = buildTutopediaForServerCheckPage(
         count,
         "Restart",
-        HEADER_HOME,
+        TUTOPEDIA_HEADER_ACTION_BUTTON_HOME,
         "/",
         bucket
       );

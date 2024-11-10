@@ -19,9 +19,16 @@ import {
   buildTutopediaForFindByKeyword,
   buildTutopediaForViewAllTutorials,
 } from "../builders/Builders";
-import { FIND_PAGE_CANCEL_BUTTON, FIND_PAGE_FIND_BUTTON } from "../data/consts";
 import toast from "react-hot-toast";
 import { useConfig } from "../configuration/useConfig";
+import {
+  ROUTE_TUTORIALS,
+  TUTOPEDIA_CONTENT_FIND_PAGE,
+  TUTOPEDIA_CONTENT_FIND_PAGE_BUTTONS,
+  TUTOPEDIA_CONTENT_FIND_PAGE_BUTTONS_CANCEL_BUTTON,
+  TUTOPEDIA_CONTENT_FIND_PAGE_BUTTONS_FIND_BUTTON,
+  TUTOPEDIA_CONTENT_FIND_PAGE_FORM,
+} from "../data/layout/layout";
 
 const FindPage = () => {
   const navigate = useNavigate();
@@ -30,7 +37,6 @@ const FindPage = () => {
 
   let count = state.tutopedia.count;
   if (count >= 0) {
-    console.log("[FindPage] COUNT = " + count);
     count++;
   }
 
@@ -100,8 +106,8 @@ const FindPage = () => {
     const tutopedia = buildTutopediaForViewAllTutorials(
       count,
       "Return from the create page",
-      FIND_PAGE_CANCEL_BUTTON,
-      "/tutorials",
+      TUTOPEDIA_CONTENT_FIND_PAGE_BUTTONS_CANCEL_BUTTON,
+      `/${ROUTE_TUTORIALS}`,
       true
     );
     navigate(tutopedia.routeURL!, buildState(tutopedia));
@@ -112,13 +118,9 @@ const FindPage = () => {
       const tutopedia = buildTutopediaForFindByKeyword(
         count,
         "Find By Keywords",
-        FIND_PAGE_FIND_BUTTON,
-        "/tutorials",
+        TUTOPEDIA_CONTENT_FIND_PAGE_BUTTONS_FIND_BUTTON,
+        `/${ROUTE_TUTORIALS}`,
         keywords
-      );
-
-      console.log(
-        "[FindPage] STATE = " + JSON.stringify(buildState(tutopedia))
       );
 
       navigate(tutopedia.routeURL!, buildState(tutopedia));
@@ -138,13 +140,13 @@ const FindPage = () => {
         <span>{getMessage()}</span>
       </Typography>
       <form
-        data-title="TUTORIALS_FIND_PAGE"
+        data-title={TUTOPEDIA_CONTENT_FIND_PAGE}
         onSubmit={() => {
           handleFind();
         }}
       >
         <Box
-          data-title="TOP_MAIN_FIND_FORM"
+          data-title={TUTOPEDIA_CONTENT_FIND_PAGE_FORM}
           overflow={"hidden"}
           sx={{
             width: "100%",
@@ -187,7 +189,7 @@ const FindPage = () => {
             />
           </Box>
           <Box
-            data-title="TOP_MAIN_FIND_BUTTONS"
+            data-title={TUTOPEDIA_CONTENT_FIND_PAGE_BUTTONS}
             sx={{ textAlign: "center" }}
             justifyContent="space-between"
             marginTop={theme.spacing(5)}

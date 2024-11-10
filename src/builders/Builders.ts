@@ -164,7 +164,7 @@ export const buildTutopediaForFind = (
   );
 };
 
-export const buildTutopediaForAws = (
+export const buildTutopediaForOCI = (
   count: number,
   description: string,
   sender: string,
@@ -180,7 +180,7 @@ export const buildTutopediaForAws = (
   }
 
   const layoutBuilder: LayoutBuilder = new LayoutBuilder();
-  layoutBuilder.setSelectedPage(NavigationPageNames.Aws);
+  layoutBuilder.setSelectedPage(NavigationPageNames.OCI);
 
   return buildTutopedia(
     count,
@@ -481,7 +481,7 @@ export const buildTutopediaForAdmin = (
   }
 
   const layoutBuilder: LayoutBuilder = new LayoutBuilder();
-  layoutBuilder.setSelectedPage(NavigationPageNames.Aws);
+  layoutBuilder.setSelectedPage(NavigationPageNames.OCI);
 
   return buildTutopedia(
     count,

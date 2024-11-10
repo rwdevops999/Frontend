@@ -1,19 +1,22 @@
 import { useNavigate } from "react-router-dom";
 import { buildState, buildTutopediaForAdmin } from "../../builders/Builders";
 import "./Settings.css";
-import { SETTINGS_PAGE_SETTINGS_BUTTON } from "../../data/consts";
+import {
+  ROUTE_ADMIN,
+  TUTOPEDIA_CONTENT_ADMIN_PAGE_SETTINGS_BUTTON,
+} from "../../data/layout/layout";
 
 const Settings = ({ count }: { count: number }) => {
   const navigate = useNavigate();
 
   const handleSettings = () => {
-    console.log("[SETTINGS] Go To Settings Page");
+    console.log("[ADMIN Page] Go To Settings Page");
 
     const tutopedia = buildTutopediaForAdmin(
       count,
-      "Go To Buckets",
-      SETTINGS_PAGE_SETTINGS_BUTTON,
-      "/settings"
+      "Go To Settings",
+      TUTOPEDIA_CONTENT_ADMIN_PAGE_SETTINGS_BUTTON,
+      `/${ROUTE_ADMIN}`
     );
 
     navigate(tutopedia.routeURL!, buildState(tutopedia));
@@ -21,7 +24,7 @@ const Settings = ({ count }: { count: number }) => {
 
   return (
     <button
-      data-title="SETTINGS_PAGE_SETTINGS_BUTTON"
+      data-title={TUTOPEDIA_CONTENT_ADMIN_PAGE_SETTINGS_BUTTON}
       className="settingsbutton"
       onClick={handleSettings}
     >

@@ -1,29 +1,38 @@
-import { useLocation } from "react-router-dom";
-import useDebugContext from "../hooks/useDebugContext";
-import Buckets from "../components/Admin/Buckets";
-import Settings from "../components/Admin/Settings";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import {
+  ROUTE_ADMIN,
+  ROUTE_BUCKETS,
+  TUTOPEDIA_CONTENT_ADMIN_PAGE,
+  TUTOPEDIA_CONTENT_ADMIN_PAGE_BUCKETS,
+  TUTOPEDIA_CONTENT_ADMIN_PAGE_SETTINGS,
+  TUTOPEDIA_CONTENT_ADMIN_PAGE_SETTINGS_BUTTON,
+} from "../data/layout/layout";
+import { Box } from "@mui/material";
+import AdminControl from "../components/Admin/AdminControl";
+import { buildState, buildTutopediaForAdmin } from "../builders/Builders";
+import { TutopediaState } from "../data/states";
 
 const AdminPage = () => {
-  let { debug } = useDebugContext();
+  const navigate = useNavigate();
   let { state } = useLocation();
 
-  console.log("[Admin Page] IN");
+  console.log(`[${TUTOPEDIA_CONTENT_ADMIN_PAGE}] IN`);
 
   let count = state.tutopedia.count;
   if (count >= 0) {
     count++;
   }
 
-  if (debug) {
-    console.log("[Admin Page] count: " + state.tutopedia.count);
-    console.log("[Admin Page] State: " + JSON.stringify(state));
-  }
-
   return (
     <>
-      <Settings count={count} />
-      <br />
-      <Buckets count={count} />
+      <Box
+        data-title={TUTOPEDIA_CONTENT_ADMIN_PAGE}
+        width={"100%"}
+        height={"8%"}
+      >
+        <AdminControl count={count} />
+      </Box>
+      <Outlet />
     </>
   );
 };

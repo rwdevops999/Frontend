@@ -6,19 +6,20 @@ import ServerCheckPageButton from "../components/Server/ServerCheckPageButton";
 import { ServerPageButtons } from "../data/data";
 import { useLocation } from "react-router-dom";
 import useDebugContext from "../hooks/useDebugContext";
+import {
+  TUTOPEDIA_CONTENT_SERVER_CHECK_PAGE,
+  TUTOPEDIA_CONTENT_SERVER_CHECK_PAGE_ACTION,
+  TUTOPEDIA_CONTENT_SERVER_CHECK_PAGE_LOADER,
+} from "../data/layout/layout";
 
 const ServerCheckPage = () => {
   let { state } = useLocation();
-  const { debug } = useDebugContext();
+
+  console.log("STATE = " + state);
 
   let count = state.tutopedia.count;
   if (count >= 0) {
     count++;
-  }
-
-  if (debug) {
-    console.log("[ServerCheckPage]: " + state + " => " + JSON.stringify(state));
-    console.log("[ServerCheckPage] COUNT = " + count);
   }
 
   let { connectionState } = useServerConnect();
@@ -32,14 +33,20 @@ const ServerCheckPage = () => {
   }, []);
 
   return (
-    <header data-title="SERVERCHECK_PAGE">
+    <header data-title={TUTOPEDIA_CONTENT_SERVER_CHECK_PAGE}>
       <Box>
-        <Box data-title="SERVERCHECK_PAGE_LOADER" marginTop={25}>
+        <Box
+          data-title={TUTOPEDIA_CONTENT_SERVER_CHECK_PAGE_LOADER}
+          marginTop={25}
+        >
           <ServerLoader connectState={connectState} />
         </Box>
         {(connectState === ConnectionState.connected ||
           connectState === ConnectionState.failed) && (
-          <Box data-title="SERVERCHECK_PAGE_ACTION" marginLeft={87}>
+          <Box
+            data-title={TUTOPEDIA_CONTENT_SERVER_CHECK_PAGE_ACTION}
+            marginLeft={87}
+          >
             <ServerCheckPageButton
               count={count}
               connectState={connectState}

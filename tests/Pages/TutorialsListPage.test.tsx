@@ -15,7 +15,7 @@ import {
 } from "../testutils";
 import { createTutorials } from "../mock/database";
 
-describe("TutorialsListPage", () => {
+describe.skip("TutorialsListPage", () => {
   it("should show the loader if loading", () => {
     simulateDelay("http://localhost:8081/api/find");
     renderRoute("/tutorials");

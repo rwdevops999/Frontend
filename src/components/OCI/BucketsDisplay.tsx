@@ -2,8 +2,9 @@ import { Box } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import { Bucket } from "../../entities/Bucket";
 import BucketContainer from "./BucketContainer";
+import { BUCKETS_DISPLAY } from "../../data/layout/layout";
 
-const S3Display = ({
+const BucketsDisplay = ({
   isAdmin,
   count,
   buckets,
@@ -17,7 +18,7 @@ const S3Display = ({
   setError(val: string): void;
 }) => {
   return (
-    <Box sx={{ flexGrow: 1, p: 1 }} data-title="S3_DISPLAY">
+    <Box sx={{ flexGrow: 1, p: 1 }} data-title={BUCKETS_DISPLAY}>
       <Grid
         container
         sx={{
@@ -54,4 +55,4 @@ const S3Display = ({
   );
 };
 
-export default S3Display;
+export default BucketsDisplay;

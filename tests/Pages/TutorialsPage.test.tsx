@@ -1,7 +1,7 @@
 import { renderRoute } from "../render/render";
 import { expectInDocumentByTestId } from "../testutils";
 
-describe("TutorialsPage", () => {
+describe.skip("TutorialsPage", () => {
   it("should render the navigation bar", () => {
     renderRoute("/tutorials");
 

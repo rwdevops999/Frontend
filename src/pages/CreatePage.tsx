@@ -30,6 +30,18 @@ import {
 import { useConfig } from "../configuration/useConfig";
 import axios from "axios";
 import toast from "react-hot-toast";
+import {
+  ROUTE_TUTORIALS,
+  TUTOPEDIA_CONTENT_CREATE_PAGE,
+  TUTOPEDIA_CONTENT_CREATE_PAGE_BUTTONS,
+  TUTOPEDIA_CONTENT_CREATE_PAGE_CANCEL_BUTTON,
+  TUTOPEDIA_CONTENT_CREATE_PAGE_CREATE_BUTTON,
+  TUTOPEDIA_CONTENT_CREATE_PAGE_ERROR,
+  TUTOPEDIA_CONTENT_CREATE_PAGE_FORM,
+  TUTOPEDIA_CONTENT_CREATE_PAGE_FORM_FILE_INPUT,
+  TUTOPEDIA_CONTENT_CREATE_PAGE_LOADER,
+  TUTOPEDIA_CONTENT_CREATE_PAGE_UPDATE_BUTTON,
+} from "../data/layout/layout";
 
 const CreatePage = () => {
   const navigate = useNavigate();
@@ -41,19 +53,13 @@ const CreatePage = () => {
   let tutorialId: number | undefined = undefined;
   let isUpdateMode: boolean = false;
 
-  console.log("[CreatePage] PRE UPDATE check: " + JSON.stringify(data));
-
   if (data && data.updateMode) {
     tutorialId = data.searchId;
-    console.log("[CreatePage] SET UPDATE MODE: " + data.updateMode);
     isUpdateMode = data.updateMode;
   }
 
-  console.log("[CreatePage] UPDATE mode: " + isUpdateMode);
-
   let count = state.tutopedia.count;
   if (count >= 0) {
-    console.log("[CreatePage] COUNT = " + count);
     count++;
   }
 
@@ -66,29 +72,19 @@ const CreatePage = () => {
   };
 
   if (tutorialId) {
-    console.log("[CreatePage] FECTHING DATA");
-
     useEffect(() => {
       async function getData() {
-        console.log("[CreatePage] SET LOADING ON");
         setLoading(true);
-        console.log("[CreatePage] CALLING AXIOS");
         await axios
           .get("/find/" + tutorialId)
           .then((response) => {
             if (response.data) {
-              console.log("[CreatePage] SET DATA");
               setTutorial(response.data);
-              console.log("[CreatePage] SET LOADING OFF");
               setLoading(false);
-            } else {
-              console.log("NO DATA");
             }
           })
           .catch(function (error) {
-            console.log("[CreateData] SET LOADING OFF");
             setLoading(false);
-            console.log("[CreateData] SET ERROR");
             setError(error.message);
           });
       }
@@ -104,25 +100,25 @@ const CreatePage = () => {
       count,
       "Return from the create page",
       buttonName,
-      "/tutorials",
+      `/${ROUTE_TUTORIALS}`,
       true
     );
+
     navigate(tutopedia.routeURL!, buildState(tutopedia));
   };
 
   const renderCreatePage = (): any => {
     if (isLoading) {
       return (
-        <Box data-title="TUTORIALS_CREATE_PAGE_LOADING">
+        <Box data-title={TUTOPEDIA_CONTENT_CREATE_PAGE_LOADER}>
           <Loader />
         </Box>
       );
     }
 
     if (error) {
-      console.log("[CreatePage] ERROR >>>: " + error);
       return (
-        <Box data-title="TUTORIALS_CREATE_PAGE_ERROR">
+        <Box data-title={TUTOPEDIA_CONTENT_CREATE_PAGE_ERROR}>
           <ErrorBanner message={error} goBack={goBack} />
         </Box>
       );
@@ -166,10 +162,6 @@ const CreatePage = () => {
 
     const theme = createTheme({
       palette: {
-        // text: {
-        //   primary: "#00FF00",
-        //   secondary: "#FF0000",
-        // },
         background: {
           paper: "#fff",
         },
@@ -205,12 +197,8 @@ const CreatePage = () => {
     });
 
     const handleSubmitForm = async (values: any) => {
-      console.log("[CreatePage] Submitting Form");
       if (isUpdateMode) {
-        console.log("[CreatePage: UPDATE] Submitting Form in update mode");
-
         if (config.environment === "TST" && tutorialId) {
-          console.log("[CreatePage: UPDATE] await fetch (TST mode)");
           await fetch("http://localhost:8081/api/update/" + tutorialId, {
             method: "PUT",
             body: JSON.stringify({
@@ -221,15 +209,12 @@ const CreatePage = () => {
             }),
           })
             .then(() => {
-              console.log("[CreatePage: UPDATE] updated");
-              navigateToHome(CREATE_PAGE_UPDATE_BUTTON);
+              navigateToHome(TUTOPEDIA_CONTENT_CREATE_PAGE_UPDATE_BUTTON);
             })
             .catch((error) => {
               console.log("[CreatePage: UPDATE] ERROR: " + error.message);
             });
         } else {
-          console.log("[CreatePage: UPDATE] await fetch (DEV mode)");
-
           let data: FormData = new FormData();
           data.append("title", values.title);
           data.append("description", values.description);
@@ -244,12 +229,10 @@ const CreatePage = () => {
             if (config.environment != "TST") {
               toast.loading("Updating tutorial" + tutorialId);
             }
-            navigateToHome(CREATE_PAGE_UPDATE_BUTTON);
+            navigateToHome(TUTOPEDIA_CONTENT_CREATE_PAGE_UPDATE_BUTTON);
           });
         }
       } else {
-        console.log("[CreatePage] Creating ?");
-
         let data: FormData = new FormData();
         data.append("title", values.title);
         data.append("description", values.description);
@@ -266,21 +249,17 @@ const CreatePage = () => {
               tutorialFile: values.filename,
             }),
           }).then(() => {
-            console.log("[CreatePage] Created");
-
-            navigateToHome(CREATE_PAGE_CREATE_BUTTON);
+            navigateToHome(TUTOPEDIA_CONTENT_CREATE_PAGE_CREATE_BUTTON);
           });
         } else {
           await fetch("http://localhost:8081/api/create", {
             method: "POST",
             body: data,
           }).then(() => {
-            console.log("[CreatePage] Created");
-
             if (config.environment != "TST") {
               toast.loading("Creating tutorial");
             }
-            navigateToHome(CREATE_PAGE_CREATE_BUTTON);
+            navigateToHome(TUTOPEDIA_CONTENT_CREATE_PAGE_CREATE_BUTTON);
           });
         }
       }
@@ -290,7 +269,7 @@ const CreatePage = () => {
       return (
         <ThemeProvider theme={theme}>
           <Box
-            data-title="TUTORIALS_CREATE_PAGE_FORM"
+            data-title={TUTOPEDIA_CONTENT_CREATE_PAGE_FORM}
             overflow={"hidden"}
             sx={{
               width: "100%",
@@ -385,7 +364,9 @@ const CreatePage = () => {
                           >
                             Upload files
                             <VisuallyHiddenInput
-                              data-title="TUTORIALS_CREATE_PAGE_FINE_INPUT"
+                              data-title={
+                                TUTOPEDIA_CONTENT_CREATE_PAGE_FORM_FILE_INPUT
+                              }
                               id="hiddenInput"
                               type="file"
                               onChange={(event) => {
@@ -408,15 +389,15 @@ const CreatePage = () => {
                     </Box>
 
                     <Box
-                      data-title="TUTORIALS_CREATE_PAGE_BUTTONS"
+                      data-title={TUTOPEDIA_CONTENT_CREATE_PAGE_BUTTONS}
                       sx={{ textAlign: "center" }}
                       justifyContent="space-between"
                     >
                       <Button
                         data-title={
                           isUpdateMode
-                            ? "TUTORIALS_CREATE_PAGE_BUTTON_UPDATE"
-                            : "TUTORIALS_CREATE_PAGE_BUTTON_CREATE"
+                            ? TUTOPEDIA_CONTENT_CREATE_PAGE_UPDATE_BUTTON
+                            : TUTOPEDIA_CONTENT_CREATE_PAGE_CREATE_BUTTON
                         }
                         id="createBtn"
                         variant="contained"
@@ -426,10 +407,12 @@ const CreatePage = () => {
                         {isUpdateMode ? "UPDATE" : "CREATE"}
                       </Button>
                       <Button
-                        data-title="TUTORIALS_CREATE_PAGE_BUTTON_CANCEL"
+                        data-title={TUTOPEDIA_CONTENT_CREATE_PAGE_CANCEL_BUTTON}
                         variant="contained"
                         onClick={() => {
-                          navigateToHome(CREATE_PAGE_CANCEL_BUTTON);
+                          navigateToHome(
+                            TUTOPEDIA_CONTENT_CREATE_PAGE_CANCEL_BUTTON
+                          );
                         }}
                       >
                         CANCEL
@@ -468,7 +451,9 @@ const CreatePage = () => {
       <Typography variant="h5" sx={{ marginTop: "20px" }}>
         {isUpdateMode ? "Update Tutorial" : "Create Tutorial"}
       </Typography>
-      <header data-title="TUTORIALS_CREATE_PAGE">{renderCreatePage()}</header>
+      <header data-title={TUTOPEDIA_CONTENT_CREATE_PAGE}>
+        {renderCreatePage()}
+      </header>
     </>
   );
 };

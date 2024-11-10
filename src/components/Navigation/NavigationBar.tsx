@@ -1,12 +1,16 @@
 import { Box } from "@mui/material";
-import { NavigationPageNames, NavigationViewNames } from "../../data/data";
 import NavigationGroup from "./NavigationGroup";
-import DisplayGroup from "./DisplayGroup";
 import { ApplicationState, LayoutState } from "../../data/states";
-import { debugString } from "../../data/utils";
 import ActionGroup from "./ActionGroup";
 import SearchGroup from "./SearchGroup";
 import useDebugContext from "../../hooks/useDebugContext";
+import {
+  TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_ACTIONS,
+  TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_GROUPS,
+  TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_SEARCH,
+  TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS,
+} from "../../data/layout/layout";
+import DisplayView from "./DisplayView";
 
 const NavigationBar = ({
   count,
@@ -17,39 +21,24 @@ const NavigationBar = ({
   layout: LayoutState | undefined;
   application: ApplicationState | undefined;
 }) => {
-  const { debug } = useDebugContext();
-
-  if (debug) {
-    debugString("[NavigationBar]", "SELECTED PAGE = " + layout?.selectedPage);
-    debugString("[NavigationBar]", "SELECTED VIEW = " + layout?.selectedView);
-  }
-
   return (
     <Box display="flex" sx={{ width: "100%" }} marginTop={1}>
       <Box
-        data-title="TUTORIALS_PAGE_NAVIGATION_BAR_NAVIGATION"
+        data-title={TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_GROUPS}
         sx={{ width: "28%" }}
       >
-        <NavigationGroup
-          count={count}
-          pages={Object.values(NavigationPageNames)}
-          selectedPage={layout?.selectedPage}
-        />
+        <NavigationGroup count={count} selectedPage={layout?.selectedPage} />
       </Box>
 
       <Box
-        data-title="TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS"
+        data-title={TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS}
         sx={{ width: "32%" }}
       >
-        <DisplayGroup
-          count={count}
-          views={Object.values(NavigationViewNames)}
-          selectedView={layout?.selectedView}
-        />
+        <DisplayView count={count} selectedView={layout?.selectedView} />
       </Box>
 
       <Box
-        data-title="TUTORIALS_PAGE_NAVIGATION_BAR_SEARCH"
+        data-title={TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_SEARCH}
         sx={{ width: "20%" }}
       >
         <SearchGroup
@@ -60,7 +49,7 @@ const NavigationBar = ({
       </Box>
 
       <Box
-        data-title="TUTORIALS_PAGE_NAVIGATION_BAR_ACTION"
+        data-title={TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_ACTIONS}
         sx={{ width: "20%" }}
       >
         <ActionGroup count={count} selectedPage={layout?.selectedPage} />

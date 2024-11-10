@@ -14,10 +14,12 @@ import {
   buildTutopediaForViewAllTutorials,
 } from "../../builders/Builders";
 import {
-  NAVBAR_ALL_NON_PUBLISHED_TUTORIALS,
-  NAVBAR_ALL_PUBLISHED_TUTORIALS,
-  NAVBAR_ALL_TUTORIALS,
-} from "../../data/consts";
+  ROUTE_TUTORIALS,
+  TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS,
+  TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL,
+  TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL_NON_PUBLISHED,
+  TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL_PUBLISHED,
+} from "../../data/layout/layout";
 
 const Button = styled(MuiButton)({
   "&.MuiButton-root": {
@@ -45,8 +47,6 @@ const DisplayButton = ({
 }) => {
   const navigate = useNavigate();
 
-  console.log("[DisplayButton] SELECTED VIEW: " + selectedView);
-
   const handleViewChange = (view: string) => {
     let tutopedia: TutopediaState | undefined = undefined;
 
@@ -55,24 +55,24 @@ const DisplayButton = ({
         tutopedia = buildTutopediaForViewAllTutorials(
           count,
           "Render All Tutorials",
-          NAVBAR_ALL_TUTORIALS,
-          "/tutorials"
+          TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL,
+          `/${ROUTE_TUTORIALS}`
         );
         break;
       case NavigationViewNames.AllPub:
         tutopedia = buildTutopediaForViewAllPublishedTutorials(
           count,
           "Render All Published Tutorials",
-          NAVBAR_ALL_PUBLISHED_TUTORIALS,
-          "/tutorials"
+          TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL_PUBLISHED,
+          `/${ROUTE_TUTORIALS}`
         );
         break;
       case NavigationViewNames.NonPub:
         tutopedia = buildTutopediaForViewAllNonPublishedTutorials(
           count,
           "Render All Non-Published Tutorials",
-          NAVBAR_ALL_NON_PUBLISHED_TUTORIALS,
-          "/tutorials"
+          TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL_NON_PUBLISHED,
+          `/${ROUTE_TUTORIALS}`
         );
         break;
       default:
@@ -86,7 +86,7 @@ const DisplayButton = ({
 
   return (
     <Button
-      data-title={`TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_${view
+      data-title={`${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS}_${view
         .replace(/\s/g, "_")
         .toUpperCase()}`}
       sx={{ paddingTop: "12px", paddingBottom: "10px" }}

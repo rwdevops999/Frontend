@@ -26,13 +26,22 @@ import { useConfig } from "../../configuration/useConfig";
 import {
   buildState,
   buildTutopediaForAdmin,
-  buildTutopediaForAws,
+  buildTutopediaForOCI,
 } from "../../builders/Builders";
-import {
-  ADMIN_PAGE_DEFAULT_BUTTON,
-  AWS_PAGE_DEFAULT_BUTTON,
-} from "../../data/consts";
 import { useNavigate } from "react-router-dom";
+import {
+  BUCKET_CONTAINER,
+  BUCKET_CONTAINER_BUCKET,
+  BUCKET_CONTAINER_BUCKET_DEFAULT,
+  BUCKET_CONTAINER_BUCKET_DEFAULT_INPUT,
+  BUCKET_CONTAINER_BUCKET_INPUT,
+  BUCKET_CONTAINER_CREATE_BUTTON,
+  BUCKET_CONTAINER_DEFAULT_BUTTON,
+  BUCKET_CONTAINER_DELETE_BUTTON,
+  ROUTE_BUCKETS,
+  ROUTE_OCI,
+  ROUTE_TUTORIALS,
+} from "../../data/layout/layout";
 
 const BucketContainer = ({
   isAdmin,
@@ -50,19 +59,6 @@ const BucketContainer = ({
   const { config } = useConfig();
   const navigate = useNavigate();
 
-  console.log(
-    "[BucketContainer] BUCKET DISBALED = " +
-      (bucket.id === undefined || bucket.selected)
-  );
-
-  if (bucket) {
-    console.log("[BucketContainer] DATE = " + bucket.updateDate);
-  }
-
-  if (bucket.updateDate) {
-    console.log("[BucketContainer] DATE = " + bucket.updateDate);
-  }
-
   const [addEnabled, setAddEnabled] = useState<boolean>(false);
 
   useEffect(() => {
@@ -70,7 +66,6 @@ const BucketContainer = ({
     if (node) {
       node.addEventListener("keyup", () => {
         const value = node.value;
-        console.log("ADDED CHARACTER");
         if (value.length === 0) {
           setAddEnabled(false);
         } else if (value.length >= 1) {
@@ -90,10 +85,6 @@ const BucketContainer = ({
         bucket.append("name", input.value);
         new Date().toDateString();
 
-        console.log(
-          "BucketContainer] NEW BUCKET TO CREATE = " + JSON.stringify(bucket)
-        );
-
         if (config.environment != "TST") {
           toast.loading("Creating bucket...");
         }
@@ -108,16 +99,10 @@ const BucketContainer = ({
               error.response &&
               error.response.status === 409
             ) {
-              console.log(
-                "[AWSPage] DUPLICATE ERROR BY CREATE: " + JSON.stringify(error)
-              );
               setError(
                 "Bucket  with that name already exists ... choose another bucket name"
               );
             } else {
-              console.log(
-                "[AWSPage] ERROR BY CREATE: " + JSON.stringify(error)
-              );
               setError(error.message);
             }
           });
@@ -138,7 +123,6 @@ const BucketContainer = ({
         await axios
           .delete("/bucket/delete/" + bucket.id)
           .then(() => {
-            console.log("RELOADING");
             setReload((x: any) => x + 1);
           })
           .catch((error) => {
@@ -155,7 +139,7 @@ const BucketContainer = ({
         <Box sx={{ color: "#4b4b4b" }}>
           {isAdmin && (
             <MdPostAdd
-              data-title="S3_DISPLAY_BUCKET_ADD"
+              data-title={BUCKET_CONTAINER_CREATE_BUTTON}
               onClick={() => handleCreateBucket(addEnabled)}
             />
           )}
@@ -168,7 +152,7 @@ const BucketContainer = ({
     return (
       <Box>
         <FaTrashAlt
-          data-title="S3_DISPLAY_BUCKET_DELETE"
+          data-title={BUCKET_CONTAINER_DELETE_BUTTON}
           onClick={() => handleDeleteBucket(bucket)}
         />
       </Box>
@@ -177,45 +161,34 @@ const BucketContainer = ({
 
   const handleChangeDefault = async (bucket: Bucket) => {
     await axios.put("/bucket/default/" + bucket.id).then(() => {
-      console.log("[BucketContainer] CHANGE DEFAULT: " + bucket.id);
       let tutopedia = undefined;
       if (isAdmin) {
         tutopedia = buildTutopediaForAdmin(
           count,
           "update default bucket",
-          ADMIN_PAGE_DEFAULT_BUTTON,
-          "/buckets",
+          BUCKET_CONTAINER_DEFAULT_BUTTON,
+          `/${ROUTE_BUCKETS}`,
           bucket.name
         );
       } else {
-        tutopedia = buildTutopediaForAws(
+        tutopedia = buildTutopediaForOCI(
           count,
           "update default bucket",
-          AWS_PAGE_DEFAULT_BUTTON,
-          "/tutorials/aws",
+          BUCKET_CONTAINER_DEFAULT_BUTTON,
+          `/${ROUTE_TUTORIALS}/${ROUTE_OCI}`,
           bucket.name
         );
       }
 
-      console.log(
-        "[BucketContainer] RENAVIGATE: " +
-          tutopedia.routeURL +
-          " NEW STATE: " +
-          JSON.stringify(buildState(tutopedia))
-      );
-
-      console.log("[BucketContainer]: RELOAD and RENAVIGATE");
-
       setReload((x: any) => x + 1);
       navigate(tutopedia.routeURL!, buildState(tutopedia));
     });
-    // console.log("[BucketContainer] CHANGE DEFAULT: " + bucket.id);
   };
 
   return (
-    <div id={bucket.name} data-title="S3_DISPLAY_CONTAINER">
+    <div id={bucket.name} data-title={BUCKET_CONTAINER}>
       <Box
-        data-title="S3_DISPLAY_BUCKET"
+        data-title={BUCKET_CONTAINER_BUCKET}
         width={200}
         height={45}
         sx={{
@@ -236,7 +209,7 @@ const BucketContainer = ({
               <TextField
                 slotProps={{
                   htmlInput: {
-                    "data-title": "S3_DISPLAY_BUCKET_INPUT",
+                    "data-title": { BUCKET_CONTAINER_BUCKET_INPUT },
                     id: "bucketName",
                   },
                 }}
@@ -310,10 +283,10 @@ const BucketContainer = ({
                 <Checkbox
                   inputProps={{
                     id: bucket.name,
-                    placeholder: "S3_DISPLAY_BUCKET_DEFAULT_INPUT",
+                    placeholder: `${BUCKET_CONTAINER_BUCKET_DEFAULT_INPUT}`,
                     disabled: bucket.selected,
                   }}
-                  data-title="S3_DISPLAY_BUCKET_DEFAULT"
+                  data-title={BUCKET_CONTAINER_BUCKET_DEFAULT}
                   defaultChecked={bucket.selected}
                   color="secondary"
                   onChange={() => handleChangeDefault(bucket)}
