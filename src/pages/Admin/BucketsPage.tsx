@@ -10,7 +10,11 @@ import Loader from "../../components/Loader/Loader";
 import ErrorBanner from "../../components/Error/ErrorBanner";
 import BucketsDisplay from "../../components/OCI/BucketsDisplay";
 import "./BucketsPage.css";
-import { BUCKETS_PAGE } from "../../data/layout/layout";
+import {
+  BUCKETS_PAGE,
+  BUCKETS_PAGE_ERROR,
+  BUCKETS_PAGE_LOADER,
+} from "../../data/layout/layout";
 
 const BucketsPage = () => {
   let { debug } = useDebugContext();
@@ -145,7 +149,7 @@ const BucketsPage = () => {
     if (loading) {
       console.log("[AdminPage] RENDER LOADING: " + config.environment);
       return (
-        <Box data-title="ADMIN_PAGE_LOADING">
+        <Box data-title={BUCKETS_PAGE_LOADER}>
           <Loader />
         </Box>
       );
@@ -154,7 +158,7 @@ const BucketsPage = () => {
     if (error) {
       console.log("[AdminPage] RENDER ERROR");
       return (
-        <Box data-title="ADMIN_PAGE_ERROR">
+        <Box data-title={BUCKETS_PAGE_ERROR}>
           <ErrorBanner message={error} goBack={goBack} />
         </Box>
       );

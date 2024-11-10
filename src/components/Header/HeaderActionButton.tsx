@@ -53,7 +53,7 @@ const HeaderActionButton = ({
     return (
       <div className={`child child-${action.id}`}>
         <button
-          data-title={`TUTOPEDIA_HEADER_ACTIONS_${action.title.toUpperCase()}`}
+          data-title={`TUTOPEDIA_HEADER_ACTION_BUTTONS_${action.title.toUpperCase()}`}
           className={`button btn-${action.id} tooltip-test`}
           title={`${action.title}`}
           onClick={() => handleHeaderAction(action)}

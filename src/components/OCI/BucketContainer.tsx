@@ -209,7 +209,7 @@ const BucketContainer = ({
               <TextField
                 slotProps={{
                   htmlInput: {
-                    "data-title": { BUCKET_CONTAINER_BUCKET_INPUT },
+                    "data-title": BUCKET_CONTAINER_BUCKET_INPUT,
                     id: "bucketName",
                   },
                 }}
