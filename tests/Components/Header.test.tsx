@@ -43,7 +43,7 @@ describe.skip("Header", () => {
   });
 });
 
-.skip("Header with mocked authorization", () => {
+describe.skip("Header with mocked authorization", () => {
   it("should contain the user `<<<no user>>>` when not authenticated", () => {
     mockAuthState({
       isLoading: false,

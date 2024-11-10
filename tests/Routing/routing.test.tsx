@@ -1,9 +1,15 @@
 import { screen } from "@testing-library/react";
 import { renderRoute } from "../render/render";
 import { expectInDocumentByTestId } from "../testutils";
-import { ROUTE_TUTOPEDIA, TUTOPEDIA } from "../../src/data/layout/layout";
+import {
+  ROUTE_TUTOPEDIA,
+  ROUTE_TUTORIALS,
+  TUTOPEDIA,
+  TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE,
+  TUTOPEDIA_CONTENT_TUTORIALS_PAGE,
+} from "../../src/data/layout/layout";
 
-describe.skip("TutOPedia", () => {
+describe("TutOPedia", () => {
   it("should render the TutOPedia when routing to `/`", () => {
     renderRoute(ROUTE_TUTOPEDIA);
 
@@ -13,17 +19,21 @@ describe.skip("TutOPedia", () => {
 });
 
 // OUTLET
-describe.skip("Tutorials", () => {
+describe("Tutorials", () => {
   it("should render the `Tutorials Page` when routing to `/tutorials`", () => {
-    renderRoute("/tutorials");
+    renderRoute(`/${ROUTE_TUTORIALS}`);
 
-    expect(screen.getByTestId("TUTORIALS_PAGE")).toBeInTheDocument();
+    expect(
+      screen.getByTestId(`${TUTOPEDIA_CONTENT_TUTORIALS_PAGE}`)
+    ).toBeInTheDocument();
   });
 
-  it("should render the `Tutorials List Page` when routing to `/tutorials`", () => {
+  it.skip("should render the `Tutorials List Page` when routing to `/tutorials`", () => {
     renderRoute("/tutorials");
 
-    expect(screen.getByTestId("TUTORIALS_LIST_PAGE")).toBeInTheDocument();
+    expect(
+      screen.getByTestId(`${TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE}`)
+    ).toBeInTheDocument();
   });
   // RUN NOW THE TUTORIALS PAGE TESTS
 });
