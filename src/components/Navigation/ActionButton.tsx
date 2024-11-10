@@ -13,8 +13,8 @@ import { useConfig } from "../../configuration/useConfig";
 import {
   ROUTE_TUTORIALS,
   TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_ACTIONS,
-  TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_ACTIONS_DELETE_ALL,
-  TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_ACTIONS_PUBLISH_ALL,
+  TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_ACTIONS_DELETE,
+  TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_ACTIONS_PUBLISH,
 } from "../../data/layout/layout";
 
 const ActionButton = ({
@@ -40,7 +40,7 @@ const ActionButton = ({
           const tutopedia = buildTutopediaForViewAllTutorials(
             count,
             "Delete all tutorials",
-            TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_ACTIONS_DELETE_ALL,
+            TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_ACTIONS_DELETE,
             `/${ROUTE_TUTORIALS}`,
             true
           );
@@ -58,7 +58,7 @@ const ActionButton = ({
           const tutopedia = buildTutopediaForPublishAll(
             count,
             "Publish all tutorials",
-            TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_ACTIONS_PUBLISH_ALL,
+            TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_ACTIONS_PUBLISH,
             `/${ROUTE_TUTORIALS}`
           );
 
