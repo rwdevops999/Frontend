@@ -6,42 +6,53 @@ import {
   expectToBeEnabled,
 } from "../testutils";
 import user from "@testing-library/user-event";
+import {
+  ROUTE_OCI,
+  ROUTE_TUTORIALS,
+  TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_ITEMS_ITEM,
+  TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_LOADER,
+  TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_SEARCH_INPUT,
+} from "../../src/data/layout/layout";
 
-describe.skip("SearchGroup", () => {
+describe("SearchGroup", () => {
   it("should enable the search field when rendering the Home page", () => {
-    renderRoute("/tutorials");
+    renderRoute(`/${ROUTE_TUTORIALS}`);
 
-    expectToBeEnabled("TUTORIALS_PAGE_NAVIGATION_BAR_SEARCH_INPUT");
+    expectToBeEnabled(
+      `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_SEARCH_INPUT}`
+    );
   });
 
   it("should render the searched tutorial", async () => {
     createTutorials(4);
     const { id } = getDBTutorialByIndex(0);
 
-    renderRoute("/tutorials");
+    renderRoute(`/${ROUTE_TUTORIALS}`);
 
     /**
      * This can't be put in a function because the test must be async
      */
     await waitForElementToBeRemoved(
-      screen.queryByTestId("TUTORIALS_LIST_PAGE_LOADING")
+      screen.queryByTestId(`${TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_LOADER}`)
     );
 
     const input = await screen.getByTestId(
-      "TUTORIALS_PAGE_NAVIGATION_BAR_SEARCH_INPUT"
+      `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_SEARCH_INPUT}`
     );
 
     await user.type(input, `${id}[enter]`);
 
-    const items = screen.getAllByTestId("TUTORIALS_LIST_PAGE_TUTORIALS_ITEM");
+    const items = screen.getAllByTestId(
+      `${TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_ITEMS_ITEM}`
+    );
     expect(items.length).toBe(1);
   });
 
-  it.skip("should disable the search field when rendering the OCI page", () => {
-    renderRoute("/oco");
+  it("should disable the search field when rendering the OCI page", () => {
+    renderRoute(`/${ROUTE_TUTORIALS}/${ROUTE_OCI}`);
 
     expectElementByTestIdToBeDisabled(
-      "TOP_TUTORIALSPAGE_NAVIGATION_BAR_SEARCH_FIELD_INPUT"
+      `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_SEARCH_INPUT}`
     );
   });
 });
