@@ -6,6 +6,7 @@ import Footer from "../components/Footer/Footer";
 import {
   buildStateWithoutStateKeyword,
   buildTutopediaForHome,
+  buildTutopediaForOCI,
   buildTutopediaForStartup,
 } from "../builders/Builders";
 import { useTutopediaState } from "../hooks/states/useTutopediaState";
@@ -93,6 +94,15 @@ function TutOPedia() {
       case "/tutorials":
         console.log(`[${TUTOPEDIA}] BUILD ROUTING FOR APPLICATION (HOME)`);
         tutopedia = buildTutopediaForHome(
+          0,
+          "TutOPedia create Mock",
+          TUTOPEDIA,
+          location.pathname
+        );
+        break;
+      case "/tutorials/oci":
+        console.log(`[${TUTOPEDIA}] BUILD ROUTING FOR OCI (HOME)`);
+        tutopedia = buildTutopediaForOCI(
           0,
           "TutOPedia create Mock",
           TUTOPEDIA,

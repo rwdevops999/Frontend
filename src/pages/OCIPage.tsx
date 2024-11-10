@@ -21,7 +21,7 @@ const OCIPage = () => {
   let { state } = useLocation();
   const { config } = useConfig();
 
-  console.log("[OCI Page] IN");
+  console.log(`[${TUTOPEDIA_CONTENT_OCI_PAGE}] STATE = ${state}`);
 
   let count = state.tutopedia.count;
   if (count >= 0) {
