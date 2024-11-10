@@ -22,11 +22,6 @@ import {
   buildState,
   buildTutopediaForViewAllTutorials,
 } from "../builders/Builders";
-import {
-  CREATE_PAGE_CANCEL_BUTTON,
-  CREATE_PAGE_CREATE_BUTTON,
-  CREATE_PAGE_UPDATE_BUTTON,
-} from "../data/consts";
 import { useConfig } from "../configuration/useConfig";
 import axios from "axios";
 import toast from "react-hot-toast";

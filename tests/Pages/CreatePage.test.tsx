@@ -21,7 +21,19 @@ import { createTutorials } from "../mock/database";
 import {
   ROUTE_TUTORIALS,
   TUTOPEDIA_CONTENT_CREATE_PAGE,
+  TUTOPEDIA_CONTENT_CREATE_PAGE_BUTTONS,
+  TUTOPEDIA_CONTENT_CREATE_PAGE_CANCEL_BUTTON,
+  TUTOPEDIA_CONTENT_CREATE_PAGE_CREATE_BUTTON,
+  TUTOPEDIA_CONTENT_CREATE_PAGE_ERROR,
+  TUTOPEDIA_CONTENT_CREATE_PAGE_FORM,
+  TUTOPEDIA_CONTENT_CREATE_PAGE_FORM_FILE_INPUT,
+  TUTOPEDIA_CONTENT_CREATE_PAGE_LOADER,
+  TUTOPEDIA_CONTENT_CREATE_PAGE_UPDATE_BUTTON,
+  TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE,
+  TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_ITEMS_UPDATE,
+  TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_LOADER,
   TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_GROUPS_CREATE,
+  TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_SEARCH_INPUT,
 } from "../../src/data/layout/layout";
 
 const navigateToCreatePage = () => {
@@ -50,22 +62,22 @@ describe("Create and Update page", () => {
     expectInDocumentByTestId(`${TUTOPEDIA_CONTENT_CREATE_PAGE}`);
   });
 
-  it.skip("should render the form", () => {
+  it("should render the form", () => {
     navigateToCreatePage();
-    expectInDocumentByTestId("TUTORIALS_CREATE_PAGE_FORM");
+    expectInDocumentByTestId(`${TUTOPEDIA_CONTENT_CREATE_PAGE_FORM}`);
   });
 
-  it.skip("should render the buttons part", () => {
+  it("should render the buttons part", () => {
     navigateToCreatePage();
-    expectInDocumentByTestId("TUTORIALS_CREATE_PAGE_BUTTONS");
+    expectInDocumentByTestId(`${TUTOPEDIA_CONTENT_CREATE_PAGE_BUTTONS}`);
   });
 
-  it.skip("should render the cancel button", () => {
+  it("should render the cancel button", () => {
     navigateToCreatePage();
-    expectInDocumentByTestId("TUTORIALS_CREATE_PAGE_BUTTON_CANCEL");
+    expectInDocumentByTestId(`${TUTOPEDIA_CONTENT_CREATE_PAGE_CANCEL_BUTTON}`);
   });
 
-  it.skip("should contain title field", () => {
+  it("should contain title field", () => {
     navigateToCreatePage();
     expect(
       screen.getByRole("textbox", {
@@ -74,7 +86,7 @@ describe("Create and Update page", () => {
     ).toBeInTheDocument();
   });
 
-  it.skip("should contain description field", () => {
+  it("should contain description field", () => {
     navigateToCreatePage();
     expect(
       screen.getByRole("textbox", {
@@ -83,67 +95,61 @@ describe("Create and Update page", () => {
     ).toBeInTheDocument();
   });
 
-  it.skip("should contain upload button", () => {
+  it("should contain upload button", () => {
     navigateToCreatePage();
     expect(screen.getByText(/^Upload files$/)).toBeInTheDocument();
   });
 
-  it.skip("should contain filename button", () => {
+  it("should contain filename button", () => {
     navigateToCreatePage();
-    expectInDocumentByTestId("TUTORIALS_CREATE_PAGE_FINE_INPUT");
+    expectInDocumentByTestId(
+      `${TUTOPEDIA_CONTENT_CREATE_PAGE_FORM_FILE_INPUT}`
+    );
   });
 
-  it.skip("should disable the `search field` when rendering the `Create page`", () => {
+  it("should disable the `search field` when rendering the `Create page`", () => {
     navigateToCreatePage();
 
-    screen.debug(undefined, Infinity);
-
-    expectToBeDisabled("TUTORIALS_PAGE_NAVIGATION_BAR_SEARCH_INPUT");
+    expectToBeDisabled(
+      `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_SEARCH_INPUT}`
+    );
   });
 
-  it.skip("should return to home page if cancel button is clicked", () => {
+  it("should return to home page if cancel button is clicked", () => {
     navigateToCreatePage();
 
     clickButton({ name: /^CANCEL$/ });
 
-    expectInDocumentByTestId("TUTORIALS_LIST_PAGE");
-  });
-
-  it.skip("should disable the `search field` when rendering the `Create Page`", () => {
-    navigateToCreatePage();
-
-    screen.debug(undefined, Infinity);
-
-    expectToBeDisabled("TUTORIALS_PAGE_NAVIGATION_BAR_SEARCH_INPUT");
+    expectInDocumentByTestId(`${TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE}`);
   });
 });
 
 describe("CreatePage", () => {
-  it.skip("should render the create button", () => {
+  it("should render the create button", () => {
     navigateToCreatePage();
-    expectInDocumentByTestId("TUTORIALS_CREATE_PAGE_BUTTON_CREATE");
+    expectInDocumentByTestId(`${TUTOPEDIA_CONTENT_CREATE_PAGE_CREATE_BUTTON}`);
   });
 
-  it.skip("should display `Create Tutorial", () => {
+  it("should display `Create Tutorial", () => {
     navigateToCreatePage();
     expect(screen.getByText(/^Create Tutorial$/)).toBeTruthy();
   });
 
-  it.skip("should not display a Loader", () => {
+  it("should not display a Loader", () => {
     navigateToCreatePage();
     expect(
-      screen.queryByTestId("TUTORIALS_CREATE_PAGE_LOADING")
+      screen.queryByTestId(`${TUTOPEDIA_CONTENT_CREATE_PAGE_LOADER}`)
     ).not.toBeInTheDocument();
   });
 
-  it.skip("should not display an Error Message", () => {
+  it("should not display an Error Message", () => {
     navigateToCreatePage();
     expect(
-      screen.queryByTestId("TUTORIALS_CREATE_PAGE_ERROR")
+      screen.queryByTestId(`${TUTOPEDIA_CONTENT_CREATE_PAGE_ERROR}`)
     ).not.toBeInTheDocument();
   });
 
-  it.skip("should give a validation error on title if create button is clicked", async () => {
+  it("should give a validation error on title if create button is clicked", async () => {
     navigateToCreatePage();
 
     const button = screen.getByRole("button", { name: /^CREATE$/ });
@@ -151,12 +157,10 @@ describe("CreatePage", () => {
       await fireEvent.click(button);
     });
 
-    screen.debug(undefined, Infinity);
-
     expectInDocumentByText(/title is required/i);
   });
 
-  it.skip("should give no validation error on title if field is filled in and if create button is clicked", async () => {
+  it("should give no validation error on title if field is filled in and if create button is clicked", async () => {
     navigateToCreatePage();
 
     const textbox = screen.getByRole("textbox", { name: /title/i });
@@ -171,7 +175,7 @@ describe("CreatePage", () => {
     expect(info).toBeNull();
   });
 
-  it.skip("should give a validation error on title if field is filled in more than 255 characters and if create button is clicked", async () => {
+  it("should give a validation error on title if field is filled in more than 255 characters and if create button is clicked", async () => {
     navigateToCreatePage();
 
     const textbox = screen.getByRole("textbox", { name: /title/i });
@@ -186,7 +190,7 @@ describe("CreatePage", () => {
     expect(info).toBeInTheDocument();
   });
 
-  it.skip("should give a validation error on description if create button is clicked", async () => {
+  it("should give a validation error on description if create button is clicked", async () => {
     navigateToCreatePage();
 
     const button = screen.getByRole("button", { name: /^CREATE$/ });
@@ -197,7 +201,7 @@ describe("CreatePage", () => {
     expect(screen.getByText(/Description is required/i)).toBeInTheDocument();
   });
 
-  it.skip("should give no validation error on description if field is filled in and if create button is clicked", async () => {
+  it("should give no validation error on description if field is filled in and if create button is clicked", async () => {
     navigateToCreatePage();
 
     const textbox = screen.getByRole("textbox", { name: /description/i });
@@ -212,7 +216,7 @@ describe("CreatePage", () => {
     expect(info).toBeNull();
   });
 
-  it.skip("should give a validation error on description if field is filled in more than 255 characters and if create button is clicked", async () => {
+  it("should give a validation error on description if field is filled in more than 255 characters and if create button is clicked", async () => {
     navigateToCreatePage();
 
     const textbox = screen.getByRole("textbox", { name: /description/i });
@@ -229,7 +233,7 @@ describe("CreatePage", () => {
     expect(info).toBeInTheDocument();
   });
 
-  it.skip("should give a validation error on file if create button is clicked", async () => {
+  it("should give a validation error on file if create button is clicked", async () => {
     navigateToCreatePage();
 
     const button = screen.getByRole("button", { name: /^CREATE$/ });
@@ -240,7 +244,7 @@ describe("CreatePage", () => {
     expect(screen.getByText(/File is required/i)).toBeInTheDocument();
   });
 
-  it.skip("should give no validation error on file if file is uploaded and if create button is clicked", async () => {
+  it("should give no validation error on file if file is uploaded and if create button is clicked", async () => {
     navigateToCreatePage();
 
     const content = "";
@@ -263,7 +267,7 @@ describe("CreatePage", () => {
     expect(info).toBeNull();
   });
 
-  it.skip("should give a validation error on file if filename is more than 255 characters and if create button is clicked", async () => {
+  it("should give a validation error on file if filename is more than 255 characters and if create button is clicked", async () => {
     navigateToCreatePage();
 
     const content = "";
@@ -288,10 +292,7 @@ describe("CreatePage", () => {
     expect(info).toBeInTheDocument();
   });
 
-  /**
-   * SKIP this test because MSW has problems with formdata posted.
-   */
-  it.skip("should follow the happy page route when clicking the create button", async () => {
+  it("should follow the happy page route when clicking the create button", async () => {
     navigateToCreatePage();
 
     // SET a valid title
@@ -334,40 +335,44 @@ const navigateToUpdatePage = async (
     simulateError("http://localhost:8081/api/find/:tid");
   }
 
-  renderRoute("/tutorials");
+  renderRoute(`/${ROUTE_TUTORIALS}`);
 
   /**
    * This can't be put in a function because the test must be async
    */
   await waitForElementToBeRemoved(
-    screen.queryByTestId("TUTORIALS_LIST_PAGE_LOADING")
+    screen.queryByTestId(`${TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_LOADER}`)
   );
 
-  expectInDocumentByTestId("TUTORIALS_LIST_PAGE_TUTORIALS_ITEM_EDIT");
+  expectInDocumentByTestId(
+    `${TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_ITEMS_UPDATE}`
+  );
 
-  clickButtonById("TUTORIALS_LIST_PAGE_TUTORIALS_ITEM_EDIT");
+  clickButtonById(`${TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_ITEMS_UPDATE}`);
 
   if (!checkLoader && !checkError) {
     await waitForElementToBeRemoved(
-      screen.queryByTestId("TUTORIALS_CREATE_PAGE_LOADING")
+      screen.queryByTestId(`${TUTOPEDIA_CONTENT_CREATE_PAGE_LOADER}`)
     );
   }
 };
 
 describe("UpdatePage", () => {
-  it.skip("should should render the update button", async () => {
+  it("should should render the update button", async () => {
     await navigateToUpdatePage();
 
-    expectInDocumentByTestId("TUTORIALS_CREATE_PAGE_BUTTON_UPDATE");
+    screen.debug(undefined, Infinity);
+
+    expectInDocumentByTestId(`${TUTOPEDIA_CONTENT_CREATE_PAGE_UPDATE_BUTTON}`);
   });
 
-  it.skip("should display `Update Tutorial", async () => {
+  it("should display `Update Tutorial", async () => {
     await navigateToUpdatePage();
 
     expect(screen.getByText(/^Update Tutorial$/)).toBeTruthy();
   });
 
-  it.skip("should give no validation error on title if update button is clicked", async () => {
+  it("should give no validation error on title if update button is clicked", async () => {
     await navigateToUpdatePage();
 
     await act(() => clickButton({ name: /^UPDATE$/ }));
@@ -376,17 +381,17 @@ describe("UpdatePage", () => {
     expect(info).toBeNull();
   });
 
-  it.skip("should display a Loader", async () => {
+  it("should display a Loader", async () => {
     await navigateToUpdatePage(true);
-    expectInDocumentByTestId("TUTORIALS_CREATE_PAGE_LOADING");
+    expectInDocumentByTestId(`${TUTOPEDIA_CONTENT_CREATE_PAGE_LOADER}`);
   });
 
-  it.skip("should display an Error Message", async () => {
+  it("should display an Error Message", async () => {
     await navigateToUpdatePage(false, true);
-    await waitForElementToAppear("TUTORIALS_CREATE_PAGE_ERROR");
+    await waitForElementToAppear(`${TUTOPEDIA_CONTENT_CREATE_PAGE_ERROR}`);
   });
 
-  it.skip("should give a validation error on title if field is cleared and if update button is clicked", async () => {
+  it("should give a validation error on title if field is cleared and if update button is clicked", async () => {
     await navigateToUpdatePage();
 
     const textbox = screen.getByRole("textbox", { name: /title/i });
@@ -398,7 +403,7 @@ describe("UpdatePage", () => {
     expect(info).toBeInTheDocument();
   });
 
-  it.skip("should give a validation error on title if field is filled in more than 255 characters and if update button is clicked", async () => {
+  it("should give a validation error on title if field is filled in more than 255 characters and if update button is clicked", async () => {
     await navigateToUpdatePage();
 
     const textbox = screen.getByRole("textbox", { name: /title/i });
@@ -410,7 +415,7 @@ describe("UpdatePage", () => {
     expect(info).toBeInTheDocument();
   });
 
-  it.skip("should give no validation error on description if update button is clicked", async () => {
+  it("should give no validation error on description if update button is clicked", async () => {
     await navigateToUpdatePage();
 
     await act(() => clickButton({ name: /^UPDATE$/ }));
@@ -419,7 +424,7 @@ describe("UpdatePage", () => {
     expect(info).toBeNull();
   });
 
-  it.skip("should give a validation error on description if field is cleared and if update button is clicked", async () => {
+  it("should give a validation error on description if field is cleared and if update button is clicked", async () => {
     await navigateToUpdatePage();
 
     const textbox = screen.getByRole("textbox", { name: /description/i });
@@ -431,7 +436,7 @@ describe("UpdatePage", () => {
     expect(info).toBeInTheDocument();
   });
 
-  it.skip("should give a validation error on description if field is filled in more than 255 characters and if update button is clicked", async () => {
+  it("should give a validation error on description if field is filled in more than 255 characters and if update button is clicked", async () => {
     await navigateToUpdatePage();
 
     const textbox = screen.getByRole("textbox", { name: /description/i });
@@ -445,7 +450,7 @@ describe("UpdatePage", () => {
     expect(info).toBeInTheDocument();
   });
 
-  it.skip("should give no validation error on file if update button is clicked", async () => {
+  it("should give no validation error on file if update button is clicked", async () => {
     await navigateToUpdatePage();
 
     await act(() => clickButton({ name: /^UPDATE$/ }));
@@ -454,7 +459,7 @@ describe("UpdatePage", () => {
     expect(info).toBeNull();
   });
 
-  it.skip("should give a validation error on file if filename is more than 255 characters and if update button is clicked", async () => {
+  it("should give a validation error on file if filename is more than 255 characters and if update button is clicked", async () => {
     await navigateToUpdatePage();
 
     const content = "";
@@ -476,7 +481,7 @@ describe("UpdatePage", () => {
     expect(info).toBeInTheDocument();
   });
 
-  it.skip("should follow the happy page route when clicking the update button for submitting on `UPDATE`", async () => {
+  it("should follow the happy page route when clicking the update button for submitting on `UPDATE`", async () => {
     await navigateToUpdatePage();
 
     let textbox = screen.getByRole("textbox", { name: /title/i });

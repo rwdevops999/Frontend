@@ -68,9 +68,8 @@ const SearchGroup = ({
       <TutopediaTextFieldOutlined // set 'data-title' on <input> tag'
         slotProps={{
           htmlInput: {
-            "data-title": {
+            "data-title":
               TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_SEARCH_INPUT,
-            },
             id: "inputId",
           },
         }}
