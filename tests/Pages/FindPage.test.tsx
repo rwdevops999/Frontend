@@ -11,23 +11,42 @@ import {
 } from "../testutils";
 import user from "@testing-library/user-event";
 import { createTutorials } from "../mock/database";
+import {
+  ROUTE_TUTORIALS,
+  TUTOPEDIA_CONTENT_FIND_PAGE_BUTTONS,
+  TUTOPEDIA_CONTENT_FIND_PAGE_FORM,
+  TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE,
+  TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_ITEMS_ITEM,
+  TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_LOADER,
+  TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_GROUPS_FIND,
+  TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_SEARCH_INPUT,
+  TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL,
+  TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL_NON_PUBLISHED,
+  TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL_PUBLISHED,
+} from "../../src/data/layout/layout";
 
 const navigateToFindPage = () => {
   /**
    * we pass through `/tutorials` because mocking useLocation gives problems with in-application navigation
    */
-  renderRoute("/tutorials");
+  renderRoute(`/${ROUTE_TUTORIALS}`);
 
-  expectInDocumentByTestId("TUTORIALS_PAGE_NAVIGATION_BAR_NAVIGATION_FIND");
+  expectInDocumentByTestId(
+    `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_GROUPS_FIND}`
+  );
 
-  clickButtonById("TUTORIALS_PAGE_NAVIGATION_BAR_NAVIGATION_FIND");
+  clickButtonById(
+    `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_GROUPS_FIND}`
+  );
 };
 
-describe.skip("FindPage", () => {
+describe("FindPage", () => {
   it("should disable the `search field` when rendering the Find page", () => {
     navigateToFindPage();
 
-    expectToBeDisabled("TUTORIALS_PAGE_NAVIGATION_BAR_SEARCH_INPUT");
+    expectToBeDisabled(
+      `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_SEARCH_INPUT}`
+    );
   });
 
   it("should render the `Find By Keywords` title page", () => {
@@ -39,13 +58,13 @@ describe.skip("FindPage", () => {
   it("should render the find form", () => {
     navigateToFindPage();
 
-    expectInDocumentByTestId("TOP_MAIN_FIND_FORM");
+    expectInDocumentByTestId(`${TUTOPEDIA_CONTENT_FIND_PAGE_FORM}`);
   });
 
   it("should render the buttons", () => {
     navigateToFindPage();
 
-    expectInDocumentByTestId("TOP_MAIN_FIND_BUTTONS");
+    expectInDocumentByTestId(`${TUTOPEDIA_CONTENT_FIND_PAGE_BUTTONS}`);
   });
 
   it("should render the search button", () => {
@@ -65,7 +84,7 @@ describe.skip("FindPage", () => {
 
     clickButton({ name: /^CANCEL$/ });
 
-    expectInDocumentByTestId("TUTORIALS_LIST_PAGE");
+    expectInDocumentByTestId(`${TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE}`);
   });
 
   it("should check if there are 5 keywords left", () => {
@@ -91,12 +110,10 @@ describe.skip("FindPage", () => {
 
     clickButton({ name: /^SEARCH$/ });
 
-    expectInDocumentByTestId("TOP_MAIN_FIND_FORM");
+    expectInDocumentByTestId(`${TUTOPEDIA_CONTENT_FIND_PAGE_FORM}`);
   });
 
   it("should search if keywords are given and display the result and enabled all 3 view buttons", async () => {
-    console.log("[TEST] SBK");
-
     createTutorials(1, true, {
       title: "Hello World",
       description: "this is a test",
@@ -122,16 +139,23 @@ describe.skip("FindPage", () => {
      * This can't be put in a function because the test must be async
      */
     await waitForElementToBeRemoved(
-      screen.queryByTestId("TUTORIALS_LIST_PAGE_LOADING")
+      screen.queryByTestId(`${TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_LOADER}`)
     );
 
-    const items = screen.getAllByTestId("TUTORIALS_LIST_PAGE_TUTORIALS_ITEM");
-    console.log("[TEST] items: " + items);
+    const items = screen.getAllByTestId(
+      `${TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_ITEMS_ITEM}`
+    );
 
     expect(items.length).toBe(2);
 
-    expectToBeEnabled("TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL_PUBLISHED");
-    expectToBeEnabled("TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL_NON-PUBLISHED");
-    expectToBeEnabled("TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL_TUTORIALS");
+    expectToBeEnabled(
+      `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL}`
+    );
+    expectToBeEnabled(
+      `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL_PUBLISHED}`
+    );
+    expectToBeEnabled(
+      `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL_NON_PUBLISHED}`
+    );
   });
 });
