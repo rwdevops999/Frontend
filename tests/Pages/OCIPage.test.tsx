@@ -17,8 +17,8 @@ import { simulateDelay, simulateError } from "../mock/backend";
 import { createBuckets, getDBBucketByIndex } from "../mock/database";
 import userEvent from "@testing-library/user-event";
 
-describe.skip("OCIPage", () => {
-  it("should contain the `BUCKET Display`", async () => {
+describe("OCIPage", () => {
+  it.skip("should contain the `BUCKET Display`", async () => {
     renderRoute("/tutorials/oci");
 
     /**
@@ -29,7 +29,7 @@ describe.skip("OCIPage", () => {
     expectInDocumentByTestId("BUCKET_CONTAINER_DISPLAY");
   });
 
-  it("should render the `loader`", () => {
+  it.skip("should render the `loader`", () => {
     simulateDelay("http://localhost:8081/api/bucket/find");
 
     renderRoute("/tutorials/oci");
@@ -37,7 +37,7 @@ describe.skip("OCIPage", () => {
     expectInDocumentByTestId("OCI_PAGE_LOADING");
   });
 
-  it("should render the `error`", async () => {
+  it.skip("should render the `error`", async () => {
     simulateError("http://localhost:8081/api/bucket/find");
 
     renderRoute("/tutorials/oci");
@@ -45,7 +45,7 @@ describe.skip("OCIPage", () => {
     await waitForElementToAppear("OCI_PAGE_ERROR");
   });
 
-  it("should render the `S3 display`", async () => {
+  it.skip("should render the `S3 display`", async () => {
     renderRoute("/tutorials/oci");
 
     /**
@@ -56,7 +56,7 @@ describe.skip("OCIPage", () => {
     expectInDocumentByTestId("BUCKET_CONTAINER_DISPLAY");
   });
 
-  it("should render no buckets", async () => {
+  it.skip("should render no buckets", async () => {
     renderRoute("/tutorials/oci");
 
     /**
@@ -68,7 +68,7 @@ describe.skip("OCIPage", () => {
     expect(items.length).toBe(0);
   });
 
-  it("should render the n buckets", async () => {
+  it.skip("should render the n buckets", async () => {
     createBuckets(2);
 
     renderRoute("/tutorials/oci");
@@ -82,7 +82,7 @@ describe.skip("OCIPage", () => {
     expect(items.length).toBe(2);
   });
 
-  it("should not render the `add button`", async () => {
+  it.skip("should not render the `add button`", async () => {
     createBuckets(1);
 
     renderRoute("/tutorials/oci");
@@ -95,7 +95,7 @@ describe.skip("OCIPage", () => {
     expectNotInDocumentByTestId("BUCKER_CONTAINER_BUCKET_ADD");
   });
 
-  it("should not render the `delete button`", async () => {
+  it.skip("should not render the `delete button`", async () => {
     createBuckets(1);
 
     renderRoute("/tutorials/oci");
@@ -108,7 +108,7 @@ describe.skip("OCIPage", () => {
     expectNotInDocumentByTestId("BUCKET_CONTAINER_BUCKET_DELETE");
   });
 
-  it("should render the bucket name", async () => {
+  it.skip("should render the bucket name", async () => {
     createBuckets(1);
 
     const bucket = getDBBucketByIndex(0);
@@ -123,7 +123,7 @@ describe.skip("OCIPage", () => {
     expectInDocumentByText(`${bucket.name}`);
   });
 
-  it("should render the `default checkbox` and it should be disabled", async () => {
+  it.skip("should render the `default checkbox` and it should be disabled", async () => {
     createBuckets(1, true, {
       selected: true,
     });
@@ -146,7 +146,7 @@ describe.skip("OCIPage", () => {
     expectElementToBeDisabled(element);
   });
 
-  it("should handle the default check box", async () => {
+  it.skip("should handle the default check box", async () => {
     // CREATE THREE BUCKETS (THE FIRST IS DEFAULT ONE)
     createBuckets(1, true, {
       id: 1,
