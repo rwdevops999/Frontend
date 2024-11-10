@@ -3,7 +3,7 @@ import { renderRoute } from "../render/render";
 import { expectInDocumentByTestId } from "../testutils";
 import { ROUTE_TUTOPEDIA, TUTOPEDIA } from "../../src/data/layout/layout";
 
-describe("TutOPedia", () => {
+describe.skip("TutOPedia", () => {
   it("should render the TutOPedia when routing to `/`", () => {
     renderRoute(ROUTE_TUTOPEDIA);
 

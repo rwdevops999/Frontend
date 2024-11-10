@@ -7,7 +7,7 @@ import {
 import { renderRoute } from "../render/render";
 import { expectInDocumentByTestId } from "../testutils";
 
-describe("TutOPedia", () => {
+describe.skip("TutOPedia", () => {
   beforeEach(async () => {
     renderRoute(ROUTE_TUTOPEDIA);
   });

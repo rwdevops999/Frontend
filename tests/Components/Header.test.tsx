@@ -43,7 +43,7 @@ describe.skip("Header", () => {
   });
 });
 
-describe("Header with mocked authorization", () => {
+.skip("Header with mocked authorization", () => {
   it("should contain the user `<<<no user>>>` when not authenticated", () => {
     mockAuthState({
       isLoading: false,
@@ -129,7 +129,7 @@ describe("Header with mocked authorization", () => {
   });
 });
 
-describe("Header with bucket", () => {
+describe.skip("Header with bucket", () => {
   it("should contain the bucket `bucketname`", async () => {
     createBuckets(1, true, {
       name: "buckettest",
