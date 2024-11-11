@@ -23,8 +23,6 @@ const BucketsDisplay = ({
         container
         sx={{
           "--Grid-borderWidth": "1px",
-          borderTop: "var(--Grid-borderWidth) solid",
-          borderLeft: "var(--Grid-borderWidth) solid",
           borderColor: "divider",
           "& > div": {
             borderRight: "var(--Grid-borderWidth) solid",
