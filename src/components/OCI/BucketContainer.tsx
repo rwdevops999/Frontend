@@ -116,8 +116,6 @@ const BucketContainer = ({
       if (bucket.selected) {
         setError("Default bucket can't be deleted");
       } else {
-        console.log("[BucketContainer] HANDLE DELETE BUCKET = " + bucket.id);
-
         if (config.environment != "TST") {
           toast.loading("Deleting bucket...");
         }
