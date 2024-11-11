@@ -148,13 +148,13 @@ describe("FindPage", () => {
 
     expect(items.length).toBe(2);
 
-    expectToBeEnabled(
+    expectToBeDisabled(
       `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL}`
     );
-    expectToBeEnabled(
+    expectToBeDisabled(
       `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL_PUBLISHED}`
     );
-    expectToBeEnabled(
+    expectToBeDisabled(
       `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL_NON_PUBLISHED}`
     );
   });
