@@ -17,6 +17,8 @@ import { TutopediaState } from "../../data/states";
 const AdminControl = ({ count }: { count: number }) => {
   const navigate = useNavigate();
 
+  console.log(`[${TUTOPEDIA_CONTENT_ADMIN_PAGE}] REFRESH`);
+
   const [checked, setChecked] = useState<string>("");
 
   useEffect(() => {
@@ -27,7 +29,13 @@ const AdminControl = ({ count }: { count: number }) => {
     });
   }, []);
 
-  const handleControlChange = (controlId: string) => {
+  useEffect(() => {
+    if (checked === `${TUTOPEDIA_CONTENT_ADMIN_PAGE_SETTINGS_BUTTON}`) {
+      handleControlChange(checked, false);
+    }
+  }, [checked, setChecked]);
+
+  const handleControlChange = (controlId: string, setValue: boolean = true) => {
     console.log(
       `[${TUTOPEDIA_CONTENT_ADMIN_PAGE}] HANDLE PAGE CHANGE: ${controlId}`
     );
@@ -60,7 +68,10 @@ const AdminControl = ({ count }: { count: number }) => {
         `[${TUTOPEDIA_CONTENT_ADMIN_PAGE}] NAVIGATE TO: ${tutopedia.routeURL}`
       );
 
-      setChecked(controlId);
+      if (setValue) {
+        setChecked(controlId);
+      }
+
       navigate(tutopedia.routeURL!, buildState(tutopedia));
     }
   };
