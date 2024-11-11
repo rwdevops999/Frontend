@@ -20,13 +20,17 @@ import {
   TUTOPEDIA_CONTENT_FIND_PAGE,
   TUTOPEDIA_CONTENT_OCI_PAGE,
   TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE,
+  TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_ITEMS_ITEM,
+  TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_LOADER,
   TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR,
+  TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_ACTIONS,
   TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_ACTIONS_DELETE,
   TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_ACTIONS_PUBLISH,
   TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_GROUPS_CREATE,
   TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_GROUPS_FIND,
   TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_GROUPS_HOME,
   TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_GROUPS_OCI,
+  TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_SEARCH,
   TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_SEARCH_INPUT,
   TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS,
   TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL,
@@ -35,9 +39,11 @@ import {
 } from "../../src/data/layout/layout";
 
 describe("NavigationBar", () => {
-  it("should render the `navigation bar`", () => {
+  beforeEach(() => {
     renderRoute(`/${ROUTE_TUTORIALS}`);
+  });
 
+  it("should render the `navigation bar`", () => {
     expectInDocumentByTestId(
       `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR}`
     );
@@ -45,40 +51,30 @@ describe("NavigationBar", () => {
 
   // NAVIGATION GROUP
   it("should contain the `home button`", () => {
-    renderRoute(`/${ROUTE_TUTORIALS}`);
-
     expectInDocumentByTestId(
       `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_GROUPS_HOME}`
     );
   });
 
   it("should contain the `create button`", () => {
-    renderRoute(`/${ROUTE_TUTORIALS}`);
-
     expectInDocumentByTestId(
       `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_GROUPS_CREATE}`
     );
   });
 
   it("should contain the `find button`", () => {
-    renderRoute(`/${ROUTE_TUTORIALS}`);
-
     expectInDocumentByTestId(
       `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_GROUPS_FIND}`
     );
   });
 
   it("should contain the `OCI button`", () => {
-    renderRoute(`/${ROUTE_TUTORIALS}`);
-
     expectInDocumentByTestId(
       `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_GROUPS_OCI}`
     );
   });
 
   it("should render the `tutorials list page` when clicking the `home button` and arrange other buttons visibility", () => {
-    renderRoute(`/${ROUTE_TUTORIALS}`);
-
     clickButton({ name: /^OCI$/ });
     clickButton({ name: /^Home$/ });
 
@@ -101,8 +97,6 @@ describe("NavigationBar", () => {
   });
 
   it("should render the `create page` when clicking the `create button` and handle other buttons visibility", () => {
-    renderRoute(`/${ROUTE_TUTORIALS}`);
-
     clickButton({ name: /^Create$/ });
 
     expectInDocumentByTestId(`${TUTOPEDIA_CONTENT_CREATE_PAGE}`);
@@ -125,8 +119,6 @@ describe("NavigationBar", () => {
   });
 
   it("should render the `find page` when clicking the `find button` and handle other buttons visibility", () => {
-    renderRoute(`/${ROUTE_TUTORIALS}`);
-
     clickButton({ name: /^Find$/ });
 
     expectInDocumentByTestId(`${TUTOPEDIA_CONTENT_FIND_PAGE}`);
@@ -148,8 +140,6 @@ describe("NavigationBar", () => {
   });
 
   it("should render the `OCI page` when clicking the `OCI button` and handle other buttons visibility", () => {
-    renderRoute(`/${ROUTE_TUTORIALS}`);
-
     clickButton({ name: /^OCI$/ });
 
     expectByTestIdToBeInTheDocument(`${TUTOPEDIA_CONTENT_OCI_PAGE}`);
@@ -171,8 +161,6 @@ describe("NavigationBar", () => {
   });
 
   it("should render the `Home button` and `All Tutorials` button as disabled", () => {
-    renderRoute(`/${ROUTE_TUTORIALS}`);
-
     expectElementsDisabled([
       `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_GROUPS_HOME}`,
       `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL}`,
@@ -181,40 +169,30 @@ describe("NavigationBar", () => {
 
   // VIEWS GROUP
   it("should contain the `views group`", () => {
-    renderRoute(`/${ROUTE_TUTORIALS}`);
-
     expectByTestIdToBeInTheDocument(
       `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS}`
     );
   });
 
   it("should contain the `All Tutorials` button", () => {
-    renderRoute(`/${ROUTE_TUTORIALS}`);
-
     expectByTestIdToBeInTheDocument(
       `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL}`
     );
   });
 
   it("should contain the `All Published Tutorials` button", () => {
-    renderRoute(`/${ROUTE_TUTORIALS}`);
-
     expectInDocumentByTestId(
       `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL_PUBLISHED}`
     );
   });
 
   it("should contain the `All Non-Published Tutorials` button", () => {
-    renderRoute(`/${ROUTE_TUTORIALS}`);
-
     expectInDocumentByTestId(
       `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL_NON_PUBLISHED}`
     );
   });
 
   it("should render the `Tutorials List Page` and handle other buttons visibility when clicking `All Tutorials` button", () => {
-    renderRoute(`/${ROUTE_TUTORIALS}`);
-
     clickButton({ name: /^All Published$/ });
     clickButton({ name: /^All Tutorials$/ });
 
@@ -234,104 +212,104 @@ describe("NavigationBar", () => {
     ]);
   });
 
-  it.skip("should render the `Tutorials List Page` and handle other buttons visibility when clicking `All Published` button", () => {
-    renderRoute("/tutorials");
-
+  it("should render the `Tutorials List Page` and handle other buttons visibility when clicking `All Published` button", () => {
     clickButton({ name: /^All Published$/ });
 
-    expectInDocumentByTestId("TUTORIALS_LIST_PAGE");
+    expectInDocumentByTestId(`${TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE}`);
 
     expectElementsEnabled([
-      "TUTORIALS_PAGE_NAVIGATION_BAR_NAVIGATION_CREATE",
-      "TUTORIALS_PAGE_NAVIGATION_BAR_NAVIGATION_FIND",
-      "TUTORIALS_PAGE_NAVIGATION_BAR_NAVIGATION_OCI",
-      "TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL_TUTORIALS",
-      "TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL_NON-PUBLISHED",
+      `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_GROUPS_CREATE}`,
+      `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_GROUPS_FIND}`,
+      `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_GROUPS_OCI}`,
+      `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL}`,
+      `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL_NON_PUBLISHED}`,
     ]);
 
     expectElementsDisabled([
-      "TUTORIALS_PAGE_NAVIGATION_BAR_NAVIGATION_HOME",
-      "TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL_PUBLISHED",
+      `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_GROUPS_HOME}`,
+      `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL_PUBLISHED}`,
     ]);
   });
 
-  it.skip("should render the `Tutorials List Page` and handle other buttons visibility when clicking `All Non-Published` button", () => {
-    renderRoute("/tutorials");
-
+  it("should render the `Tutorials List Page` and handle other buttons visibility when clicking `All Non-Published` button", () => {
     clickButton({ name: /^All Non-Published$/ });
 
-    expectInDocumentByTestId("TUTORIALS_LIST_PAGE");
+    expectInDocumentByTestId(`${TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE}`);
 
     expectElementsEnabled([
-      "TUTORIALS_PAGE_NAVIGATION_BAR_NAVIGATION_CREATE",
-      "TUTORIALS_PAGE_NAVIGATION_BAR_NAVIGATION_FIND",
-      "TUTORIALS_PAGE_NAVIGATION_BAR_NAVIGATION_OCI",
-      "TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL_TUTORIALS",
-      "TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL_PUBLISHED",
+      `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_GROUPS_CREATE}`,
+      `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_GROUPS_FIND}`,
+      `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_GROUPS_OCI}`,
+      `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL}`,
+      `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL_PUBLISHED}`,
     ]);
 
     expectElementsDisabled([
-      "TUTORIALS_PAGE_NAVIGATION_BAR_NAVIGATION_HOME",
-      "TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL_NON-PUBLISHED",
+      `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_GROUPS_HOME}`,
+      `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL_NON_PUBLISHED}`,
     ]);
   });
 
   // SEARCH GROUP
-  it.skip("should render the `search` group", () => {
-    renderRoute("/tutorials");
-
-    expectInDocumentByTestId("TUTORIALS_PAGE_NAVIGATION_BAR_SEARCH");
+  it("should render the `search` group", () => {
+    expectInDocumentByTestId(
+      `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_SEARCH}`
+    );
   });
 
   // ACTION GROUP
-  it.skip("should render the `action` group", () => {
-    renderRoute("/tutorials");
+  it("should render the `action` group", () => {
+    expectByTestIdToBeInTheDocument(
+      `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_ACTIONS}`
+    );
+  });
+});
 
-    expectByTestIdToBeInTheDocument("TUTORIALS_PAGE_NAVIGATION_BAR_ACTION");
+describe("NavigationBar with Data", () => {
+  beforeEach(() => {
+    createTutorials(10);
+    renderRoute(`/${ROUTE_TUTORIALS}`);
   });
 
-  it.skip("should delete all the tutorials when the `delete all` button is clicked", async () => {
-    createTutorials(10);
-
-    renderRoute("/tutorials");
-
+  it("should delete all the tutorials when the `delete all` button is clicked", async () => {
     expectByTestIdToBeInTheDocument(
-      "TUTORIALS_PAGE_NAVIGATION_BAR_ACTION_DELETE"
+      `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_ACTIONS_DELETE}`
     );
 
     /**
      * This can't be put in a function because the test must be async
      */
     await waitForElementToBeRemoved(
-      screen.queryByTestId("TUTORIALS_LIST_PAGE_LOADING")
+      screen.queryByTestId(`${TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_LOADER}`)
     );
 
     const preDeleteItems = screen.getAllByTestId(
-      "TUTORIALS_LIST_PAGE_TUTORIALS_ITEM"
+      `${TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_ITEMS_ITEM}`
     ).length;
 
     console.log("[PRE_DELETE_ALL] = " + preDeleteItems);
 
     await waitFor(() => {
-      clickButtonById("TUTORIALS_PAGE_NAVIGATION_BAR_ACTION_DELETE");
+      clickButtonById(
+        `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_ACTIONS_DELETE}`
+      );
     });
 
-    expectNotInDocumentByTestId("TUTORIALS_LIST_PAGE_TUTORIALS_ITEM");
+    expectNotInDocumentByTestId(
+      `${TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_ITEMS_ITEM}`
+    );
   });
 
-  it.skip("should publish all the tutorials when the `publish all` button is clicked", async () => {
-    createTutorials(10);
-    renderRoute("/tutorials");
-
+  it("should publish all the tutorials when the `publish all` button is clicked", async () => {
     /**
      * This can't be put in a function because the test must be async
      */
     await waitForElementToBeRemoved(
-      screen.queryByTestId("TUTORIALS_LIST_PAGE_LOADING")
+      screen.queryByTestId(`${TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_LOADER}`)
     );
 
     expectByTestIdToBeInTheDocument(
-      "TUTORIALS_PAGE_NAVIGATION_BAR_ACTION_PUBLISH"
+      `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_ACTIONS_PUBLISH}`
     );
 
     let nodes: HTMLCollectionOf<Element> =
@@ -342,7 +320,9 @@ describe("NavigationBar", () => {
     }
 
     await waitFor(() => {
-      clickButtonById("TUTORIALS_PAGE_NAVIGATION_BAR_ACTION_PUBLISH");
+      clickButtonById(
+        `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_ACTIONS_PUBLISH}`
+      );
     });
 
     nodes = document.getElementsByClassName("MuiChip-label");
