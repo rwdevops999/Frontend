@@ -38,6 +38,7 @@ import {
   BUCKET_CONTAINER_CREATE_BUTTON,
   BUCKET_CONTAINER_DEFAULT_BUTTON,
   BUCKET_CONTAINER_DELETE_BUTTON,
+  ROUTE_ADMIN,
   ROUTE_BUCKETS,
   ROUTE_OCI,
   ROUTE_TUTORIALS,
@@ -163,14 +164,16 @@ const BucketContainer = ({
     await axios.put("/bucket/default/" + bucket.id).then(() => {
       let tutopedia = undefined;
       if (isAdmin) {
+        console.log("DEFAULT: ADMIN");
         tutopedia = buildTutopediaForAdmin(
           count,
           "update default bucket",
           BUCKET_CONTAINER_DEFAULT_BUTTON,
-          `/${ROUTE_BUCKETS}`,
+          `/${ROUTE_ADMIN}/${ROUTE_BUCKETS}`,
           bucket.name
         );
       } else {
+        console.log("DEFAULT: NON ADMIN");
         tutopedia = buildTutopediaForOCI(
           count,
           "update default bucket",
@@ -180,7 +183,9 @@ const BucketContainer = ({
         );
       }
 
+      console.log("DEFAULT: RELOAD");
       setReload((x: any) => x + 1);
+      console.log("DEFAULT: NAVIGATE TO " + tutopedia.routeURL!);
       navigate(tutopedia.routeURL!, buildState(tutopedia));
     });
   };
