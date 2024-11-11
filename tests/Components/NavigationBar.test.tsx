@@ -28,6 +28,7 @@ import {
   TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_GROUPS_HOME,
   TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_GROUPS_OCI,
   TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_SEARCH_INPUT,
+  TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS,
   TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL,
   TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL_NON_PUBLISHED,
   TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL_PUBLISHED,
@@ -179,55 +180,57 @@ describe("NavigationBar", () => {
   });
 
   // VIEWS GROUP
-  it.skip("should contain the `views group`", () => {
-    renderRoute("/tutorials");
-
-    expectByTestIdToBeInTheDocument("TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS");
-  });
-
-  it.skip("should contain the `All Tutorials` button", () => {
-    renderRoute("/tutorials");
+  it("should contain the `views group`", () => {
+    renderRoute(`/${ROUTE_TUTORIALS}`);
 
     expectByTestIdToBeInTheDocument(
-      "TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL_TUTORIALS"
+      `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS}`
     );
   });
 
-  it.skip("should contain the `All Published Tutorials` button", () => {
-    renderRoute("/tutorials");
+  it("should contain the `All Tutorials` button", () => {
+    renderRoute(`/${ROUTE_TUTORIALS}`);
+
+    expectByTestIdToBeInTheDocument(
+      `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL}`
+    );
+  });
+
+  it("should contain the `All Published Tutorials` button", () => {
+    renderRoute(`/${ROUTE_TUTORIALS}`);
 
     expectInDocumentByTestId(
-      "TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL_PUBLISHED"
+      `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL_PUBLISHED}`
     );
   });
 
-  it.skip("should contain the `All Non-Published Tutorials` button", () => {
-    renderRoute("/tutorials");
+  it("should contain the `All Non-Published Tutorials` button", () => {
+    renderRoute(`/${ROUTE_TUTORIALS}`);
 
     expectInDocumentByTestId(
-      "TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL_NON-PUBLISHED"
+      `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL_NON_PUBLISHED}`
     );
   });
 
-  it.skip("should render the `Tutorials List Page` and handle other buttons visibility when clicking `All Tutorials` button", () => {
-    renderRoute("/tutorials");
+  it("should render the `Tutorials List Page` and handle other buttons visibility when clicking `All Tutorials` button", () => {
+    renderRoute(`/${ROUTE_TUTORIALS}`);
 
     clickButton({ name: /^All Published$/ });
     clickButton({ name: /^All Tutorials$/ });
 
-    expectInDocumentByTestId("TUTORIALS_LIST_PAGE");
+    expectInDocumentByTestId(`${TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE}`);
 
     expectElementsEnabled([
-      "TUTORIALS_PAGE_NAVIGATION_BAR_NAVIGATION_CREATE",
-      "TUTORIALS_PAGE_NAVIGATION_BAR_NAVIGATION_FIND",
-      "TUTORIALS_PAGE_NAVIGATION_BAR_NAVIGATION_OCI",
-      "TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL_PUBLISHED",
-      "TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL_NON-PUBLISHED",
+      `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_GROUPS_CREATE}`,
+      `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_GROUPS_FIND}`,
+      `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_GROUPS_OCI}`,
+      `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL_PUBLISHED}`,
+      `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL_NON_PUBLISHED}`,
     ]);
 
     expectElementsDisabled([
-      "TUTORIALS_PAGE_NAVIGATION_BAR_NAVIGATION_HOME",
-      "TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL_TUTORIALS",
+      `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_GROUPS_HOME}`,
+      `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL}`,
     ]);
   });
 
