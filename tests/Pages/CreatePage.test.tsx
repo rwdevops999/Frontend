@@ -361,8 +361,6 @@ describe("UpdatePage", () => {
   it("should should render the update button", async () => {
     await navigateToUpdatePage();
 
-    screen.debug(undefined, Infinity);
-
     expectInDocumentByTestId(`${TUTOPEDIA_CONTENT_CREATE_PAGE_UPDATE_BUTTON}`);
   });
 

@@ -14,37 +14,55 @@ import {
   expectNotInDocumentByTestId,
 } from "../testutils";
 import { createTutorials } from "../mock/database";
+import {
+  ROUTE_TUTORIALS,
+  TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR,
+  TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_GROUPS_CREATE,
+  TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_GROUPS_FIND,
+  TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_GROUPS_HOME,
+  TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_GROUPS_OCI,
+} from "../../src/data/layout/layout";
 
 describe("NavigationBar", () => {
-  it.skip("should render the `navigation bar`", () => {
-    renderRoute("/tutorials");
+  it("should render the `navigation bar`", () => {
+    renderRoute(`/${ROUTE_TUTORIALS}`);
 
-    expectInDocumentByTestId("TUTORIALS_PAGE_NAVIGATION_BAR_NAVIGATION");
+    expectInDocumentByTestId(
+      `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR}`
+    );
   });
 
   // NAVIGATION GROUP
-  it.skip("should contain the `home button`", () => {
-    renderRoute("/tutorials");
+  it("should contain the `home button`", () => {
+    renderRoute(`/${ROUTE_TUTORIALS}`);
 
-    expectInDocumentByTestId("TUTORIALS_PAGE_NAVIGATION_BAR_NAVIGATION_HOME");
+    expectInDocumentByTestId(
+      `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_GROUPS_HOME}`
+    );
   });
 
-  it.skip("should contain the `create button`", () => {
-    renderRoute("/tutorials");
+  it("should contain the `create button`", () => {
+    renderRoute(`/${ROUTE_TUTORIALS}`);
 
-    expectInDocumentByTestId("TUTORIALS_PAGE_NAVIGATION_BAR_NAVIGATION_CREATE");
+    expectInDocumentByTestId(
+      `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_GROUPS_CREATE}`
+    );
   });
 
-  it.skip("should contain the `find button`", () => {
-    renderRoute("/tutorials");
+  it("should contain the `find button`", () => {
+    renderRoute(`/${ROUTE_TUTORIALS}`);
 
-    expectInDocumentByTestId("TUTORIALS_PAGE_NAVIGATION_BAR_NAVIGATION_FIND");
+    expectInDocumentByTestId(
+      `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_GROUPS_FIND}`
+    );
   });
 
-  it.skip("should contain the `OCI button`", () => {
-    renderRoute("/tutorials");
+  it("should contain the `OCI button`", () => {
+    renderRoute(`/${ROUTE_TUTORIALS}`);
 
-    expectInDocumentByTestId("TUTORIALS_PAGE_NAVIGATION_BAR_NAVIGATION_OCI");
+    expectInDocumentByTestId(
+      `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_GROUPS_OCI}`
+    );
   });
 
   it.skip("should render the `tutorials list page` when clicking the `home button` and arrange other buttons visibility", () => {

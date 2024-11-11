@@ -3,7 +3,6 @@ import NavigationGroup from "./NavigationGroup";
 import { ApplicationState, LayoutState } from "../../data/states";
 import ActionGroup from "./ActionGroup";
 import SearchGroup from "./SearchGroup";
-import useDebugContext from "../../hooks/useDebugContext";
 import {
   TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_ACTIONS,
   TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_GROUPS,
