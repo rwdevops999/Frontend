@@ -4,7 +4,6 @@ import { useAuth0 } from "@auth0/auth0-react";
 import HeaderActions from "./HeaderActions";
 import "./Header.css";
 import { HeaderState } from "../../data/states";
-import { debugState } from "../../data/utils";
 import { useConfig } from "../../configuration/useConfig";
 import {
   TUTOPEDIA_HEADER,

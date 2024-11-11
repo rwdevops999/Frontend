@@ -4,7 +4,7 @@ import {
   buildTutopediaForAdmin,
   buildTutopediaForServerCheckPage,
 } from "../../builders/Builders";
-import "./HeaderActionButtons.css";
+import "./HeaderActionButton.css";
 import {
   TUTOPEDIA_HEADER_ACTION_BUTTON_ADMIN,
   TUTOPEDIA_HEADER_ACTION_BUTTON_HOME,

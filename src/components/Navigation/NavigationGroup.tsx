@@ -3,7 +3,6 @@ import NavigationButton from "./NavigationButton";
 
 const NavigationGroup = ({
   count,
-  pages,
   selectedPage,
 }: {
   count: number;

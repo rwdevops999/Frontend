@@ -15,7 +15,6 @@ import { MuiChipsInputChip } from "../components/MUI/mui.types";
 import { MuiChipsInput } from "../components/MUI/MuiChipsInput";
 import {
   buildState,
-  buildTutopediaForFind,
   buildTutopediaForFindByKeyword,
   buildTutopediaForViewAllTutorials,
 } from "../builders/Builders";

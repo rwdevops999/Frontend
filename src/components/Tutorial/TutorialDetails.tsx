@@ -16,8 +16,6 @@ import {
   buildTutopediaForCreate,
   buildTutopediaForViewAllPublishedTutorials,
 } from "../../builders/Builders";
-import { LISTVIEW_PUBLISH, LISTVIEW_UPDATE } from "../../data/consts";
-import useDebugContext from "../../hooks/useDebugContext";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useConfig } from "../../configuration/useConfig";
@@ -42,8 +40,6 @@ const TutorialDetails = ({
 }) => {
   const navigate = useNavigate();
   const { config } = useConfig();
-
-  const { debug } = useDebugContext();
 
   const editTutorial = (id: number): void => {
     const tutopedia = buildTutopediaForCreate(

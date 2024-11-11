@@ -1,4 +1,3 @@
-import { Box } from "@mui/material";
 import { CODE_TENANT } from "../../data/data";
 import OCISettings from "./OCISettings";
 

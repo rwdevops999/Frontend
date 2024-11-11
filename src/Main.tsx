@@ -8,10 +8,8 @@ import "@fontsource/roboto/700.css";
 import "./main.css";
 import App from "./App";
 import ConfigProvider from "./configuration/useConfig";
-import Test from "./Testing/Test";
 createRoot(document.getElementById("root")!).render(
   <ConfigProvider>
     <App />
   </ConfigProvider>
-  // <Test />
 );

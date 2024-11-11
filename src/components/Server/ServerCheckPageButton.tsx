@@ -2,10 +2,7 @@ import { useNavigate } from "react-router-dom";
 import "./ServerCheckPageButton.css";
 import { ConnectionState } from "../../hooks/useServerConnect";
 import { TutopediaState } from "../../data/states";
-import { debugState } from "../../data/utils";
 import { buildState, buildTutopediaForHome } from "../../builders/Builders";
-import { SERVER_APPLICATION, SERVER_RETRY } from "../../data/consts";
-import useDebugContext from "../../hooks/useDebugContext";
 import {
   TUTOPEDIA_CONTENT_SERVER_CHECK_PAGE_ACTION,
   TUTOPEDIA_CONTENT_SERVER_CHECK_PAGE_ACTION_APPLICATION,
@@ -22,7 +19,6 @@ const ServerCheckPageButton = ({
   buttons: any[];
 }) => {
   const navigate = useNavigate();
-  const { debug } = useDebugContext();
 
   let buttonId = connectState === ConnectionState.failed ? 0 : 1;
 

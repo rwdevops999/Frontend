@@ -1,5 +1,5 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import "./HeaderActionButtons.css";
+import "./HeaderActionButton.css";
 import { TUTOPEDIA_HEADER_ACTION_BUTTON_LOGIN } from "../../data/layout/layout";
 
 const LoginButton = () => {

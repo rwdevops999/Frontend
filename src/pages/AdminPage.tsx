@@ -1,4 +1,4 @@
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import { TUTOPEDIA_CONTENT_ADMIN_PAGE } from "../data/layout/layout";
 import { Box } from "@mui/material";
 import AdminControl from "../components/Admin/AdminControl";

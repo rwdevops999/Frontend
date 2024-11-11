@@ -41,6 +41,35 @@ const buildTutopedia = (
   return topBuilder.build();
 };
 
+export const buildTutopediaForStartup = (
+  count: number,
+  description: string,
+  sender: string,
+  routeURL: string,
+  user?: string,
+  bucket?: string
+): TutopediaState => {
+  let headerBuilder = new HeaderBuilder();
+
+  if (user) {
+    headerBuilder.setUser(user);
+  }
+
+  if (bucket) {
+    headerBuilder.setBucket(bucket);
+  }
+
+  return buildTutopedia(
+    count,
+    description,
+    sender,
+    routeURL,
+    undefined,
+    undefined,
+    headerBuilder.build()
+  );
+};
+
 export const buildTutopediaForServerCheckPage = (
   count: number,
   description: string,
@@ -106,6 +135,37 @@ export const buildTutopediaForHome = (
   );
 };
 
+export const buildTutopediaForFindByKeyword = (
+  count: number,
+  description: string,
+  sender: string,
+  routeURL: string,
+  keywords?: string[]
+): TutopediaState => {
+  const appBuilder: ApplicationBuilder = new ApplicationBuilder();
+  appBuilder.setApiURL("/find/keywords/");
+
+  if (keywords) {
+    let dataBuilder: DataBuilder = new DataBuilder();
+
+    dataBuilder.setKeywords(keywords);
+    appBuilder.setData(dataBuilder.build());
+  }
+
+  const layoutBuilder: LayoutBuilder = new LayoutBuilder();
+  layoutBuilder.setSelectedPage(NavigationPageNames.Home);
+  layoutBuilder.setSelectedView(UndisplayedNavigationViewNames.Keywords);
+
+  return buildTutopedia(
+    count,
+    description,
+    sender,
+    routeURL,
+    layoutBuilder.build(),
+    appBuilder.build()
+  );
+};
+
 export const buildTutopediaForCreate = (
   count: number,
   description: string,
@@ -131,28 +191,6 @@ export const buildTutopediaForCreate = (
 
   const layoutBuilder: LayoutBuilder = new LayoutBuilder();
   layoutBuilder.setSelectedPage(NavigationPageNames.Create);
-
-  return buildTutopedia(
-    count,
-    description,
-    sender,
-    routeURL,
-    layoutBuilder.build(),
-    appBuilder.build()
-  );
-};
-
-export const buildTutopediaForFind = (
-  count: number,
-  description: string,
-  sender: string,
-  routeURL: string
-): TutopediaState => {
-  const appBuilder: ApplicationBuilder = new ApplicationBuilder();
-  appBuilder.setApiURL("/find");
-
-  const layoutBuilder: LayoutBuilder = new LayoutBuilder();
-  layoutBuilder.setSelectedPage(NavigationPageNames.Find);
 
   return buildTutopedia(
     count,
@@ -288,6 +326,37 @@ export const buildTutopediaForViewAllNonPublishedTutorials = (
   );
 };
 
+export const buildTutopediaForFindById = (
+  count: number,
+  description: string,
+  sender: string,
+  routeURL: string,
+  tutorialId?: number
+): TutopediaState => {
+  const appBuilder: ApplicationBuilder = new ApplicationBuilder();
+  appBuilder.setApiURL("/find");
+
+  if (tutorialId) {
+    const dataBuilder: DataBuilder = new DataBuilder();
+
+    dataBuilder.setSearchId(tutorialId);
+    appBuilder.setData(dataBuilder.build());
+  }
+
+  const layoutBuilder: LayoutBuilder = new LayoutBuilder();
+  layoutBuilder.setSelectedPage(NavigationPageNames.Home);
+  layoutBuilder.setSelectedView(UndisplayedNavigationViewNames.ById);
+
+  return buildTutopedia(
+    count,
+    description,
+    sender,
+    routeURL,
+    layoutBuilder.build(),
+    appBuilder.build()
+  );
+};
+
 export const buildTutopediaForDeleteAll = (
   count: number,
   description: string,
@@ -338,133 +407,6 @@ export const buildTutopediaForPublishAll = (
   );
 };
 
-export const buildTutopediaForFindById = (
-  count: number,
-  description: string,
-  sender: string,
-  routeURL: string,
-  tutorialId?: number
-): TutopediaState => {
-  const appBuilder: ApplicationBuilder = new ApplicationBuilder();
-  appBuilder.setApiURL("/find");
-
-  if (tutorialId) {
-    const dataBuilder: DataBuilder = new DataBuilder();
-
-    dataBuilder.setSearchId(tutorialId);
-    appBuilder.setData(dataBuilder.build());
-  }
-
-  const layoutBuilder: LayoutBuilder = new LayoutBuilder();
-  layoutBuilder.setSelectedPage(NavigationPageNames.Home);
-  layoutBuilder.setSelectedView(UndisplayedNavigationViewNames.ById);
-
-  return buildTutopedia(
-    count,
-    description,
-    sender,
-    routeURL,
-    layoutBuilder.build(),
-    appBuilder.build()
-  );
-};
-
-export const buildTutopediaForFindByKeyword = (
-  count: number,
-  description: string,
-  sender: string,
-  routeURL: string,
-  keywords?: string[]
-): TutopediaState => {
-  const appBuilder: ApplicationBuilder = new ApplicationBuilder();
-  appBuilder.setApiURL("/find/keywords/");
-
-  if (keywords) {
-    let dataBuilder: DataBuilder = new DataBuilder();
-
-    dataBuilder.setKeywords(keywords);
-    appBuilder.setData(dataBuilder.build());
-  }
-
-  const layoutBuilder: LayoutBuilder = new LayoutBuilder();
-  layoutBuilder.setSelectedPage(NavigationPageNames.Home);
-  layoutBuilder.setSelectedView(UndisplayedNavigationViewNames.Keywords);
-
-  return buildTutopedia(
-    count,
-    description,
-    sender,
-    routeURL,
-    layoutBuilder.build(),
-    appBuilder.build()
-  );
-};
-
-export const buildAuth0 = (
-  isAuthenticated: boolean,
-  isLoading: boolean,
-  user: string | undefined
-): AuthState => {
-  const authBuilder: AuthBuilder = new AuthBuilder();
-
-  authBuilder.setIsAuthenticated(isAuthenticated);
-  authBuilder.setIsLoading(isLoading);
-  authBuilder.setUser(user);
-
-  return authBuilder.build();
-};
-
-export const buildTutopediaForStartup = (
-  count: number,
-  description: string,
-  sender: string,
-  routeURL: string,
-  user?: string,
-  bucket?: string
-): TutopediaState => {
-  let headerBuilder = new HeaderBuilder();
-
-  if (user) {
-    headerBuilder.setUser(user);
-  }
-
-  if (bucket) {
-    headerBuilder.setBucket(bucket);
-  }
-
-  return buildTutopedia(
-    count,
-    description,
-    sender,
-    routeURL,
-    undefined,
-    undefined,
-    headerBuilder.build()
-  );
-};
-
-/**
- * This is for sending with navigate
- *
- * @param tstate Builds {state: {tutopedia: ...}}
- * @returns
- */
-export const buildState = (tstate: TutopediaState): any => {
-  let state = { state: { tutopedia: tstate } };
-  return state;
-};
-
-/**
- * This is for setting location.state
- *
- * @param tstate
- * @returns
- */
-export const buildStateWithoutStateKeyword = (tstate: TutopediaState): any => {
-  let state = { tutopedia: tstate };
-  return state;
-};
-
 export const buildTutopediaForAdmin = (
   count: number,
   description: string,
@@ -492,4 +434,40 @@ export const buildTutopediaForAdmin = (
     appBuilder.build(),
     bucketname ? headerBuilder.build() : undefined
   );
+};
+
+export const buildAuth0 = (
+  isAuthenticated: boolean,
+  isLoading: boolean,
+  user: string | undefined
+): AuthState => {
+  const authBuilder: AuthBuilder = new AuthBuilder();
+
+  authBuilder.setIsAuthenticated(isAuthenticated);
+  authBuilder.setIsLoading(isLoading);
+  authBuilder.setUser(user);
+
+  return authBuilder.build();
+};
+
+/**
+ * This is for sending with navigate
+ *
+ * @param tstate Builds {state: {tutopedia: ...}}
+ * @returns
+ */
+export const buildState = (tstate: TutopediaState): any => {
+  let state = { state: { tutopedia: tstate } };
+  return state;
+};
+
+/**
+ * This is for setting location.state
+ *
+ * @param tstate
+ * @returns
+ */
+export const buildStateWithoutStateKeyword = (tstate: TutopediaState): any => {
+  let state = { tutopedia: tstate };
+  return state;
 };

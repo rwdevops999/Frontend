@@ -1,7 +1,6 @@
 import { styled } from "@mui/material";
 import MuiButton from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
-import { debugString } from "../../data/utils";
 import { TutopediaState } from "../../data/states";
 import {
   NavigationViewNames,
@@ -76,7 +75,7 @@ const DisplayButton = ({
         );
         break;
       default:
-        debugString("DisplayButton", `INVALID VIEW ${view}`);
+        console.log("DisplayButton", `INVALID VIEW ${view}`);
     }
 
     if (tutopedia) {
@@ -102,7 +101,6 @@ const DisplayButton = ({
             : false
           : true
       }
-      // disabled={isDisabled(view)}
       onClick={() => handleViewChange(view)}
     >
       {view}

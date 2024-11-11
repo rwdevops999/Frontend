@@ -156,8 +156,6 @@ describe("OCIPage", () => {
       selected: true,
     });
 
-    const bucket = getDBBucketByIndex(0);
-
     renderRoute(`/${ROUTE_TUTORIALS}/${ROUTE_OCI}`);
 
     /**
@@ -190,9 +188,6 @@ describe("OCIPage", () => {
       id: 3,
       name: "bucketname3",
     });
-
-    // GET THE SECOND BUCKET
-    const bucket = getDBBucketByIndex(1);
 
     // RENDER OCI
     renderRoute(`/${ROUTE_TUTORIALS}/${ROUTE_OCI}`);

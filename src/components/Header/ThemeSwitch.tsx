@@ -46,37 +46,6 @@ const ThemeSwitch = () => {
       </label>
     </>
   );
-
-  {
-    /* <div className="btn-container">
-      <img
-        className="icon-26 tooltip-test filter-sun"
-        title="login"
-        src="/src/assets/sun.svg"
-      />
-      <label className="switch btn-color-mode-switch">
-        <input
-          value="1"
-          id="color_mode"
-          name="color_mode"
-          type="checkbox"
-          checked={!isLight}
-          onChange={handleChangeTheme}
-        />
-        <label
-          className="btn-color-mode-switch-inner"
-          data-off="Light"
-          data-on="Dark"
-          htmlFor="color_mode"
-        ></label>
-      </label>
-      <img
-        className="icon-26 tooltip-test filter-moon"
-        title="login"
-        src="/src/assets/moon.svg"
-      />
-    </div> */
-  }
 };
 
 export default ThemeSwitch;

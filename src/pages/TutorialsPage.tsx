@@ -1,12 +1,6 @@
 import { Box } from "@mui/material";
 import { Outlet, useLocation } from "react-router-dom";
 import NavigationBar from "../components/Navigation/NavigationBar";
-import { debugState } from "../data/utils";
-import useDebugContext from "../hooks/useDebugContext";
-import {
-  buildStateWithoutStateKeyword,
-  buildTutopediaForStartup,
-} from "../builders/Builders";
 import { Toaster } from "react-hot-toast";
 import { useConfig } from "../configuration/useConfig";
 import {
@@ -16,14 +10,9 @@ import {
 } from "../data/layout/layout";
 
 const TutorialsPage = () => {
-  let { debug } = useDebugContext();
   const { config } = useConfig();
 
   const location = useLocation();
-  // if (location.state === null) {
-  //   const tutopedia = buildTutopediaForStartup(0, "Startup", TUTOPEDIA, "/");
-  //   location.state = buildStateWithoutStateKeyword(tutopedia);
-  // }
 
   const state = location.state;
 

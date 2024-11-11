@@ -6,7 +6,6 @@ import {
   buildTutopediaForPublishAll,
   buildTutopediaForViewAllTutorials,
 } from "../../builders/Builders";
-import useDebugContext from "../../hooks/useDebugContext";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useConfig } from "../../configuration/useConfig";
@@ -26,7 +25,6 @@ const ActionButton = ({
   action: string;
   selectedPage: string | undefined;
 }) => {
-  const { debug } = useDebugContext();
   const { config } = useConfig();
 
   const navigate = useNavigate();

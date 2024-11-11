@@ -13,8 +13,8 @@ Pipeline: Frontend
 
 # SMEE
 
-https://smee.io/2CXtjeyrGfVvlyZ
-smee -t http://localhost:9000/github-webhook -u https://smee.io/2CXtjeyrGfVvlyZ
+https://smee.io/rfhcFt8ajDD8fu
+smee -t http://localhost:9000/github-webhook/ -u https://smee.io/rfhcFt8ajDD8fu
 
 # GITHIB
 

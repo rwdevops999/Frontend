@@ -1,6 +1,6 @@
-import React from "react";
+import { useContext } from "react";
 import DebugContext from "../providers/DebugContext";
 
 export default function useDebugContext() {
-  return React.useContext(DebugContext); // This causes the error
+  return useContext(DebugContext); // This causes the error
 }

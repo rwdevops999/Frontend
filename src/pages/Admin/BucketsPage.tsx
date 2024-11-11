@@ -46,26 +46,18 @@ const BucketsPage = () => {
   const setPage = (loadedBuckets: Bucket[]): void => {
     // let page = 0;
     let pages = Math.floor(loadedBuckets.length / bucketsPerPage) + 1;
-    console.log("PAGE CALCULATION");
-    console.log("BUCKETS: " + loadedBuckets.length);
-    console.log("PAGES = " + pages);
-    console.log("CURRENT PAGE");
     if (currentPage >= pages) {
-      console.log("SET CURRENT PAGE TO " + pages);
       setCurrentPage(pages);
     }
 
     const newOffset =
       ((currentPage - 1) * bucketsPerPage) % loadedBuckets.length;
-    console.log("[ADMINPage] PAGE CHANGED => RESET BEGIN OFFSET");
     setBeginOffset(newOffset);
   };
 
   useEffect(() => {
     async function getBuckets() {
-      console.log("[AdminPage] SET LOADING ON");
       setLoading(true);
-      console.log("[AdminPage] CALLING AXIOS");
       await axios
         .get("/bucket/find")
         .then((response) => {

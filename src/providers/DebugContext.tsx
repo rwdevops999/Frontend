@@ -1,6 +1,6 @@
-import React from "react";
+import { createContext } from "react";
 
-const DebugContext = React.createContext({
+const DebugContext = createContext({
   debug: true,
   setDebug: (_b: boolean) => {},
 });

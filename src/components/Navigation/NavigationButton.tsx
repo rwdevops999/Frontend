@@ -7,12 +7,11 @@ import CreateIcon from "@mui/icons-material/Create";
 import ImageSearchIcon from "@mui/icons-material/ImageSearch";
 import { NavigationPageNames } from "../../data/data";
 import { useNavigate } from "react-router-dom";
-import { debugString } from "../../data/utils";
 import { TutopediaState } from "../../data/states";
 import {
   buildState,
   buildTutopediaForCreate,
-  buildTutopediaForFind,
+  buildTutopediaForFindByKeyword,
   buildTutopediaForHome,
   buildTutopediaForOCI,
 } from "../../builders/Builders";
@@ -56,7 +55,7 @@ const NavigationButton = ({
         );
         break;
       case NavigationPageNames.Find:
-        tutopedia = buildTutopediaForFind(
+        tutopedia = buildTutopediaForFindByKeyword(
           count,
           "Render the find by keywords page",
           TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_GROUPS_FIND,

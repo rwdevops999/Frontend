@@ -1,5 +1,3 @@
-import { render, screen } from "@testing-library/react";
-
 import {
   ROUTE_TUTORIALS,
   TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE,
