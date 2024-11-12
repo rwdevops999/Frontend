@@ -7,14 +7,12 @@ const OCISettings = ({
   value,
   img,
   handleInput,
-  factor,
 }: {
   name: string;
   readOnly: boolean;
   value: string | undefined;
   img?: string;
   handleInput?(value: string): void;
-  factor?: number;
 }) => {
   const text = `Enter ${name} here...`;
 

@@ -35,6 +35,7 @@ const OCIPanel = () => {
     getSetting(OCI_REGION);
   }, []);
 
+  /*
   const handleCreate = (code: string): void => {
     console.log(`CREATE (${code})`);
   };
@@ -42,7 +43,7 @@ const OCIPanel = () => {
   const handleUpdate = (code: string): void => {
     console.log(`UPDATE (${code})`);
   };
-
+*/
   return (
     <>
       <OCISettings
