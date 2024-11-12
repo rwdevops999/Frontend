@@ -3,46 +3,53 @@ import { TutopediaTextFieldStandard } from "../MUI/TutopediaTextFieldStandard";
 
 const OCISettings = ({
   name,
-  img,
+  readOnly,
   value,
+  img,
   handleInput,
-  code,
   factor,
 }: {
   name: string;
-  img: string;
+  readOnly: boolean;
   value: string | undefined;
-  handleInput(value: number): void;
-  code: number;
-  factor: number;
+  img?: string;
+  handleInput?(value: string): void;
+  factor?: number;
 }) => {
-  console.log("SET VALUE = " + value);
   const text = `Enter ${name} here...`;
-  console.log("TEXT = " + text);
 
-  const iwidth = 15 * factor + "%";
-  const iheight = 35 * factor + "%";
+  let boxHeight = "30%";
 
   return (
-    <Box id="OCI_SETTINGS_BOX" width={"100%"} height={"100%"}>
-      <img src={img} width={iwidth} height={iheight} />
-      <Typography variant="h6">
-        {name}
-        <TutopediaTextFieldStandard
-          variant="standard"
-          placeholder={text}
-          sx={{ marginLeft: "2%", width: "50%" }}
-          defaultValue={value}
-        />
-        <Button
-          data-title="SETTINGS_PAGE_ACTION_BUTTON"
-          sx={{ marginLeft: "2%" }}
-          onClick={() => handleInput(code)}
-        >
-          {value ? "Update" : "Create"}
-        </Button>
-      </Typography>
-    </Box>
+    <>
+      {img && <img src={img} width={"15%"} height={"55%"} />}
+      <Box
+        id="OCI_SETTINGS_BOX"
+        width={"100%"}
+        height={boxHeight}
+        sx={{ marginTop: "5px" }}
+      >
+        <Typography variant="h6">
+          {name}
+          <TutopediaTextFieldStandard
+            variant="standard"
+            placeholder={text}
+            sx={{ marginLeft: "2%", width: "50%", backgroundColor: "#505050" }}
+            value={value}
+            disabled={readOnly}
+          />
+          {!readOnly && (
+            <Button
+              data-title="SETTINGS_PAGE_ACTION_BUTTON"
+              sx={{ marginLeft: "2%" }}
+              onClick={() => handleInput!(name)}
+            >
+              {value ? "Update" : "Create"}
+            </Button>
+          )}
+        </Typography>
+      </Box>
+    </>
   );
 };
 

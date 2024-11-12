@@ -6,7 +6,8 @@ import {
   TUTOPEDIA_HEADER_ACTION_BUTTON_HOME,
 } from "./layout/layout";
 
-export const CODE_TENANT = 1;
+export const OCI_TENANT = "OCI_Tenant";
+export const OCI_REGION = "OCI_Region";
 
 export const HeaderActionButtons = [
   {

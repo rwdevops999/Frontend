@@ -1,26 +1,62 @@
-import { CODE_TENANT } from "../../data/data";
+import { useEffect, useState } from "react";
+import { OCI_REGION, OCI_TENANT } from "../../data/data";
 import OCISettings from "./OCISettings";
+import axios from "axios";
+import { Setting } from "../../entities/Setting";
 
 const OCIPanel = () => {
-  let value: string | undefined;
+  const [settings, _] = useState<Map<string, string>>(
+    new Map<string, string>()
+  );
+  const [__, setReload] = useState<number>(0);
 
-  const handleCreate = (code: number): void => {
+  useEffect(() => {
+    async function getSetting(key: string) {
+      console.log("AXIOS CALL");
+      await axios
+        .get("/settings/" + key)
+        .then((response) => {
+          if (response.data) {
+            const setting: Setting = response.data;
+            setReload((x: any) => x + 1);
+            console.log("DATA RECEIVED: " + setting.value);
+            settings.set(setting.key, setting.value);
+          }
+        })
+        .catch(function (error) {
+          console.log(
+            `[OCIPanel] : Error retrieving setting: ${error.message}`
+          );
+        });
+    }
+
+    console.log("Loading OCI_Tenant");
+    getSetting(OCI_TENANT);
+    getSetting(OCI_REGION);
+  }, []);
+
+  const handleCreate = (code: string): void => {
     console.log(`CREATE (${code})`);
   };
 
-  const handleUpdate = (code: number): void => {
+  const handleUpdate = (code: string): void => {
     console.log(`UPDATE (${code})`);
   };
 
   return (
-    <OCISettings
-      name="Tenant ID"
-      img="/src/assets/oci.png"
-      value={value}
-      handleInput={value ? handleUpdate : handleCreate}
-      code={CODE_TENANT}
-      factor={1.0}
-    />
+    <>
+      <OCISettings
+        name={OCI_TENANT}
+        img="/src/assets/oci.png"
+        readOnly={true}
+        value={settings.get("OCI_Tenant")}
+      />
+      <OCISettings
+        name={OCI_REGION}
+        readOnly={true}
+        value={settings.get("OCI_Region")}
+      />
+    </>
   );
 };
 
