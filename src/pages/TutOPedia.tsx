@@ -23,6 +23,7 @@ import {
   TUTOPEDIA_HEADER,
 } from "../data/layout/layout";
 import { log } from "../utils/LogUtil";
+import toast from "react-hot-toast";
 
 function TutOPedia() {
   let { debug, setDebug } = useDebugContext();
@@ -58,7 +59,8 @@ function TutOPedia() {
           }
         })
         .catch(function () {
-          log(debug, "Tutopedia", "Error loading default bucket");
+          log(debug, "Tutopedia", "Error loading default bucket. Not set yet");
+          toast("No default bucket set yet");
         });
     }
 
