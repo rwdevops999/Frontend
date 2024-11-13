@@ -189,7 +189,11 @@ const BucketContainer = ({
   };
 
   return (
-    <div id={bucket.name} data-title={BUCKET_CONTAINER}>
+    <div
+      id={bucket.name}
+      data-title={BUCKET_CONTAINER}
+      onClick={() => alert("Test")}
+    >
       <Box
         data-title={BUCKET_CONTAINER_BUCKET}
         width={200}
