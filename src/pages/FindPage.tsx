@@ -28,16 +28,23 @@ import {
   TUTOPEDIA_CONTENT_FIND_PAGE_BUTTONS_FIND_BUTTON,
   TUTOPEDIA_CONTENT_FIND_PAGE_FORM,
 } from "../data/layout/layout";
+import { log } from "../utils/LogUtil";
+import useDebugContext from "../hooks/useDebugContext";
 
 const FindPage = () => {
   const navigate = useNavigate();
   const { config } = useConfig();
+  const { debug } = useDebugContext();
+
   let { state } = useLocation();
+
+  log(debug, "FindPage", "In, State", state, true);
 
   let count = state.tutopedia.count;
   if (count >= 0) {
     count++;
   }
+  log(debug, "FindPage", "Count", count);
 
   const theme = createTheme({
     palette: {
@@ -102,6 +109,7 @@ const FindPage = () => {
   });
 
   const navigateToHome = (): void => {
+    log(debug, "FindPage", "Back to home...");
     const tutopedia = buildTutopediaForViewAllTutorials(
       count,
       "Return from the create page",
@@ -114,6 +122,7 @@ const FindPage = () => {
 
   const handleFind = () => {
     if (keywords.length > 0) {
+      log(debug, "FindPage", "Find it...", keywords, true);
       const tutopedia = buildTutopediaForFindByKeyword(
         count,
         "Find By Keywords",

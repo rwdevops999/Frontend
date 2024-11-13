@@ -37,11 +37,16 @@ import {
   TUTOPEDIA_CONTENT_CREATE_PAGE_LOADER,
   TUTOPEDIA_CONTENT_CREATE_PAGE_UPDATE_BUTTON,
 } from "../data/layout/layout";
+import { log } from "../utils/LogUtil";
+import useDebugContext from "../hooks/useDebugContext";
 
 const CreatePage = () => {
   const navigate = useNavigate();
   const { config } = useConfig();
   let { state } = useLocation();
+  const { debug } = useDebugContext();
+
+  log(debug, "CreatePage", "In, State", state, true);
 
   let data = state.tutopedia.application.data;
 
@@ -57,6 +62,7 @@ const CreatePage = () => {
   if (count >= 0) {
     count++;
   }
+  log(debug, "CreatePage", "Count", count);
 
   const [tutorial, setTutorial] = useState<Tutorial[]>();
   const [isLoading, setLoading] = useState<boolean>(false);
@@ -74,11 +80,13 @@ const CreatePage = () => {
           .get("/find/" + tutorialId)
           .then((response) => {
             if (response.data) {
+              log(debug, "CreatePage", "Found tutorial", response.data, true);
               setTutorial(response.data);
               setLoading(false);
             }
           })
           .catch(function (error) {
+            log(debug, "CreatePage", "Find tutorial, Error", error.message);
             setLoading(false);
             setError(error.message);
           });
@@ -91,6 +99,7 @@ const CreatePage = () => {
   const file = useRef<any>(null);
 
   const navigateToHome = (buttonName: string) => {
+    log(debug, "CreatePage", `Back to home with ${buttonName}`);
     const tutopedia = buildTutopediaForViewAllTutorials(
       count,
       "Return from the create page",

@@ -14,11 +14,15 @@ import {
   TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_ITEMS,
   TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_LOADER,
 } from "../data/layout/layout";
+import { log } from "../utils/LogUtil";
+import useDebugContext from "../hooks/useDebugContext";
 
 const TutorialsListPage = () => {
   const { config } = useConfig();
+  const { debug } = useDebugContext();
 
   let location = useLocation();
+  log(debug, "TutorialsListPage", `In, location`, location, true);
 
   const [tutorials, setTutorials] = useState<Tutorial[]>([]);
   const [isLoading, setLoading] = useState<boolean>(false);
@@ -57,6 +61,7 @@ const TutorialsListPage = () => {
   if (count >= 0) {
     count++;
   }
+  log(debug, "TutorialsListPage", "Count", count);
 
   const goBack = () => {
     setError(undefined);
@@ -87,6 +92,13 @@ const TutorialsListPage = () => {
         .get(apiURL)
         .then((response) => {
           if (response.data) {
+            log(
+              debug,
+              "TutorialsListPage",
+              "Tutorials loaded",
+              response.data,
+              true
+            );
             setTutorials(response.data);
             setPage(response.data);
             if (config.environment != "TST") {
@@ -102,13 +114,18 @@ const TutorialsListPage = () => {
           }
         })
         .catch(function (error) {
+          log(
+            debug,
+            "TutorialsListPage",
+            "Error loading tutorials",
+            error.message
+          );
           setLoading(false);
           if (config.environment !== "TST") {
             if (error.response.status === 404) {
               setTutorials([]);
               toast.error("No Tutorials found");
             } else {
-              console.log("[TutorialsListPage] SET ERROR");
               setError(error.message);
             }
           } else {

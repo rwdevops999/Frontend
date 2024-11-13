@@ -28,6 +28,8 @@ import {
   TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_ITEMS_PUBLISH,
   TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_ITEMS_UPDATE,
 } from "../../data/layout/layout";
+import { log } from "../../utils/LogUtil";
+import useDebugContext from "../../hooks/useDebugContext";
 
 const TutorialDetails = ({
   count,
@@ -40,8 +42,12 @@ const TutorialDetails = ({
 }) => {
   const navigate = useNavigate();
   const { config } = useConfig();
+  const { debug } = useDebugContext();
+
+  log(debug, "TutorialsListPage.Details", "Setup");
 
   const editTutorial = (id: number): void => {
+    log(debug, "TutorialsListPage.Details", "Update tutorial", id);
     const tutopedia = buildTutopediaForCreate(
       count,
       "Update tutorial",
@@ -57,6 +63,7 @@ const TutorialDetails = ({
   };
 
   const publishTutorialById = async (id: number) => {
+    log(debug, "TutorialsListPage.Details", "Publish tutorial", id);
     await axios
       .put("/publish/" + id)
       .then(() => {
@@ -82,6 +89,7 @@ const TutorialDetails = ({
   };
 
   const deleteTutorialById = async (id: number) => {
+    log(debug, "TutorialsListPage.Details", "Delete tutorial", id);
     await axios.delete("/delete/" + id).then(() => {
       if (config.environment != "TST") {
         toast.loading("Delete tutorial: " + id);
