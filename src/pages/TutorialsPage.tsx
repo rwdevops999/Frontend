@@ -8,13 +8,15 @@ import {
   TUTOPEDIA_CONTENT_TUTORIALS_PAGE_CONTENT,
   TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR,
 } from "../data/layout/layout";
+import useDebugContext from "../hooks/useDebugContext";
+import { log } from "../utils/LogUtil";
 
 const TutorialsPage = () => {
   const { config } = useConfig();
+  const { debug } = useDebugContext();
 
-  const location = useLocation();
-
-  const state = location.state;
+  const { state } = useLocation();
+  log(debug, "TutorialsPage", "IN, state", state, true);
 
   const layout = state.tutopedia.layout;
   const application = state.tutopedia.application;
@@ -23,6 +25,7 @@ const TutorialsPage = () => {
   if (count >= 0) {
     count++;
   }
+  log(debug, "TutorialsPage", "count", count);
 
   return (
     <header data-title={TUTOPEDIA_CONTENT_TUTORIALS_PAGE}>

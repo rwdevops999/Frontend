@@ -10,14 +10,19 @@ import {
   TUTOPEDIA_CONTENT_SERVER_CHECK_PAGE_ACTION,
   TUTOPEDIA_CONTENT_SERVER_CHECK_PAGE_LOADER,
 } from "../data/layout/layout";
+import useDebugContext from "../hooks/useDebugContext";
+import { log } from "../utils/LogUtil";
+import { useTutopediaState } from "../hooks/states/useTutopediaState";
 
 const ServerCheckPage = () => {
-  let { state } = useLocation();
+  const { state } = useLocation();
+  const { debug } = useDebugContext();
 
   let count = state.tutopedia.count;
   if (count >= 0) {
     count++;
   }
+  log(debug, "ServerCheckPage", "Count", count);
 
   let { connectionState } = useServerConnect();
 
@@ -28,6 +33,8 @@ const ServerCheckPage = () => {
   useEffect(() => {
     setConnectState(connectionState);
   }, []);
+
+  const { header } = useTutopediaState(state);
 
   return (
     <header data-title={TUTOPEDIA_CONTENT_SERVER_CHECK_PAGE}>
@@ -48,6 +55,7 @@ const ServerCheckPage = () => {
               count={count}
               connectState={connectState}
               buttons={ServerPageButtons}
+              header={header}
             />
           </Box>
         )}

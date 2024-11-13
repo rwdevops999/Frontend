@@ -96,7 +96,7 @@ function TutOPedia() {
       case "/":
         log(debug, "Tutopedia", "building startup state", " for '/'");
         tutopedia = buildTutopediaForStartup(
-          0,
+          count,
           "Startup",
           TUTOPEDIA,
           location.pathname,
@@ -107,7 +107,7 @@ function TutOPedia() {
       case "/tutorials":
         log(debug, "Tutopedia", "building home state", " for '/tutorials'");
         tutopedia = buildTutopediaForHome(
-          0,
+          count,
           "TutOPedia create Mock",
           TUTOPEDIA,
           location.pathname,
@@ -123,7 +123,7 @@ function TutOPedia() {
           " for '/tutorials/oci'"
         );
         tutopedia = buildTutopediaForOCI(
-          0,
+          count,
           "TutOPedia create Mock",
           TUTOPEDIA,
           location.pathname,
@@ -138,7 +138,7 @@ function TutOPedia() {
           " for '/admin'"
         );
         tutopedia = buildTutopediaForAdmin(
-          0,
+          count,
           "TutOPedia create Mock",
           TUTOPEDIA,
           location.pathname,
