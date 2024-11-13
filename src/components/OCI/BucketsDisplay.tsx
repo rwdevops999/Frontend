@@ -3,6 +3,8 @@ import Grid from "@mui/material/Grid2";
 import { Bucket } from "../../entities/Bucket";
 import BucketContainer from "./BucketContainer";
 import { BUCKETS_DISPLAY } from "../../data/layout/layout";
+import { log } from "../../utils/LogUtil";
+import useDebugContext from "../../hooks/useDebugContext";
 
 const BucketsDisplay = ({
   isAdmin,
@@ -17,6 +19,12 @@ const BucketsDisplay = ({
   setReload(val: any): void;
   setError(val: string): void;
 }) => {
+  const { debug } = useDebugContext();
+
+  log(debug, "BucketsPage.Display", "Setup, IS ADMIN", isAdmin);
+  log(debug, "BucketsPage.Display", "Setup, Count", count);
+  log(debug, "BucketsPage.Display", "Setup, Buckets", buckets, true);
+
   return (
     <Box sx={{ flexGrow: 1, p: 1 }} data-title={BUCKETS_DISPLAY}>
       <Grid

@@ -44,6 +44,8 @@ import {
   ROUTE_OCI,
   ROUTE_TUTORIALS,
 } from "../../data/layout/layout";
+import useDebugContext from "../../hooks/useDebugContext";
+import { log } from "../../utils/LogUtil";
 
 const BucketContainer = ({
   isAdmin,
@@ -60,6 +62,9 @@ const BucketContainer = ({
 }) => {
   const { config } = useConfig();
   const navigate = useNavigate();
+  const { debug } = useDebugContext();
+
+  log(debug, "BucketsPage.Display.Container", "Setup", bucket, true);
 
   const [addEnabled, setAddEnabled] = useState<boolean>(false);
 
@@ -93,9 +98,15 @@ const BucketContainer = ({
         await axios
           .post("/bucket/create", bucket)
           .then(() => {
+            log(debug, "BucketsPage.Display.Container", "Bucket created");
             setReload((x: any) => x + 1);
           })
           .catch((error) => {
+            log(
+              debug,
+              "BucketsPage.Display.Container, ERROR Create Bucket",
+              error.message
+            );
             if (
               error instanceof AxiosError &&
               error.response &&
@@ -115,6 +126,11 @@ const BucketContainer = ({
   const handleDeleteBucket = async (bucket: Bucket) => {
     if (isAdmin) {
       if (bucket.selected) {
+        log(
+          debug,
+          "BucketsPage.Display.Container",
+          "Default bucket may not be deleted"
+        );
         setError("Default bucket can't be deleted");
       } else {
         if (config.environment != "TST") {
@@ -123,10 +139,15 @@ const BucketContainer = ({
         await axios
           .delete("/bucket/delete/" + bucket.id)
           .then(() => {
+            log(debug, "BucketsPage.Display.Container", "Deleted bucket");
             setReload((x: any) => x + 1);
           })
           .catch((error) => {
-            console.log("ERROR BY DELETE: " + JSON.stringify(error));
+            log(
+              debug,
+              "BucketsPage.Display.Container",
+              "Error deleting bucket"
+            );
             setError(error.message);
           });
       }
@@ -160,9 +181,11 @@ const BucketContainer = ({
   };
 
   const handleChangeDefault = async (bucket: Bucket) => {
+    log(debug, "BucketsPage.Display.Container", "Changing default");
     await axios.put("/bucket/default/" + bucket.id).then(() => {
       let tutopedia = undefined;
       if (isAdmin) {
+        log(debug, "BucketsPage.Display.Container", "Update Default for Admin");
         tutopedia = buildTutopediaForAdmin(
           count,
           "update default bucket",
@@ -171,6 +194,7 @@ const BucketContainer = ({
           bucket.name
         );
       } else {
+        log(debug, "BucketsPage.Display.Container", "Update Default for OCI");
         tutopedia = buildTutopediaForOCI(
           count,
           "update default bucket",

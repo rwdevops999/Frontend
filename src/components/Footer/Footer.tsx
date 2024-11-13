@@ -6,8 +6,13 @@ import {
   TUTOPEDIA_FOOTER_SOCIAL_MEDIA,
   TUTOPEDIA_FOOTER_TIME,
 } from "../../data/layout/layout";
+import { log } from "../../utils/LogUtil";
+import useDebugContext from "../../hooks/useDebugContext";
 
 const Footer = () => {
+  const { debug } = useDebugContext();
+
+  log(debug, "Tutopedia.Footer", "Setup");
   const [timeStr, setTimeStr] = useState<string>(
     new Date().toLocaleTimeString()
   );

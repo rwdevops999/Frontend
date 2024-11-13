@@ -1,3 +1,5 @@
+import useDebugContext from "../../hooks/useDebugContext";
+import { log } from "../../utils/LogUtil";
 import "./AdminControl.css";
 
 const AdminControlItem = ({
@@ -9,6 +11,10 @@ const AdminControlItem = ({
   checked: boolean;
   handleControlChange(controlId: string): void;
 }) => {
+  const { debug } = useDebugContext();
+
+  log(debug, "AdminPage.Control.Item", "Setup", control.name);
+
   return (
     <label>
       <input

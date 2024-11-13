@@ -4,6 +4,8 @@ import AuthStatus from "./AuthStatus";
 import { HeaderActionButtons } from "../../data/data";
 import HeaderActionButton from "./HeaderActionButton";
 import { HeaderState } from "../../data/states";
+import { log } from "../../utils/LogUtil";
+import useDebugContext from "../../hooks/useDebugContext";
 
 const HeaderActions = ({
   isAuthenticated,
@@ -14,6 +16,10 @@ const HeaderActions = ({
   count: number;
   header: HeaderState | undefined;
 }) => {
+  const { debug } = useDebugContext();
+
+  log(debug, "Tutopedia.Header.Actions", "Setup");
+
   return (
     <div className="parent">
       <ThemeSwitch />

@@ -12,6 +12,9 @@ import {
   TUTOPEDIA_HEADER_TITLE,
   TUTOPEDIA_HEADER_USER_NAME,
 } from "../../data/layout/layout";
+import { useLocation } from "react-router-dom";
+import { log } from "../../utils/LogUtil";
+import useDebugContext from "../../hooks/useDebugContext";
 
 const Header = ({
   header,
@@ -22,6 +25,11 @@ const Header = ({
 }) => {
   const { user, isAuthenticated } = useAuth0();
   const { config, setConfig } = useConfig();
+  const { debug } = useDebugContext();
+  const { state } = useLocation();
+
+  log(debug, "Tutopedia.Header", "Setup, STATE?", state, true);
+  log(debug, "Tutopedia.Header", "Setup", header, true);
 
   const getClassName = (icon: boolean = true): string => {
     if (config.environment) {
@@ -45,6 +53,7 @@ const Header = ({
     } else {
       setConfig({ environment: "TST" });
     }
+    log(debug, "Tutopedia.Header", "Config", config, true);
   };
 
   return (

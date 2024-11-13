@@ -1,5 +1,7 @@
 import { Box, Button, Typography } from "@mui/material";
 import { TutopediaTextFieldStandard } from "../MUI/TutopediaTextFieldStandard";
+import useDebugContext from "../../hooks/useDebugContext";
+import { log } from "../../utils/LogUtil";
 
 const OCISettings = ({
   name,
@@ -14,9 +16,14 @@ const OCISettings = ({
   img?: string;
   handleInput?(value: string): void;
 }) => {
+  const { debug } = useDebugContext();
+
   const text = `Enter ${name} here...`;
 
   let boxHeight = "30%";
+
+  log(debug, "SettingsPage.OCIPanel.OCISetting", "Name", name);
+  log(debug, "SettingsPage.OCIPanel.OCISetting", "Value", value);
 
   return (
     <>

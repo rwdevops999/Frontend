@@ -13,9 +13,14 @@ import {
 import { buildState, buildTutopediaForAdmin } from "../../builders/Builders";
 import { useNavigate } from "react-router-dom";
 import { TutopediaState } from "../../data/states";
+import { log } from "../../utils/LogUtil";
+import useDebugContext from "../../hooks/useDebugContext";
 
 const AdminControl = ({ count }: { count: number }) => {
   const navigate = useNavigate();
+  const { debug } = useDebugContext();
+
+  log(debug, "AdminPage.Control", "Setup");
 
   const [checked, setChecked] = useState<string>("");
 
@@ -38,6 +43,7 @@ const AdminControl = ({ count }: { count: number }) => {
 
     switch (controlId) {
       case TUTOPEDIA_CONTENT_ADMIN_PAGE_SETTINGS:
+        log(debug, "AdminPage.Control", "Go To Settings...");
         tutopedia = buildTutopediaForAdmin(
           count,
           "Go To Settings",
@@ -46,6 +52,7 @@ const AdminControl = ({ count }: { count: number }) => {
         );
         break;
       case TUTOPEDIA_CONTENT_ADMIN_PAGE_BUCKETS:
+        log(debug, "AdminPage.Control", "Go To Buckets...");
         tutopedia = buildTutopediaForAdmin(
           count,
           "Go To Buckets",

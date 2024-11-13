@@ -9,6 +9,8 @@ import {
   TUTOPEDIA_HEADER_ACTION_BUTTON_ADMIN,
   TUTOPEDIA_HEADER_ACTION_BUTTON_HOME,
 } from "../../data/layout/layout";
+import useDebugContext from "../../hooks/useDebugContext";
+import { log } from "../../utils/LogUtil";
 
 const HeaderActionButton = ({
   action,
@@ -22,9 +24,13 @@ const HeaderActionButton = ({
   bucket: string;
 }) => {
   const navigate = useNavigate();
+  const { debug } = useDebugContext();
+
+  log(debug, "Tutopedia.Header.Actions.Button", action.title);
 
   const handleHeaderAction = (action: any) => {
     if (action.actionId === TUTOPEDIA_HEADER_ACTION_BUTTON_ADMIN) {
+      log(debug, "Tutopedia.Header.Actions.Button", "To Admin");
       const tutopedia = buildTutopediaForAdmin(
         count,
         "Go to admin page",
@@ -37,6 +43,7 @@ const HeaderActionButton = ({
     }
 
     if (action.actionId === TUTOPEDIA_HEADER_ACTION_BUTTON_HOME) {
+      log(debug, "Tutopedia.Header.Actions.Button", "To Home");
       const tutopedia = buildTutopediaForServerCheckPage(
         count,
         "Restart",

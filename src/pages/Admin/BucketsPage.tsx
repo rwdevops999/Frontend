@@ -15,6 +15,7 @@ import {
   BUCKETS_PAGE_ERROR,
   BUCKETS_PAGE_LOADER,
 } from "../../data/layout/layout";
+import { log } from "../../utils/LogUtil";
 
 const BucketsPage = () => {
   let { debug } = useDebugContext();
@@ -25,10 +26,7 @@ const BucketsPage = () => {
   if (count >= 0) {
     count++;
   }
-
-  if (debug) {
-    console.log("[Admin Page] count: " + state.tutopedia.count);
-  }
+  log(debug, "BucketsPage", "In, Count", count);
 
   // FUNCTIONALITY
   const [buckets, setBuckets] = useState<Bucket[]>([{}]);
@@ -59,6 +57,7 @@ const BucketsPage = () => {
         .get("/bucket/find")
         .then((response) => {
           if (response.data) {
+            log(debug, "BucketsPage", "Found Buckets", response.data, true);
             setBuckets([...response.data, {}]);
             setPage([...response.data, {}]);
 
@@ -76,7 +75,12 @@ const BucketsPage = () => {
               setBuckets([]);
               toast.error("No Buckets found");
             } else {
-              console.log("[AdminPage] SET ERROR");
+              log(
+                debug,
+                "BucketsPage",
+                "Error  retrieving buckets",
+                error.message
+              );
               setError(error.message);
             }
           } else {
