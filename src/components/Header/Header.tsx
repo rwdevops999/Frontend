@@ -6,7 +6,6 @@ import "./Header.css";
 import { HeaderState } from "../../data/states";
 import { useConfig } from "../../configuration/useConfig";
 import {
-  TUTOPEDIA_HEADER,
   TUTOPEDIA_HEADER_ACTION_BUTTONS,
   TUTOPEDIA_HEADER_BUCKET_NAME,
   TUTOPEDIA_HEADER_TITLE,

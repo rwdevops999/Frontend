@@ -33,14 +33,6 @@ export const tutorialRestHandler = [
     const pub = url.searchParams.get("published");
 
     if (pub === "true") {
-      const tuts = database.tutorial.findMany({
-        where: {
-          published: {
-            equals: true,
-          },
-        },
-      });
-
       return HttpResponse.json(
         database.tutorial.findMany({
           where: {

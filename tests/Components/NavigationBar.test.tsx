@@ -283,10 +283,6 @@ describe("NavigationBar with Data", () => {
       screen.queryByTestId(`${TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_LOADER}`)
     );
 
-    const preDeleteItems = screen.getAllByTestId(
-      `${TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_ITEMS_ITEM}`
-    ).length;
-
     await waitFor(() => {
       clickButtonById(
         `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_ACTIONS_DELETE}`
