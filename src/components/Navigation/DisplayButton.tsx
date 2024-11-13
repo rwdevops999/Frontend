@@ -19,6 +19,8 @@ import {
   TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL_NON_PUBLISHED,
   TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL_PUBLISHED,
 } from "../../data/layout/layout";
+import useDebugContext from "../../hooks/useDebugContext";
+import { log } from "../../utils/LogUtil";
 
 const Button = styled(MuiButton)({
   "&.MuiButton-root": {
@@ -45,12 +47,16 @@ const DisplayButton = ({
   selectedView: string | undefined;
 }) => {
   const navigate = useNavigate();
+  const { debug } = useDebugContext();
+
+  log(debug, "NavigationBar.View.Button", "Setup");
 
   const handleViewChange = (view: string) => {
     let tutopedia: TutopediaState | undefined = undefined;
 
     switch (view) {
       case NavigationViewNames.All:
+        log(debug, "NavigationBar.View.Button", "Show All Tutorials...");
         tutopedia = buildTutopediaForViewAllTutorials(
           count,
           "Render All Tutorials",
@@ -59,6 +65,11 @@ const DisplayButton = ({
         );
         break;
       case NavigationViewNames.AllPub:
+        log(
+          debug,
+          "NavigationBar.View.Button",
+          "Show All Published Tutorials..."
+        );
         tutopedia = buildTutopediaForViewAllPublishedTutorials(
           count,
           "Render All Published Tutorials",
@@ -67,6 +78,11 @@ const DisplayButton = ({
         );
         break;
       case NavigationViewNames.NonPub:
+        log(
+          debug,
+          "NavigationBar.View.Button",
+          "Show All Non-Published Tutorials..."
+        );
         tutopedia = buildTutopediaForViewAllNonPublishedTutorials(
           count,
           "Render All Non-Published Tutorials",
@@ -75,7 +91,7 @@ const DisplayButton = ({
         );
         break;
       default:
-        console.log("DisplayButton", `INVALID VIEW ${view}`);
+        log(debug, "NavigationBar.View.Button", `Invalid view ${view}`);
     }
 
     if (tutopedia) {

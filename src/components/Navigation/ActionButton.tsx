@@ -15,6 +15,8 @@ import {
   TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_ACTIONS_DELETE,
   TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_ACTIONS_PUBLISH,
 } from "../../data/layout/layout";
+import useDebugContext from "../../hooks/useDebugContext";
+import { log } from "../../utils/LogUtil";
 
 const ActionButton = ({
   count,
@@ -26,12 +28,16 @@ const ActionButton = ({
   selectedPage: string | undefined;
 }) => {
   const { config } = useConfig();
+  const { debug } = useDebugContext();
+
+  log(debug, "NavigationBar.Action.Button", "Setup");
 
   const navigate = useNavigate();
 
   const handleAction = async (action: string) => {
     switch (action) {
       case "DELETE":
+        log(debug, "NavigationBar.Action.Button", "DELETE ALL");
         await axios.delete("/delete").then(() => {
           const tutopedia = buildTutopediaForViewAllTutorials(
             count,
@@ -48,6 +54,7 @@ const ActionButton = ({
         });
         break;
       case "PUBLISH":
+        log(debug, "NavigationBar.Action.Button", "PUBLISH ALL");
         await axios
           .put("/publish")
           .then(() => {
@@ -64,6 +71,7 @@ const ActionButton = ({
             navigate(tutopedia.routeURL!, buildState(tutopedia));
           })
           .catch((err) => {
+            log(debug, "NavigationBar.Action.Button", "Error publishing all");
             if (config.environment != "TST") {
               toast(`ERROR PUBLISH ALL TUTORIALS: ${err.message}`);
             }

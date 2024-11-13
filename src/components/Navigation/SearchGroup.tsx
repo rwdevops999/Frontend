@@ -12,6 +12,8 @@ import {
   ROUTE_TUTORIALS,
   TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_SEARCH_INPUT,
 } from "../../data/layout/layout";
+import { log } from "../../utils/LogUtil";
+import useDebugContext from "../../hooks/useDebugContext";
 
 const iconStyles: CSS.Properties = {
   color: "#0D3B69",
@@ -30,12 +32,16 @@ const SearchGroup = ({
   selectedPage: string | undefined;
 }) => {
   const navigate = useNavigate();
+  const { debug } = useDebugContext();
+
+  log(debug, "NavigationBar.Search", "Setup");
 
   const [searchId, setSearchId] = useState<string | undefined>(
     data ? data.searchId?.toString() : undefined
   );
 
   const findTutorialById = (tutorialId: number) => {
+    log(debug, "NavigationBar.Search", `Find Tutoral ${tutorialId}`);
     const tutopedia = buildTutopediaForFindById(
       count,
       "Search By Id",

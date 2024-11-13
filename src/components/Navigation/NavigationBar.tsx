@@ -10,6 +10,8 @@ import {
   TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS,
 } from "../../data/layout/layout";
 import DisplayView from "./DisplayView";
+import useDebugContext from "../../hooks/useDebugContext";
+import { log } from "../../utils/LogUtil";
 
 const NavigationBar = ({
   count,
@@ -20,6 +22,9 @@ const NavigationBar = ({
   layout: LayoutState | undefined;
   application: ApplicationState | undefined;
 }) => {
+  const { debug } = useDebugContext();
+  log(debug, "NavigationBar", "Setup");
+
   return (
     <Box display="flex" sx={{ width: "100%" }} marginTop={1}>
       <Box

@@ -1,4 +1,6 @@
 import { ActionNames } from "../../data/data";
+import useDebugContext from "../../hooks/useDebugContext";
+import { log } from "../../utils/LogUtil";
 import ActionButton from "./ActionButton";
 
 const ActionGroup = ({
@@ -8,6 +10,9 @@ const ActionGroup = ({
   count: number;
   selectedPage: string | undefined;
 }) => {
+  const { debug } = useDebugContext();
+
+  log(debug, "NavigationBar.Action", "Setup");
   return Object.values(ActionNames).map((action) => (
     <ActionButton
       key={action}
