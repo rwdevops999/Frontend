@@ -15,6 +15,7 @@ import {
   TUTOPEDIA_CONTENT_OCI_PAGE_ERROR,
   TUTOPEDIA_CONTENT_OCI_PAGE_LOADER,
 } from "../data/layout/layout";
+import { log } from "../utils/LogUtil";
 
 const OCIPage = () => {
   let { debug } = useDebugContext();
@@ -25,6 +26,7 @@ const OCIPage = () => {
   if (count >= 0) {
     count++;
   }
+  log(debug, "OCIPage", "Count", count);
 
   // FUNCTIONALITY
   const [buckets, setBuckets] = useState<Bucket[]>([{}]);
@@ -48,6 +50,7 @@ const OCIPage = () => {
         .get("/bucket/find")
         .then((response) => {
           if (response.data) {
+            log(debug, "OCIPage", "Found Buckets", response.data, true);
             setBuckets([...response.data]);
             // setPage(response.data);
             if (config.environment != "TST") {
@@ -65,6 +68,7 @@ const OCIPage = () => {
               setBuckets([]);
               toast.error("No Buckets found");
             } else {
+              log(debug, "OCIPage", "Find Buckets, ERROR", error.message);
               console.log("[OCIPage] SET ERROR");
               setError(error.message);
             }
