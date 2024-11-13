@@ -1,4 +1,4 @@
-@Library("shared-library@main") _
+@Library("shared-library@master") _
 
 def isValid = true
 
@@ -23,6 +23,7 @@ pipeline {
 
 		stage("init") {
 			steps {
+				build job: 'DockerCompose', parameters: [string(name: 'COMPOSE', value: 'DOWN' )], wait: true 
 			    sh 'npm ci'
 			}
 
@@ -124,6 +125,18 @@ pipeline {
 				'''
 			}
        }
+
+		stage("finalize") {
+			when {
+		    	expression {
+		        	isValid
+    			}
+		  	}
+
+		  	steps {
+				build job: 'DockerCompose', parameters: [string(name: 'COMPOSE', value: 'UP' )], wait: true 
+		  	}
+		}
     }
 
     post {
