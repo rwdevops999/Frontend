@@ -22,6 +22,7 @@ import {
   TUTOPEDIA_FOOTER,
   TUTOPEDIA_HEADER,
 } from "../data/layout/layout";
+import { log } from "../utils/LogUtil";
 
 function TutOPedia() {
   let { debug, setDebug } = useDebugContext();
@@ -29,9 +30,12 @@ function TutOPedia() {
 
   setDebug(true);
 
+  log(debug, "Tutopedia", "IN: Configuration", config, true);
+
   axios.defaults.baseURL = "http://localhost:8081/api";
 
   let location = useLocation();
+  log(debug, "Tutopedia", "Location: ", location, true);
 
   const [defaultBucket, setDefaultBucket] = useState<Bucket | undefined>(
     undefined
@@ -43,14 +47,22 @@ function TutOPedia() {
         .get("/bucket/default")
         .then((response) => {
           if (response.data) {
+            log(
+              debug,
+              "Tutopedia",
+              "Default bucket received",
+              response.data,
+              true
+            );
             setDefaultBucket(response.data);
           }
         })
         .catch(function () {
-          console.log(`[${TUTOPEDIA}] Error loading default bucket`);
+          log(debug, "Tutopedia", "Error loading default bucket");
         });
     }
 
+    log(debug, "Tutopedia", "Loading default bucket");
     getDefaultBucket();
   }, []);
 
@@ -64,6 +76,8 @@ function TutOPedia() {
         doSetDefaultBucket = false;
       }
     }
+    count++;
+    log(debug, "Tutopedia", "Count", count);
 
     if (defaultBucket && doSetDefaultBucket) {
       if (location.state.tutopedia.header) {
@@ -75,54 +89,76 @@ function TutOPedia() {
       }
     }
   } else {
+    log(debug, "Tutopedia", "No State defined ... building one");
     let tutopedia = undefined;
 
     switch (location.pathname) {
       case "/":
+        log(debug, "Tutopedia", "building startup state", " for '/'");
         tutopedia = buildTutopediaForStartup(
           0,
           "Startup",
           TUTOPEDIA,
-          location.pathname
+          location.pathname,
+          "<<<undefined>>>",
+          defaultBucket ? defaultBucket.name : "<<<undefined>>>"
         );
         break;
       case "/tutorials":
+        log(debug, "Tutopedia", "building home state", " for '/tutorials'");
         tutopedia = buildTutopediaForHome(
           0,
           "TutOPedia create Mock",
           TUTOPEDIA,
-          location.pathname
+          location.pathname,
+          "<<<undefined>>>",
+          defaultBucket ? defaultBucket.name : "<<<undefined>>>"
         );
         break;
       case "/tutorials/oci":
+        log(
+          debug,
+          "Tutopedia",
+          "(TEST ONLY) building OCI state",
+          " for '/tutorials/oci'"
+        );
         tutopedia = buildTutopediaForOCI(
           0,
           "TutOPedia create Mock",
           TUTOPEDIA,
-          location.pathname
+          location.pathname,
+          defaultBucket ? defaultBucket.name : "<<<undefined>>>"
         );
         break;
       case "/admin":
+        log(
+          debug,
+          "Tutopedia",
+          "(TEST ONLY) building ADMIN state",
+          " for '/admin'"
+        );
         tutopedia = buildTutopediaForAdmin(
           0,
           "TutOPedia create Mock",
           TUTOPEDIA,
-          location.pathname
+          location.pathname,
+          defaultBucket ? defaultBucket.name : "<<<undefined>>>"
         );
         break;
       default:
-        console.log(`[${TUTOPEDIA}] INVALID ROUTING: ${location.pathname}`);
+        log(debug, "Tutopedia", "Invalid Routing", location.pathname);
         break;
     }
 
     if (tutopedia) {
       location.state = buildStateWithoutStateKeyword(tutopedia);
+      log(debug, "Tutopedia", "New state", location.state, true);
     }
   }
 
   const state = location.state;
-
   const { header } = useTutopediaState(state);
+  log(debug, "Tutopedia", "Header", header, true);
 
   return (
     <header data-title={TUTOPEDIA}>
