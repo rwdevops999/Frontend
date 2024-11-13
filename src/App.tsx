@@ -16,13 +16,10 @@ const App = () => {
   >("loading");
 
   useEffect(() => {
-    console.log("App.tsx, fetching global config from" + dynamicConfigUrl);
-
     axios
       .get(dynamicConfigUrl)
       .then((response) => {
         setConfig(response.data);
-        console.log("Global config fetched: " + JSON.stringify(response.data));
         setConfigLoadingState("ready");
       })
       .catch((error) => {
@@ -56,49 +53,3 @@ const App = () => {
 };
 
 export default App;
-
-// const App = () => {
-
-//   const { setConfig } = useConfig();
-//   const [configLoadingState, setConfigLoadingState] = useState<
-//     "loading" | "ready" | "error"
-//   >("loading");
-
-//   useEffect(() => {
-//     console.log("[APP] fetching global config from", dynamicConfigUrl);
-//     axios
-//       .get(dynamicConfigUrl)
-//       .then((response) => {
-//         setConfig(response.data);
-//         console.log("[APP] Global config fetched: ", response.data);
-//         setConfigLoadingState("ready");
-//       })
-//       .catch((e) => {
-//         console.log(
-//           "[APP] ERROR:" + configLoadingErrorMessage,
-//           `Have you provided the config file '${dynamicConfigUrl}'?`,
-//           e
-//         );
-//         setConfigLoadingState("error");
-//       });
-//   }, [setConfig]);
-
-//   if (configLoadingState === "loading") {
-//     return "Loading the app..."; // change to some visual CircularProgress in real app
-//   }
-//   if (configLoadingState === "error") {
-//     return (
-//       <p style={{ color: "red", textAlign: "center" }}>
-//         {configLoadingErrorMessage}
-//       </p>
-//     );
-//   }
-
-//   return (
-//     <Providers>
-//       <RouterProvider router={router} />
-//     </Providers>
-//   );
-// };
-
-// export default App;

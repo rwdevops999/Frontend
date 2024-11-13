@@ -36,7 +36,6 @@ const SearchGroup = ({
   );
 
   const findTutorialById = (tutorialId: number) => {
-    console.log("[SearchGroup] findTutorialById: " + tutorialId);
     const tutopedia = buildTutopediaForFindById(
       count,
       "Search By Id",
@@ -51,9 +50,7 @@ const SearchGroup = ({
   useEffect(() => {
     const node = document.getElementById("inputId");
     node!.addEventListener("keyup", (event: any) => {
-      console.log("[SearchGroup] KEY PRESSED");
       if (event.key === "Enter") {
-        console.log("[SearchGroup] IT IS ENTER");
         setSearchId(event.target.value.trim());
         findTutorialById(parseInt(event.target.value.trim()));
       }

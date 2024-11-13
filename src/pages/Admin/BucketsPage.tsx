@@ -21,8 +21,6 @@ const BucketsPage = () => {
   let { state } = useLocation();
   const { config } = useConfig();
 
-  console.log("[Admin Page] IN");
-
   let count = state.tutopedia.count;
   if (count >= 0) {
     count++;
@@ -30,7 +28,6 @@ const BucketsPage = () => {
 
   if (debug) {
     console.log("[Admin Page] count: " + state.tutopedia.count);
-    console.log("[Admin Page] State: " + JSON.stringify(state));
   }
 
   // FUNCTIONALITY
@@ -62,27 +59,17 @@ const BucketsPage = () => {
         .get("/bucket/find")
         .then((response) => {
           if (response.data) {
-            console.log(
-              "[AdminPage] SET DATA: " + JSON.stringify(response.data)
-            );
             setBuckets([...response.data, {}]);
             setPage([...response.data, {}]);
 
-            console.log("[AdminPage] SET LOADING OFF");
-            // setPage(response.data);
             if (config.environment != "TST") {
               toast.dismiss();
             }
 
-            // setBeginOffset(0);
             setLoading(false);
-          } else {
-            console.log("[AdminPage] NO DATA");
           }
         })
         .catch(function (error) {
-          console.log("[AdminPage] AXIOS ERROR");
-          console.log("[AdminPage] SET LOADING OFF");
           setLoading(false);
           if (config.environment !== "TST") {
             if (error.response && error.reponse.status === 404) {
@@ -101,7 +88,6 @@ const BucketsPage = () => {
 
     setError(undefined);
 
-    console.log("[AdminPage] LOADING BUCKETS");
     getBuckets();
   }, [reload, setReload]);
 
@@ -112,10 +98,7 @@ const BucketsPage = () => {
   const endOffset = beginOffset + bucketsPerPage;
 
   const handlePageChange = (page: number): void => {
-    console.log("[AdminPage] HANDLE PAGE CHANGE TO " + page);
-
     const newOffset = ((page - 1) * bucketsPerPage) % buckets.length;
-    console.log("[AdminPage] HANDLE PAGE CHANGE: NEW OFFSET = " + newOffset);
     setCurrentPage(page);
     setBeginOffset(newOffset);
   };
@@ -136,10 +119,7 @@ const BucketsPage = () => {
   };
 
   const renderBuckets = () => {
-    console.log("[AdminPage] RENDER DOM");
-
     if (loading) {
-      console.log("[AdminPage] RENDER LOADING: " + config.environment);
       return (
         <Box data-title={BUCKETS_PAGE_LOADER}>
           <Loader />
@@ -148,7 +128,6 @@ const BucketsPage = () => {
     }
 
     if (error) {
-      console.log("[AdminPage] RENDER ERROR");
       return (
         <Box data-title={BUCKETS_PAGE_ERROR}>
           <ErrorBanner message={error} goBack={goBack} />
@@ -157,7 +136,6 @@ const BucketsPage = () => {
     }
 
     if (buckets) {
-      console.log("[AdminPage] RENDERING BUCKETS: " + buckets.length);
       paginatedBuckets = Array.from(buckets)
         .sort((a, b) => a.id! - b.id!)
         .slice(beginOffset, endOffset);

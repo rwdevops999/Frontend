@@ -12,14 +12,12 @@ const OCIPanel = () => {
 
   useEffect(() => {
     async function getSetting(key: string) {
-      console.log("AXIOS CALL");
       await axios
         .get("/settings/" + key)
         .then((response) => {
           if (response.data) {
             const setting: Setting = response.data;
             setReload((x: any) => x + 1);
-            console.log("DATA RECEIVED: " + setting.value);
             settings.set(setting.key, setting.value);
           }
         })
@@ -30,7 +28,6 @@ const OCIPanel = () => {
         });
     }
 
-    console.log("Loading OCI_Tenant");
     getSetting(OCI_TENANT);
     getSetting(OCI_REGION);
   }, []);

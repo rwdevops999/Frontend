@@ -29,13 +29,9 @@ function TutOPedia() {
 
   setDebug(true);
 
-  console.log(`[${TUTOPEDIA}] CONFIG = ${JSON.stringify(config)}`);
-  console.log(`[${TUTOPEDIA}] DEBUG STATE = ${debug}`);
-
   axios.defaults.baseURL = "http://localhost:8081/api";
 
   let location = useLocation();
-  console.log(`[${TUTOPEDIA}] XX LOCATION = ${JSON.stringify(location)}`);
 
   const [defaultBucket, setDefaultBucket] = useState<Bucket | undefined>(
     undefined
@@ -81,10 +77,8 @@ function TutOPedia() {
   } else {
     let tutopedia = undefined;
 
-    console.log(`[${TUTOPEDIA}] CHECK BUILDING`);
     switch (location.pathname) {
       case "/":
-        console.log(`[${TUTOPEDIA}] BUILD ROUTING FOR STARTUP`);
         tutopedia = buildTutopediaForStartup(
           0,
           "Startup",
@@ -93,7 +87,6 @@ function TutOPedia() {
         );
         break;
       case "/tutorials":
-        console.log(`[${TUTOPEDIA}] BUILD ROUTING FOR APPLICATION (HOME)`);
         tutopedia = buildTutopediaForHome(
           0,
           "TutOPedia create Mock",
@@ -102,7 +95,6 @@ function TutOPedia() {
         );
         break;
       case "/tutorials/oci":
-        console.log(`[${TUTOPEDIA}] BUILD ROUTING FOR OCI`);
         tutopedia = buildTutopediaForOCI(
           0,
           "TutOPedia create Mock",
@@ -111,7 +103,6 @@ function TutOPedia() {
         );
         break;
       case "/admin":
-        console.log(`[${TUTOPEDIA}] BUILD ROUTING FOR ADMIN`);
         tutopedia = buildTutopediaForAdmin(
           0,
           "TutOPedia create Mock",
@@ -130,10 +121,8 @@ function TutOPedia() {
   }
 
   const state = location.state;
-  console.log(`[${TUTOPEDIA}] XX LOCATION STATE: ${JSON.stringify(state)}`);
 
   const { header } = useTutopediaState(state);
-  console.log(`[${TUTOPEDIA}] HEADER: ${JSON.stringify(header)}`);
 
   return (
     <header data-title={TUTOPEDIA}>

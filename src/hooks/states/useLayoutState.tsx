@@ -7,9 +7,5 @@ import { LayoutState } from "../../data/states";
  * @returns Layout state object
  */
 export const useLayoutState = (state: any): LayoutState => {
-  console.log("[HOOK]: UseLayoutState IN");
-  let obj = JSON.parse(JSON.stringify(state));
-
-  console.log("[HOOK]: UseLayoutState OUT");
-  return obj;
+  return JSON.parse(JSON.stringify(state));
 };

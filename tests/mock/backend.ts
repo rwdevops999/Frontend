@@ -16,7 +16,6 @@ export const simulateDelay = (endpoint: string) => {
 export const simulateError = (endpoint: string) => {
   backend.use(
     http.get(endpoint, () => {
-      console.log("ERRRORRRRKE: " + endpoint);
       return HttpResponse.error();
     })
   );

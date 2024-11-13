@@ -33,8 +33,6 @@ const ActionButton = ({
     switch (action) {
       case "DELETE":
         await axios.delete("/delete").then(() => {
-          console.log("[ActionButton] All Deleted");
-
           const tutopedia = buildTutopediaForViewAllTutorials(
             count,
             "Delete all tutorials",
@@ -53,8 +51,6 @@ const ActionButton = ({
         await axios
           .put("/publish")
           .then(() => {
-            console.log("[ActionButton] All Published");
-
             const tutopedia = buildTutopediaForPublishAll(
               count,
               "Publish all tutorials",

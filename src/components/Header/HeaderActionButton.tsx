@@ -24,7 +24,6 @@ const HeaderActionButton = ({
   const navigate = useNavigate();
 
   const handleHeaderAction = (action: any) => {
-    console.log("ACTION = " + action.id);
     if (action.actionId === TUTOPEDIA_HEADER_ACTION_BUTTON_ADMIN) {
       const tutopedia = buildTutopediaForAdmin(
         count,

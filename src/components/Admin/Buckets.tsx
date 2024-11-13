@@ -10,8 +10,6 @@ const Buckets = ({ count }: { count: number }) => {
   const navigate = useNavigate();
 
   const handleBuckets = () => {
-    console.log("[ADMIN Page] Go To Buckets Page");
-
     const tutopedia = buildTutopediaForAdmin(
       count,
       "Go To Buckets",

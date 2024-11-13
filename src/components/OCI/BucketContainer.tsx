@@ -163,7 +163,6 @@ const BucketContainer = ({
     await axios.put("/bucket/default/" + bucket.id).then(() => {
       let tutopedia = undefined;
       if (isAdmin) {
-        console.log("DEFAULT: ADMIN");
         tutopedia = buildTutopediaForAdmin(
           count,
           "update default bucket",
@@ -172,7 +171,6 @@ const BucketContainer = ({
           bucket.name
         );
       } else {
-        console.log("DEFAULT: NON ADMIN");
         tutopedia = buildTutopediaForOCI(
           count,
           "update default bucket",
@@ -182,9 +180,7 @@ const BucketContainer = ({
         );
       }
 
-      console.log("DEFAULT: RELOAD");
       setReload((x: any) => x + 1);
-      console.log("DEFAULT: NAVIGATE TO " + tutopedia.routeURL!);
       navigate(tutopedia.routeURL!, buildState(tutopedia));
     });
   };

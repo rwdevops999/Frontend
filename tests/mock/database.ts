@@ -32,7 +32,6 @@ export const createDBTutorial = (tutorial: Tutorial): Tutorial => {
   let newTutorial = database.tutorial.create({
     ...tutorial,
   });
-  console.log("[DB] Created tutorial: " + JSON.stringify(newTutorial));
 
   return newTutorial;
 };
@@ -41,7 +40,6 @@ export const createDBBucket = (bucket: Bucket): Bucket => {
   let newBucket = database.bucket.create({
     ...bucket,
   });
-  console.log("[DB] Created bucket: " + JSON.stringify(newBucket));
 
   return newBucket;
 };
@@ -85,7 +83,6 @@ export const createTutorials = (
     removeDBTutorials();
   }
 
-  console.log("[DB] createTutorials");
   for (let i = 0; i < num; i++) {
     let tut = {
       title: "Title " + i,
@@ -99,7 +96,6 @@ export const createTutorials = (
       ...tut,
       ...tutorial,
     });
-    console.log("[DB] created Tutorial: " + id);
     tutorialIds.push(id);
   }
 };
@@ -111,10 +107,8 @@ export const createBuckets = (
 ) => {
   if (remove) {
     removeDBBuckets();
-    console.log("BUCKETS = " + database.bucket.count());
   }
 
-  console.log("[DB] createBuckets");
   for (let i = 0; i < num; i++) {
     let { id } = createDBBucket({
       ...defaultBucket,

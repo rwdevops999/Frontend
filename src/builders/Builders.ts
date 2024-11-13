@@ -241,7 +241,6 @@ export const buildTutopediaForViewAllTutorials = (
   dataBuilder.setReset(true);
 
   if (reload) {
-    console.log("[BUILDER] SET RELOAD");
     dataBuilder.setReload(reload);
   }
 
@@ -275,7 +274,6 @@ export const buildTutopediaForViewAllPublishedTutorials = (
   dataBuilder.setReset(true);
 
   if (reload) {
-    console.log("[BUILDER] SET RELOAD");
     dataBuilder.setReload(reload);
   }
 

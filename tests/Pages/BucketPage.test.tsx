@@ -37,7 +37,6 @@ describe("BucketPage", () => {
     );
 
     const input = screen.getByTestId(`${BUCKET_CONTAINER_BUCKET_INPUT}`);
-    console.log("[INPUT] = " + input);
 
     await user.type(input, `MyBucket[enter]`);
 

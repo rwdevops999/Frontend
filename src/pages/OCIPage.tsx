@@ -21,16 +21,9 @@ const OCIPage = () => {
   let { state } = useLocation();
   const { config } = useConfig();
 
-  console.log(`[${TUTOPEDIA_CONTENT_OCI_PAGE}] STATE = ${state}`);
-
   let count = state.tutopedia.count;
   if (count >= 0) {
     count++;
-  }
-
-  if (debug) {
-    console.log("[OCI Page] count: " + state.tutopedia.count);
-    console.log("[OCI Page] State: " + JSON.stringify(state));
   }
 
   // FUNCTIONALITY
@@ -50,16 +43,12 @@ const OCIPage = () => {
 
   useEffect(() => {
     async function getBuckets() {
-      console.log("[OCIPage] SET LOADING ON");
       setLoading(true);
-      console.log("[OCIPage] CALLING AXIOS");
       await axios
         .get("/bucket/find")
         .then((response) => {
           if (response.data) {
-            console.log("[OCIPage] SET DATA: " + JSON.stringify(response.data));
             setBuckets([...response.data]);
-            console.log("[OCIPage] SET LOADING OFF");
             // setPage(response.data);
             if (config.environment != "TST") {
               toast.dismiss();
@@ -67,13 +56,9 @@ const OCIPage = () => {
 
             // setBeginOffset(0);
             setLoading(false);
-          } else {
-            console.log("[OCIPage] NO DATA");
           }
         })
         .catch(function (error) {
-          console.log("[OCIPage] AXIOS ERROR");
-          console.log("[OCIPage] SET LOADING OFF");
           setLoading(false);
           if (config.environment !== "TST") {
             if (error.response && error.reponse.status === 404) {
@@ -92,7 +77,6 @@ const OCIPage = () => {
 
     setError(undefined);
 
-    console.log("[OCIPage] LOADING BUCKETS");
     getBuckets();
   }, [reload, setReload]);
 
@@ -104,10 +88,8 @@ const OCIPage = () => {
 
   const handlePageChange = (page: number): void => {
     currentPage.current = page;
-    console.log("[OCIPage] HANDLE PAGE CHANGE TO " + page);
 
     const newOffset = ((page - 1) * bucketsPerPage) % buckets.length;
-    console.log("[OCIPage] HANDLE PAGE CHANGE: NEW OFFSET = " + newOffset);
     setBeginOffset(newOffset);
   };
 

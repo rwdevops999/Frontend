@@ -48,8 +48,6 @@ const TutorialsListPage = () => {
       apiURL += `/${appdata.searchId}`;
     }
     if (appdata && appdata.reload) {
-      console.log("[TutorialsListPage] RELOADING");
-
       location.state.tutopedia.application.data.reload = false;
       setReload((x: any) => x + 1);
     }
@@ -57,7 +55,6 @@ const TutorialsListPage = () => {
 
   let count = location.state.tutopedia.count;
   if (count >= 0) {
-    console.log("[TutorialsListPage] COUNT = " + count);
     count++;
   }
 

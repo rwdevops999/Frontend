@@ -8,20 +8,12 @@ const getRandomInt = (max: number) => {
 export const tutorialRestHandler = [
   // Intercept "GET https://example.com/user" requests...
   http.get("http://localhost:8081/api/find", () => {
-    console.log(
-      "[INTERCEPT] REST FIND ALL: = " + database.tutorial.findMany({}).length
-    );
     return HttpResponse.json(database.tutorial.findMany({}));
   }),
   http.get(
     "http://localhost:8081/api/find/keywords/:keywords",
     ({ params }) => {
-      console.log(
-        "[REST INTERCEPTED] FIND BY KEYWORDS : " + JSON.stringify(params)
-      );
       let keyword: string = params.keywords as string;
-
-      console.log("[REST] KEYWORDS = " + keyword);
 
       if (keyword != undefined) {
         return HttpResponse.json(
@@ -40,8 +32,6 @@ export const tutorialRestHandler = [
     const url = new URL(request.url);
     const pub = url.searchParams.get("published");
 
-    console.log("[REST INTERCEPTED] FIND PUBLISHED : " + pub);
-
     if (pub === "true") {
       const tuts = database.tutorial.findMany({
         where: {
@@ -50,7 +40,6 @@ export const tutorialRestHandler = [
           },
         },
       });
-      console.log("[REST INTERCEPTED] FIND PUBLISHED : # = " + tuts.length);
 
       return HttpResponse.json(
         database.tutorial.findMany({
@@ -75,7 +64,6 @@ export const tutorialRestHandler = [
   }),
   http.get("http://localhost:8081/api/find/:tid", ({ params }) => {
     let tid = parseInt(params.tid as string);
-    console.log("[INTERCEPT] REST FIND BY ID: = " + tid);
 
     let tutorial = database.tutorial.findFirst({
       where: { id: { equals: tid } },
@@ -95,13 +83,8 @@ export const tutorialRestHandler = [
     async ({ params, request }) => {
       let tutorialId = parseInt(params.id as string);
       const data = await request.clone().json();
-      console.log(
-        "[REST INTERCEPTED OPTIONS] Update By Id DATA = " + JSON.stringify(data)
-      );
 
       let obj = JSON.parse(JSON.stringify(data));
-
-      console.log("[REST INTERCEPTED] Update By Id = " + tutorialId);
 
       database.tutorial.update({
         where: { id: { equals: tutorialId } },
@@ -114,34 +97,14 @@ export const tutorialRestHandler = [
       });
     }
   ),
-  // http.options("http://localhost:8081/api/update/:id", async ({ params }) => {
-  //   let tutorialId = parseInt(params.id as string);
-
-  //   console.log("[REST INTERCEPTED OPTIONS] Update By Id = " + tutorialId);
-  // }),
-
   http.put("http://localhost:8081/api/publish/:id", ({ params }) => {
     let id = parseInt(params.id as string);
-    console.log("[REST INTERCEPTED] Publish By Id = " + id);
-
-    console.log(
-      "[DB] BEFORE UPDATE = " +
-        JSON.stringify(
-          database.tutorial.findFirst({ where: { id: { equals: id } } })
-        )
-    );
 
     database.tutorial.update({
       where: { id: { equals: id } },
       data: { published: true },
     });
 
-    console.log(
-      "[DB] AFTER UPDATE = " +
-        JSON.stringify(
-          database.tutorial.findFirst({ where: { id: { equals: id } } })
-        )
-    );
     return HttpResponse.json({ status: 200 });
   }),
   http.delete("http://localhost:8081/api/delete", () => {
@@ -168,8 +131,6 @@ export const tutorialRestHandler = [
 
     let obj = JSON.parse(JSON.stringify(data));
 
-    console.log("[REST] INTERCEPT: CREATE: " + obj.title);
-
     database.tutorial.create({
       id: getRandomInt(100),
       title: obj.title,
@@ -183,7 +144,6 @@ export const tutorialRestHandler = [
   }),
   http.post("http://localhost:8081/api/bucket/create", async ({ request }) => {
     const data = await request.formData();
-    console.log("[REST] INTERCEPT: CREATE BUCKET: " + data.get("name"));
 
     const name: string = data.get("name") as string;
 
@@ -197,22 +157,15 @@ export const tutorialRestHandler = [
   }),
   http.delete("http://localhost:8081/api/bucket/delete/:id", ({ params }) => {
     let id = parseInt(params.id as string);
-    console.log("[REST] INTERCEPT: DELETE BUCKET: " + id);
     database.bucket.delete({ where: { id: { equals: id } } });
 
     return HttpResponse.json({ status: 200 });
   }),
   http.get("http://localhost:8081/api/bucket/find", () => {
-    console.log(
-      "[INTERCEPT] REST FIND ALL BUCKETS: = " +
-        database.bucket.findMany({}).length
-    );
     return HttpResponse.json(database.bucket.findMany({}));
   }),
   http.put("http://localhost:8081/api/bucket/default/:id", ({ params }) => {
     let bucketId = parseInt(params.id as string);
-
-    console.log("[INTERCEPT] REST UPDATE DEFAULT BUCKET");
 
     database.bucket.updateMany({
       where: { selected: { equals: true } },
@@ -227,8 +180,6 @@ export const tutorialRestHandler = [
     return HttpResponse.json({ status: 200 });
   }),
   http.get("http://localhost:8081/api/bucket/default", () => {
-    console.log("[INTERCEPT] REST DEFAULT BUCKET");
-
     const bucket = database.bucket.findFirst({
       where: {
         selected: {

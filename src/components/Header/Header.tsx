@@ -23,9 +23,6 @@ const Header = ({
   const { user, isAuthenticated } = useAuth0();
   const { config, setConfig } = useConfig();
 
-  console.log(`[${TUTOPEDIA_HEADER}]: AUTHENTICATED =  ${isAuthenticated}`);
-  console.log(`[${TUTOPEDIA_HEADER}]: USER =  ${user}`);
-
   const getClassName = (icon: boolean = true): string => {
     if (config.environment) {
       if (icon) {

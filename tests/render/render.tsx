@@ -17,10 +17,6 @@ export const renderTutorialsPage = () => {
 };
 
 export const renderRoute = (url: string) => {
-  console.log("[TEST] RENDER TUTOPEDIA");
-
-  console.log("[TEST] InitialEntry = " + url);
-
   const router = createMemoryRouter(routes, {
     initialEntries: [url],
   });

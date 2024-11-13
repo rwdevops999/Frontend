@@ -123,8 +123,6 @@ describe("NavigationBar", () => {
 
     expectInDocumentByTestId(`${TUTOPEDIA_CONTENT_FIND_PAGE}`);
 
-    screen.debug(undefined, Infinity);
-
     expectElementsEnabled([
       `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_GROUPS_HOME}`,
       `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_GROUPS_CREATE}`,
@@ -288,8 +286,6 @@ describe("NavigationBar with Data", () => {
     const preDeleteItems = screen.getAllByTestId(
       `${TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_ITEMS_ITEM}`
     ).length;
-
-    console.log("[PRE_DELETE_ALL] = " + preDeleteItems);
 
     await waitFor(() => {
       clickButtonById(

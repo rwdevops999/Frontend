@@ -10,8 +10,6 @@ const Settings = ({ count }: { count: number }) => {
   const navigate = useNavigate();
 
   const handleSettings = () => {
-    console.log("[ADMIN Page] Go To Settings Page");
-
     const tutopedia = buildTutopediaForAdmin(
       count,
       "Go To Settings",

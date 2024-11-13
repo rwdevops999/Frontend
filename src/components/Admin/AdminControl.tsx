@@ -17,8 +17,6 @@ import { TutopediaState } from "../../data/states";
 const AdminControl = ({ count }: { count: number }) => {
   const navigate = useNavigate();
 
-  console.log(`[${TUTOPEDIA_CONTENT_ADMIN_PAGE}] REFRESH`);
-
   const [checked, setChecked] = useState<string>("");
 
   useEffect(() => {
@@ -36,15 +34,10 @@ const AdminControl = ({ count }: { count: number }) => {
   }, [checked, setChecked]);
 
   const handleControlChange = (controlId: string, setValue: boolean = true) => {
-    console.log(
-      `[${TUTOPEDIA_CONTENT_ADMIN_PAGE}] HANDLE PAGE CHANGE: ${controlId}`
-    );
-
     let tutopedia: TutopediaState | undefined = undefined;
 
     switch (controlId) {
       case TUTOPEDIA_CONTENT_ADMIN_PAGE_SETTINGS:
-        console.log(`[${TUTOPEDIA_CONTENT_ADMIN_PAGE}] DISPLAY SETTINGS`);
         tutopedia = buildTutopediaForAdmin(
           count,
           "Go To Settings",
@@ -53,7 +46,6 @@ const AdminControl = ({ count }: { count: number }) => {
         );
         break;
       case TUTOPEDIA_CONTENT_ADMIN_PAGE_BUCKETS:
-        console.log(`[${TUTOPEDIA_CONTENT_ADMIN_PAGE}] DISPLAY BUCKETS`);
         tutopedia = buildTutopediaForAdmin(
           count,
           "Go To Buckets",
@@ -62,12 +54,7 @@ const AdminControl = ({ count }: { count: number }) => {
         );
     }
 
-    console.log(`[${TUTOPEDIA_CONTENT_ADMIN_PAGE}] NAVIGATE ? : ${tutopedia}`);
     if (tutopedia !== undefined) {
-      console.log(
-        `[${TUTOPEDIA_CONTENT_ADMIN_PAGE}] NAVIGATE TO: ${tutopedia.routeURL}`
-      );
-
       if (setValue) {
         setChecked(controlId);
       }

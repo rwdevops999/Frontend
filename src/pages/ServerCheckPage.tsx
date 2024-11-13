@@ -14,8 +14,6 @@ import {
 const ServerCheckPage = () => {
   let { state } = useLocation();
 
-  console.log("STATE = " + state);
-
   let count = state.tutopedia.count;
   if (count >= 0) {
     count++;

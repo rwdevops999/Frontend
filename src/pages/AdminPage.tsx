@@ -6,8 +6,6 @@ import AdminControl from "../components/Admin/AdminControl";
 const AdminPage = () => {
   let { state } = useLocation();
 
-  console.log(`[${TUTOPEDIA_CONTENT_ADMIN_PAGE}] IN`);
-
   let count = state.tutopedia.count;
   if (count >= 0) {
     count++;

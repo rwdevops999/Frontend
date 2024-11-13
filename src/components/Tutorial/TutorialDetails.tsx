@@ -60,8 +60,6 @@ const TutorialDetails = ({
     await axios
       .put("/publish/" + id)
       .then(() => {
-        console.log("[TutorialDetails] PUBLISHED");
-
         const tutopedia = buildTutopediaForViewAllPublishedTutorials(
           count,
           "Publish tutorial",
