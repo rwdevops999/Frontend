@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import avatarIcon from "/src/assets/bucket.png";
 import { FaTrashAlt } from "react-icons/fa";
+import ListAltIcon from "@mui/icons-material/ListAlt";
 
 import NumbersIcon from "@mui/icons-material/Numbers";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
@@ -189,11 +190,7 @@ const BucketContainer = ({
   };
 
   return (
-    <div
-      id={bucket.name}
-      data-title={BUCKET_CONTAINER}
-      onClick={() => alert("Test")}
-    >
+    <div id={bucket.name} data-title={BUCKET_CONTAINER}>
       <Box
         data-title={BUCKET_CONTAINER_BUCKET}
         width={200}
@@ -311,26 +308,53 @@ const BucketContainer = ({
           )}
         </FormGroup>
       </Box>
-      <Box
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-        width={200}
-        height={20}
-        sx={{
-          borderLeft: 1,
-          borderRight: 1,
-          borderBottom: 1,
-          borderColor: "primary.main",
-        }}
-      >
-        <Rating
-          size="small"
-          name="read-only"
-          value={bucket.tutorials ? Math.floor(bucket.tutorials / 3) : 0}
-          readOnly
-          emptyIcon={<MdOutlineStarBorder className="emptyStar" />}
-        />
+      <Box sx={{ display: "flex", alignItems: "center" }}>
+        <Box
+          sx={{
+            width: "72%",
+            height: 36,
+            borderLeft: 1,
+            borderBottom: 1,
+            borderColor: "primary.main",
+          }}
+        >
+          <Rating
+            size="small"
+            name="read-only"
+            value={bucket.tutorials ? Math.floor(bucket.tutorials / 3) : 0}
+            readOnly
+            emptyIcon={<MdOutlineStarBorder className="emptyStar" />}
+            sx={{ marginTop: "10px", marginLeft: "5px" }}
+          />
+        </Box>
+        <Box
+          sx={{
+            width: "30%",
+            height: 36,
+            paddingLeft: "70px",
+            marginRight: "-2px",
+            borderRight: 1,
+            borderBottom: 1,
+            borderColor: "primary.main",
+          }}
+        >
+          {bucket.tutorials !== undefined && bucket.tutorials > 0 && (
+            <IconButton
+              aria-label="files"
+              sx={{
+                marginTop: "-3px",
+              }}
+            >
+              <ListAltIcon
+                sx={{
+                  color: "#A0A0A0",
+                  marginLeft: "-5px",
+                }}
+                onClick={() => alert("SHOW FILES")}
+              />
+            </IconButton>
+          )}
+        </Box>
       </Box>
     </div>
   );
