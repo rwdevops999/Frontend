@@ -57,23 +57,30 @@ const TutorialDetails = ({
   };
 
   const publishTutorialById = async (id: number) => {
-    await axios.put("/publish/" + id).then(() => {
-      console.log("[TutorialDetails] PUBLISHED");
+    await axios
+      .put("/publish/" + id)
+      .then(() => {
+        console.log("[TutorialDetails] PUBLISHED");
 
-      const tutopedia = buildTutopediaForViewAllPublishedTutorials(
-        count,
-        "Publish tutorial",
-        TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_ITEMS_PUBLISH,
-        `/${ROUTE_TUTORIALS}`,
-        true
-      );
+        const tutopedia = buildTutopediaForViewAllPublishedTutorials(
+          count,
+          "Publish tutorial",
+          TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_ITEMS_PUBLISH,
+          `/${ROUTE_TUTORIALS}`,
+          true
+        );
 
-      if (config.environment != "TST") {
-        toast.loading("Publish tutorial: " + id);
-      }
+        if (config.environment != "TST") {
+          toast.loading("Publish tutorial: " + id);
+        }
 
-      navigate(tutopedia.routeURL!, buildState(tutopedia));
-    });
+        navigate(tutopedia.routeURL!, buildState(tutopedia));
+      })
+      .catch((err) => {
+        if (config.environment != "TST") {
+          toast(`ERROR PUBLISH TUTORIAL ${id}: ${err.message}`);
+        }
+      });
   };
 
   const deleteTutorialById = async (id: number) => {

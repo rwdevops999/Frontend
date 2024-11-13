@@ -50,21 +50,28 @@ const ActionButton = ({
         });
         break;
       case "PUBLISH":
-        await axios.put("/publish").then(() => {
-          console.log("[ActionButton] All Published");
+        await axios
+          .put("/publish")
+          .then(() => {
+            console.log("[ActionButton] All Published");
 
-          const tutopedia = buildTutopediaForPublishAll(
-            count,
-            "Publish all tutorials",
-            TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_ACTIONS_PUBLISH,
-            `/${ROUTE_TUTORIALS}`
-          );
+            const tutopedia = buildTutopediaForPublishAll(
+              count,
+              "Publish all tutorials",
+              TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_ACTIONS_PUBLISH,
+              `/${ROUTE_TUTORIALS}`
+            );
 
-          if (config.environment != "TST") {
-            toast.loading("Publishing tutorials");
-          }
-          navigate(tutopedia.routeURL!, buildState(tutopedia));
-        });
+            if (config.environment != "TST") {
+              toast.loading("Publishing tutorials");
+            }
+            navigate(tutopedia.routeURL!, buildState(tutopedia));
+          })
+          .catch((err) => {
+            if (config.environment != "TST") {
+              toast(`ERROR PUBLISH ALL TUTORIALS: ${err.message}`);
+            }
+          });
         break;
       default:
         break;
