@@ -29,12 +29,11 @@ function TutOPedia() {
   let { debug } = useDebugContext();
   const { config } = useConfig();
 
-  useEffect(() => {
-    if (config.environment !== "TST") {
-      toast(`Current environment: ${config.environment}`, { icon: "👏" });
-    }
-  }, []);
+  const showEnvironment = () => {
+    toast(`Current environment: ${config.environment}`, { icon: "👏" });
+  };
 
+  showEnvironment();
   // setDebug(true);
 
   log(debug, "Tutopedia", "IN: Configuration", config, true);
