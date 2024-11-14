@@ -14,6 +14,8 @@ import {
 import { useLocation } from "react-router-dom";
 import { log } from "../../utils/LogUtil";
 import useDebugContext from "../../hooks/useDebugContext";
+import { useEffect } from "react";
+import toast from "react-hot-toast";
 
 const Header = ({
   header,
@@ -29,6 +31,10 @@ const Header = ({
 
   log(debug, "Tutopedia.Header", "Setup, STATE?", state, true);
   log(debug, "Tutopedia.Header", "Setup", header, true);
+
+  useEffect(() => {
+    toast("ENVIRONMENT: " + config.environment);
+  }, []);
 
   const getClassName = (icon: boolean = true): string => {
     if (config.environment) {
@@ -52,7 +58,7 @@ const Header = ({
     } else {
       setConfig({ environment: "TST" });
     }
-    log(debug, "Tutopedia.Header", "Config", config, true);
+    log(debug, "Tutopedia.Header", "New Config", config, true);
   };
 
   return (
