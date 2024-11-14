@@ -39,6 +39,7 @@ import {
 } from "../data/layout/layout";
 import { log } from "../utils/LogUtil";
 import useDebugContext from "../hooks/useDebugContext";
+import { useTutopediaState } from "../hooks/states/useTutopediaState";
 
 const CreatePage = () => {
   const navigate = useNavigate();
@@ -98,6 +99,8 @@ const CreatePage = () => {
 
   const file = useRef<any>(null);
 
+  const { header } = useTutopediaState(state);
+
   const navigateToHome = (buttonName: string) => {
     log(debug, "CreatePage", `Back to home with ${buttonName}`);
     const tutopedia = buildTutopediaForViewAllTutorials(
@@ -105,7 +108,8 @@ const CreatePage = () => {
       "Return from the create page",
       buttonName,
       `/${ROUTE_TUTORIALS}`,
-      true
+      true,
+      header ? header.bucket : "<<<undefined>>>"
     );
 
     navigate(tutopedia.routeURL!, buildState(tutopedia));
