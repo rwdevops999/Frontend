@@ -21,7 +21,6 @@ import {
   TUTOPEDIA_HEADER,
 } from "../data/layout/layout";
 import { log } from "../utils/LogUtil";
-import toast from "react-hot-toast";
 import Providers from "../providers/Providers";
 
 function TutOPedia() {
