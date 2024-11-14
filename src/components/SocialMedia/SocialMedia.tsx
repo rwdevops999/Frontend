@@ -2,8 +2,6 @@ import "./SocialMedia.css";
 
 import { SocialMediaData } from "../../data/data";
 import SocialMediaItem from "./SocialMediaItem";
-import { log } from "../../utils/LogUtil";
-import useDebugContext from "../../hooks/useDebugContext";
 
 const SocialMedia = () => {
   return (
