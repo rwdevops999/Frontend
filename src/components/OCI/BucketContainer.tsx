@@ -46,7 +46,6 @@ import {
 } from "../../data/layout/layout";
 import useDebugContext from "../../hooks/useDebugContext";
 import { log } from "../../utils/LogUtil";
-import { useTutopediaState } from "../../hooks/states/useTutopediaState";
 
 const BucketContainer = ({
   isAdmin,
@@ -64,8 +63,6 @@ const BucketContainer = ({
   const { config } = useConfig();
   const navigate = useNavigate();
   const { debug } = useDebugContext();
-
-  const { state } = useLocation();
 
   log(debug, "BucketsPage.Display.Container", "Setup", bucket, true);
 
