@@ -66,7 +66,6 @@ const BucketContainer = ({
   const { debug } = useDebugContext();
 
   const { state } = useLocation();
-  const { header } = useTutopediaState(state);
 
   log(debug, "BucketsPage.Display.Container", "Setup", bucket, true);
 
@@ -116,13 +115,18 @@ const BucketContainer = ({
                 "created default bucket",
                 `${BUCKET_CONTAINER_CREATE_BUTTON}`,
                 "/admin/buckets",
-                header ? header.bucket : undefined
+                newbucket.name
               );
 
+              log(
+                debug,
+                "BucketContainer",
+                "Reload & Redirect",
+                tutopedia.routeURL!
+              );
+              setReload((x: any) => x + 1);
               navigate(tutopedia.routeURL!, buildState(tutopedia));
             }
-
-            // setReload((x: any) => x + 1);
           })
           .catch((error) => {
             log(
