@@ -233,7 +233,7 @@ const TutorialsListPage = () => {
 
   return (
     <>
-      {/* <input alt="pagination" defaultValue={tutorialsPerPage} hidden /> */}
+      <input alt="pagination" defaultValue={tutorialsPerPage} hidden />
       <Box
         data-title={TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE}
         sx={{ height: "100%" }}
