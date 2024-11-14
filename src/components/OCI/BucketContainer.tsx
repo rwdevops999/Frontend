@@ -46,6 +46,7 @@ import {
 } from "../../data/layout/layout";
 import useDebugContext from "../../hooks/useDebugContext";
 import { log } from "../../utils/LogUtil";
+import { useTutopediaState } from "../../hooks/states/useTutopediaState";
 
 const BucketContainer = ({
   isAdmin,
@@ -63,7 +64,9 @@ const BucketContainer = ({
   const { config } = useConfig();
   const navigate = useNavigate();
   const { debug } = useDebugContext();
-  const location = useLocation();
+
+  const { state } = useLocation();
+  const { header } = useTutopediaState(state);
 
   log(debug, "BucketsPage.Display.Container", "Setup", bucket, true);
 
@@ -82,17 +85,6 @@ const BucketContainer = ({
       });
     }
   });
-
-  const setBucketInHeader = (name: String) => {
-    log(debug, "BucketContainer", "Set Default Bucket in Header", name);
-    if (location.state.tutopedia.header) {
-      location.state.tutopedia.header.bucket = name;
-    } else {
-      location.state.tutopedia.header = {
-        bucket: name,
-      };
-    }
-  };
 
   const handleCreateBucket = async (creationAllowed: boolean) => {
     if (creationAllowed && isAdmin) {
@@ -119,10 +111,18 @@ const BucketContainer = ({
             );
             let newbucket: Bucket = response.data;
             if (newbucket.selected) {
-              setBucketInHeader(newbucket.name!);
+              const tutopedia = buildTutopediaForAdmin(
+                count,
+                "created default bucket",
+                `${BUCKET_CONTAINER_CREATE_BUTTON}`,
+                "/admin/buckets",
+                header ? header.bucket : undefined
+              );
+
+              navigate(tutopedia.routeURL!, buildState(tutopedia));
             }
 
-            setReload((x: any) => x + 1);
+            // setReload((x: any) => x + 1);
           })
           .catch((error) => {
             log(
