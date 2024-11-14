@@ -100,6 +100,7 @@ const CreatePage = () => {
   const file = useRef<any>(null);
 
   const { header } = useTutopediaState(state);
+  log(debug, "FindPage", "HEADER", header, true);
 
   const navigateToHome = (buttonName: string) => {
     log(debug, "CreatePage", `Back to home with ${buttonName}`);
