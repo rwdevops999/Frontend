@@ -29,7 +29,7 @@ import {
   buildTutopediaForAdmin,
   buildTutopediaForOCI,
 } from "../../builders/Builders";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   BUCKET_CONTAINER,
   BUCKET_CONTAINER_BUCKET,
