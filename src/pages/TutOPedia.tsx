@@ -44,6 +44,11 @@ function TutOPedia() {
   );
 
   useEffect(() => {
+    log(debug, "Tutopedia", "SHOW TOAST");
+    toast("ENVIRONMENT: " + config.environment);
+  }, []);
+
+  useEffect(() => {
     async function getDefaultBucket() {
       await axios
         .get("/bucket/default")

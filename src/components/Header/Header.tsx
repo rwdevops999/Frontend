@@ -32,10 +32,6 @@ const Header = ({
   log(debug, "Tutopedia.Header", "Setup, STATE?", state, true);
   log(debug, "Tutopedia.Header", "Setup", header, true);
 
-  useEffect(() => {
-    toast("ENVIRONMENT: " + config.environment);
-  }, []);
-
   const getClassName = (icon: boolean = true): string => {
     if (config.environment) {
       if (icon) {

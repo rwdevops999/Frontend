@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import SocialMedia from "../SocialMedia/SocialMedia";
 import {
   TUTOPEDIA_FOOTER_COPYRIGHT,
@@ -17,10 +17,13 @@ const Footer = () => {
     new Date().toLocaleTimeString()
   );
 
+  const updateAll = useRef<boolean>(true);
+
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       let now = new Date();
       setTimeStr(now.toLocaleTimeString());
+      updateAll.current = false;
     }, 1000);
 
     return () => {
@@ -46,7 +49,7 @@ const Footer = () => {
           width: "52%",
         }}
       >
-        <SocialMedia />
+        <SocialMedia update={updateAll.current} />
       </Box>
 
       <Box
