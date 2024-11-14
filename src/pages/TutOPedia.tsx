@@ -29,6 +29,8 @@ function TutOPedia() {
   let { debug, setDebug } = useDebugContext();
   const { config } = useConfig();
 
+  toast(`Current environment: ${config.environment}`, { icon: "👏" });
+
   setDebug(true);
 
   log(debug, "Tutopedia", "IN: Configuration", config, true);
@@ -42,11 +44,6 @@ function TutOPedia() {
   const [defaultBucket, setDefaultBucket] = useState<Bucket | undefined>(
     undefined
   );
-
-  useEffect(() => {
-    log(debug, "Tutopedia", "SHOW ENVIRONMENT TOAST");
-    toast("ENVIRONMENT: " + config.environment);
-  }, []);
 
   useEffect(() => {
     async function getDefaultBucket() {
@@ -66,7 +63,6 @@ function TutOPedia() {
         })
         .catch(function () {
           log(debug, "Tutopedia", "Error loading default bucket. Not set yet");
-          toast("No default bucket set yet");
         });
     }
 
@@ -196,7 +192,7 @@ function TutOPedia() {
           data-title={TUTOPEDIA_CONTENT}
           component="section"
           sx={{
-            height: "750px",
+            height: "550px",
           }}
         >
           <Outlet />

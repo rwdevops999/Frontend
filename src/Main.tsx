@@ -8,8 +8,10 @@ import "@fontsource/roboto/700.css";
 import "./main.css";
 import App from "./App";
 import ConfigProvider from "./configuration/useConfig";
+import { Toaster } from "react-hot-toast";
 createRoot(document.getElementById("root")!).render(
   <ConfigProvider>
     <App />
+    <Toaster />
   </ConfigProvider>
 );

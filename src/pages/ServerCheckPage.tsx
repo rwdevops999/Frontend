@@ -49,6 +49,7 @@ const ServerCheckPage = () => {
           connectState === ConnectionState.failed) && (
           <Box
             data-title={TUTOPEDIA_CONTENT_SERVER_CHECK_PAGE_ACTION}
+            marginTop={-2}
             marginLeft={87}
           >
             <ServerCheckPageButton
