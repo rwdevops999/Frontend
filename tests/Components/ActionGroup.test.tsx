@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import {
   ROUTE_TUTORIALS,
   TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE,
@@ -12,11 +12,9 @@ describe("ActionGroup", () => {
   it("should display the `delete all` button", () => {
     renderRoute(`/${ROUTE_TUTORIALS}`);
 
-    screen.debug(undefined, Infinity);
-
-    // expectInDocumentByTestId(
-    //   `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_ACTIONS_DELETE}`
-    // );
+    expectInDocumentByTestId(
+      `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_ACTIONS_DELETE}`
+    );
   });
 
   it("should display the `publish all` button", () => {
