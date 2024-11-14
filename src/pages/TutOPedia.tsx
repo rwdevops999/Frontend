@@ -44,7 +44,7 @@ function TutOPedia() {
   );
 
   useEffect(() => {
-    log(debug, "Tutopedia", "SHOW TOAST");
+    log(debug, "Tutopedia", "SHOW ENVIRONMENT TOAST");
     toast("ENVIRONMENT: " + config.environment);
   }, []);
 
