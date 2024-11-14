@@ -9,7 +9,6 @@ import {
   buildTutopediaForOCI,
   buildTutopediaForStartup,
 } from "../builders/Builders";
-import { useTutopediaState } from "../hooks/states/useTutopediaState";
 import axios from "axios";
 import useDebugContext from "../hooks/useDebugContext";
 import { useConfig } from "../configuration/useConfig";
@@ -177,8 +176,6 @@ function TutOPedia() {
 
   const state = location.state;
   log(debug, "Tutopedia", "STATE CHECK", state, true);
-  // const { header } = useTutopediaState(state);
-  // log(debug, "Tutopedia", "Header", header, true);
 
   return (
     <Providers>

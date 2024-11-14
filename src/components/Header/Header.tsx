@@ -3,7 +3,6 @@ import { FaBucket, FaUser } from "react-icons/fa6";
 import { useAuth0 } from "@auth0/auth0-react";
 import HeaderActions from "./HeaderActions";
 import "./Header.css";
-import { HeaderState } from "../../data/states";
 import { useConfig } from "../../configuration/useConfig";
 import {
   TUTOPEDIA_HEADER_ACTION_BUTTONS,
