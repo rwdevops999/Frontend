@@ -30,7 +30,9 @@ function TutOPedia() {
   const { config } = useConfig();
 
   const showEnvironment = () => {
-    toast(`Current environment: ${config.environment}`, { icon: "👏" });
+    if (config.environment !== "TST") {
+      toast(`Current environment: ${config.environment}`, { icon: "👏" });
+    }
   };
 
   showEnvironment();
