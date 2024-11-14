@@ -30,6 +30,7 @@ import {
 } from "../data/layout/layout";
 import { log } from "../utils/LogUtil";
 import useDebugContext from "../hooks/useDebugContext";
+import { useTutopediaState } from "../hooks/states/useTutopediaState";
 
 const FindPage = () => {
   const navigate = useNavigate();
@@ -108,6 +109,8 @@ const FindPage = () => {
     },
   });
 
+  const { header } = useTutopediaState(state);
+
   const navigateToHome = (): void => {
     log(debug, "FindPage", "Back to home...");
     const tutopedia = buildTutopediaForViewAllTutorials(
@@ -115,7 +118,8 @@ const FindPage = () => {
       "Return from the create page",
       TUTOPEDIA_CONTENT_FIND_PAGE_BUTTONS_CANCEL_BUTTON,
       `/${ROUTE_TUTORIALS}`,
-      true
+      true,
+      header ? header.bucket : "<<<undefined>>>"
     );
     navigate(tutopedia.routeURL!, buildState(tutopedia));
   };
@@ -128,7 +132,8 @@ const FindPage = () => {
         "Find By Keywords",
         TUTOPEDIA_CONTENT_FIND_PAGE_BUTTONS_FIND_BUTTON,
         `/${ROUTE_TUTORIALS}`,
-        keywords
+        keywords,
+        header ? header.bucket : "<<<undefined>>>"
       );
 
       navigate(tutopedia.routeURL!, buildState(tutopedia));
