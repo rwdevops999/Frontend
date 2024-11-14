@@ -15,7 +15,6 @@ import { useLocation } from "react-router-dom";
 import { log } from "../../utils/LogUtil";
 import useDebugContext from "../../hooks/useDebugContext";
 import toast from "react-hot-toast";
-import { DynamicConfig } from "../../configuration/config";
 
 const Header = ({
   header,

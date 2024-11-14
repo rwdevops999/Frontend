@@ -12,7 +12,6 @@ import useDebugContext from "../hooks/useDebugContext";
 import { log } from "../utils/LogUtil";
 
 const TutorialsPage = () => {
-  const { config } = useConfig();
   const { debug } = useDebugContext();
 
   const { state } = useLocation();

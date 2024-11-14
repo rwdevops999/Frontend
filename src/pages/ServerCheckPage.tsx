@@ -6,7 +6,6 @@ import ServerCheckPageButton from "../components/Server/ServerCheckPageButton";
 import { ServerPageButtons } from "../data/data";
 import { useLocation } from "react-router-dom";
 import {
-  TUTOPEDIA_CONTENT_SERVER_CHECK_PAGE,
   TUTOPEDIA_CONTENT_SERVER_CHECK_PAGE_ACTION,
   TUTOPEDIA_CONTENT_SERVER_CHECK_PAGE_LOADER,
 } from "../data/layout/layout";
