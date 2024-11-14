@@ -6,7 +6,6 @@ import "./SocialMedia.css";
 const SocialMediaItem = ({ media }: { media: SocialMedia }) => {
   const { debug } = useDebugContext();
 
-  log(debug, "Tutopedia.Footer.SocialMedia.Item", media.name);
   return (
     <a key={media.id} href={media.url} className="submenu-link">
       <img

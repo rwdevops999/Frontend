@@ -12,7 +12,6 @@ import useDebugContext from "../../hooks/useDebugContext";
 const Footer = () => {
   const { debug } = useDebugContext();
 
-  log(debug, "Tutopedia.Footer", "Setup");
   const [timeStr, setTimeStr] = useState<string>(
     new Date().toLocaleTimeString()
   );
