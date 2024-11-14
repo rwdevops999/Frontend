@@ -5,7 +5,7 @@ import routes from "./routes";
 import { dynamicConfigUrl } from "./configuration/config";
 import axios from "axios";
 import { useConfig } from "./configuration/useConfig";
-import Providers from "./providers/Providers";
+// import Providers from "./providers/Providers";
 
 const configLoadingErrorMessage =
   "Error while fetching global config, the App wil not be rendered. (This is NOT a React error.)";
