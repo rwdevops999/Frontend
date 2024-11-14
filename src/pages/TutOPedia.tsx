@@ -23,9 +23,11 @@ import {
 } from "../data/layout/layout";
 import { log } from "../utils/LogUtil";
 import toast from "react-hot-toast";
+import Providers from "../providers/Providers";
 
 function TutOPedia() {
-  let { debug, setDebug } = useDebugContext();
+  // let { debug, setDebug } = useDebugContext();
+  let { debug } = useDebugContext();
   const { config } = useConfig();
 
   useEffect(() => {
@@ -34,7 +36,7 @@ function TutOPedia() {
     }
   }, []);
 
-  setDebug(true);
+  // setDebug(true);
 
   log(debug, "Tutopedia", "IN: Configuration", config, true);
 
@@ -179,40 +181,42 @@ function TutOPedia() {
   log(debug, "Tutopedia", "Header", header, true);
 
   return (
-    <Box data-title={TUTOPEDIA} sx={{ width: "100%", height: "100%" }}>
-      <Box
-        display="flex"
-        data-title={TUTOPEDIA_HEADER}
-        // component="section"
-        sx={{
-          height: "6%",
-        }}
-      >
-        <Header header={header ? header : undefined} count={count} />
-      </Box>
+    <Providers>
+      <Box data-title={TUTOPEDIA} sx={{ width: "100%", height: "100%" }}>
+        <Box
+          display="flex"
+          data-title={TUTOPEDIA_HEADER}
+          // component="section"
+          sx={{
+            height: "6%",
+          }}
+        >
+          <Header header={header ? header : undefined} count={count} />
+        </Box>
 
-      <Box
-        data-title={TUTOPEDIA_CONTENT}
-        // component="section"
-        sx={{
-          height: "736px",
-        }}
-      >
-        <Outlet />
-      </Box>
+        <Box
+          data-title={TUTOPEDIA_CONTENT}
+          // component="section"
+          sx={{
+            height: "736px",
+          }}
+        >
+          <Outlet />
+        </Box>
 
-      <Box
-        display="flex"
-        data-title={TUTOPEDIA_FOOTER}
-        component="section"
-        sx={{
-          height: "4%",
-          color: "#666",
-        }}
-      >
-        <Footer />
+        <Box
+          display="flex"
+          data-title={TUTOPEDIA_FOOTER}
+          component="section"
+          sx={{
+            height: "4%",
+            color: "#666",
+          }}
+        >
+          <Footer />
+        </Box>
       </Box>
-    </Box>
+    </Providers>
   );
 }
 
