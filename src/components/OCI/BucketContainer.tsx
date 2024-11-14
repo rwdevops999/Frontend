@@ -123,6 +123,8 @@ const BucketContainer = ({
               );
               setReload((x: any) => x + 1);
               navigate(tutopedia.routeURL!, buildState(tutopedia));
+            } else {
+              setReload((x: any) => x + 1);
             }
           })
           .catch((error) => {
