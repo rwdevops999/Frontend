@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   buildState,
   buildTutopediaForAdmin,
@@ -11,19 +11,21 @@ import {
 } from "../../data/layout/layout";
 import useDebugContext from "../../hooks/useDebugContext";
 import { log } from "../../utils/LogUtil";
+import { useTutopediaState } from "../../hooks/states/useTutopediaState";
 
 const HeaderActionButton = ({
   action,
   isAuthenticated,
   count,
-  bucket,
 }: {
   action: any;
   isAuthenticated: boolean;
   count: number;
-  bucket: string;
 }) => {
   const navigate = useNavigate();
+  const { state } = useLocation();
+  const { header } = useTutopediaState(state);
+
   const { debug } = useDebugContext();
 
   log(debug, "Tutopedia.Header.Actions.Button", action.title);
@@ -36,7 +38,7 @@ const HeaderActionButton = ({
         "Go to admin page",
         TUTOPEDIA_HEADER_ACTION_BUTTON_ADMIN,
         "/admin",
-        bucket
+        header ? header.bucket : "<<<undefined>>>"
       );
 
       navigate(tutopedia.routeURL!, buildState(tutopedia));
@@ -48,8 +50,9 @@ const HeaderActionButton = ({
         count,
         "Home button pressed",
         TUTOPEDIA_HEADER_ACTION_BUTTON_HOME,
-        "/",
-        bucket
+        "/tutorials",
+        undefined,
+        header ? header.bucket : "<<<undefined>>>"
       );
       navigate(tutopedia.routeURL!, buildState(tutopedia)); //
     }

@@ -54,7 +54,7 @@ const NavigationButton = ({
           "Render the Tutorials Home page",
           TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_GROUPS_HOME,
           "/tutorials",
-          "<<<undefined>>>",
+          undefined,
           header ? header.bucket : "<<<undefined>>>"
         );
         break;
@@ -64,7 +64,10 @@ const NavigationButton = ({
           count,
           "Render the create page",
           TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_GROUPS_CREATE,
-          "create"
+          "create",
+          undefined,
+          undefined,
+          header ? header.bucket : "<<<undefined>>>"
         );
         break;
       case NavigationPageNames.Find:
@@ -73,7 +76,9 @@ const NavigationButton = ({
           count,
           "Render the find by keywords page",
           TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_GROUPS_FIND,
-          "find"
+          "find",
+          undefined,
+          header ? header.bucket : "<<<undefined>>>"
         );
         break;
       case NavigationPageNames.OCI:
@@ -82,7 +87,8 @@ const NavigationButton = ({
           count,
           "Render the OCI page",
           TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_GROUPS_OCI,
-          "OCI"
+          "OCI",
+          header ? header.bucket : "<<<undefined>>>"
         );
         break;
       default:

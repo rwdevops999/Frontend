@@ -10,14 +10,16 @@ import {
   TUTOPEDIA_CONTENT_ADMIN_PAGE_SETTINGS_BUTTON,
 } from "../../data/layout/layout";
 import { buildState, buildTutopediaForAdmin } from "../../builders/Builders";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { TutopediaState } from "../../data/states";
 import { log } from "../../utils/LogUtil";
 import useDebugContext from "../../hooks/useDebugContext";
+import { useTutopediaState } from "../../hooks/states/useTutopediaState";
 
 const AdminControl = ({ count }: { count: number }) => {
   const navigate = useNavigate();
   const { debug } = useDebugContext();
+  const { state } = useLocation();
 
   log(debug, "AdminPage.Control", "Setup");
 
@@ -37,17 +39,20 @@ const AdminControl = ({ count }: { count: number }) => {
     }
   }, [checked, setChecked]);
 
+  const { header } = useTutopediaState(state);
+
   const handleControlChange = (controlId: string, setValue: boolean = true) => {
     let tutopedia: TutopediaState | undefined = undefined;
 
     switch (controlId) {
       case TUTOPEDIA_CONTENT_ADMIN_PAGE_SETTINGS:
-        log(debug, "AdminPage.Control", "Go To Settings...");
+        log(debug, "AdminPage.Control", "Go To Admin Page...");
         tutopedia = buildTutopediaForAdmin(
           count,
           "Go To Settings",
           TUTOPEDIA_CONTENT_ADMIN_PAGE_SETTINGS_BUTTON,
-          `/${ROUTE_ADMIN}`
+          `/${ROUTE_ADMIN}`,
+          header ? header.bucket : "<<<undefined>>>"
         );
         break;
       case TUTOPEDIA_CONTENT_ADMIN_PAGE_BUCKETS:
@@ -56,7 +61,8 @@ const AdminControl = ({ count }: { count: number }) => {
           count,
           "Go To Buckets",
           TUTOPEDIA_CONTENT_ADMIN_PAGE_SETTINGS_BUTTON,
-          `${ROUTE_BUCKETS}`
+          `${ROUTE_BUCKETS}`,
+          header ? header.bucket : "<<<undefined>>>"
         );
     }
 

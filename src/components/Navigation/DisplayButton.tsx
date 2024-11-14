@@ -1,6 +1,6 @@
 import { styled } from "@mui/material";
 import MuiButton from "@mui/material/Button";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { TutopediaState } from "../../data/states";
 import {
   NavigationViewNames,
@@ -21,6 +21,7 @@ import {
 } from "../../data/layout/layout";
 import useDebugContext from "../../hooks/useDebugContext";
 import { log } from "../../utils/LogUtil";
+import { useTutopediaState } from "../../hooks/states/useTutopediaState";
 
 const Button = styled(MuiButton)({
   "&.MuiButton-root": {
@@ -48,8 +49,11 @@ const DisplayButton = ({
 }) => {
   const navigate = useNavigate();
   const { debug } = useDebugContext();
+  const { state } = useLocation();
 
   log(debug, "NavigationBar.View.Button", "Setup");
+
+  const { header } = useTutopediaState(state);
 
   const handleViewChange = (view: string) => {
     let tutopedia: TutopediaState | undefined = undefined;
@@ -61,7 +65,9 @@ const DisplayButton = ({
           count,
           "Render All Tutorials",
           TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL,
-          `/${ROUTE_TUTORIALS}`
+          `/${ROUTE_TUTORIALS}`,
+          undefined,
+          header ? header.bucket : "<<<undefined>>>"
         );
         break;
       case NavigationViewNames.AllPub:
@@ -74,7 +80,9 @@ const DisplayButton = ({
           count,
           "Render All Published Tutorials",
           TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL_PUBLISHED,
-          `/${ROUTE_TUTORIALS}`
+          `/${ROUTE_TUTORIALS}`,
+          undefined,
+          header ? header.bucket : "<<<undefined>>>"
         );
         break;
       case NavigationViewNames.NonPub:
@@ -87,7 +95,8 @@ const DisplayButton = ({
           count,
           "Render All Non-Published Tutorials",
           TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL_NON_PUBLISHED,
-          `/${ROUTE_TUTORIALS}`
+          `/${ROUTE_TUTORIALS}`,
+          header ? header.bucket : "<<<undefined>>>"
         );
         break;
       default:

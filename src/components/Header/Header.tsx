@@ -15,12 +15,13 @@ import { useLocation } from "react-router-dom";
 import { log } from "../../utils/LogUtil";
 import useDebugContext from "../../hooks/useDebugContext";
 import toast from "react-hot-toast";
+import { useTutopediaState } from "../../hooks/states/useTutopediaState";
 
 const Header = ({
-  header,
+  // header,
   count,
 }: {
-  header: HeaderState | undefined;
+  // header: HeaderState | undefined;
   count: number;
 }) => {
   const { user, isAuthenticated } = useAuth0();
@@ -29,6 +30,7 @@ const Header = ({
   const { state } = useLocation();
 
   log(debug, "Tutopedia.Header", "Setup, STATE?", state, true);
+  const { header } = useTutopediaState(state);
   log(debug, "Tutopedia.Header", "Setup", header, true);
 
   const getClassName = (icon: boolean = true): string => {
@@ -118,11 +120,7 @@ const Header = ({
           width: "30%",
         }}
       >
-        <HeaderActions
-          isAuthenticated={isAuthenticated}
-          count={count}
-          header={header}
-        />
+        <HeaderActions isAuthenticated={isAuthenticated} count={count} />
       </Box>
     </>
   );

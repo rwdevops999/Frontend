@@ -176,9 +176,9 @@ function TutOPedia() {
   }
 
   const state = location.state;
-  log(debug, "Tutopedia", "STATE CHECK", location.state, true);
-  const { header } = useTutopediaState(state);
-  log(debug, "Tutopedia", "Header", header, true);
+  log(debug, "Tutopedia", "STATE CHECK", state, true);
+  // const { header } = useTutopediaState(state);
+  // log(debug, "Tutopedia", "Header", header, true);
 
   return (
     <Providers>
@@ -191,7 +191,8 @@ function TutOPedia() {
             height: "6%",
           }}
         >
-          <Header header={header ? header : undefined} count={count} />
+          <Header count={count} />
+          {/* <Header header={header ? header : undefined} count={count} /> */}
         </Box>
 
         <Box

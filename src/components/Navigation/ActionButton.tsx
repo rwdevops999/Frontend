@@ -1,6 +1,6 @@
 import "./ActionButton.css";
 import { NavigationPageNames } from "../../data/data";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   buildState,
   buildTutopediaForPublishAll,
@@ -17,6 +17,7 @@ import {
 } from "../../data/layout/layout";
 import useDebugContext from "../../hooks/useDebugContext";
 import { log } from "../../utils/LogUtil";
+import { useTutopediaState } from "../../hooks/states/useTutopediaState";
 
 const ActionButton = ({
   count,
@@ -29,10 +30,13 @@ const ActionButton = ({
 }) => {
   const { config } = useConfig();
   const { debug } = useDebugContext();
+  const { state } = useLocation();
 
   log(debug, "NavigationBar.Action.Button", "Setup");
 
   const navigate = useNavigate();
+
+  const { header } = useTutopediaState(state);
 
   const handleAction = async (action: string) => {
     switch (action) {
@@ -44,7 +48,8 @@ const ActionButton = ({
             "Delete all tutorials",
             TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_ACTIONS_DELETE,
             `/${ROUTE_TUTORIALS}`,
-            true
+            true,
+            header ? header.bucket : "<<<undefined>>>"
           );
 
           if (config.environment != "TST") {
@@ -62,7 +67,8 @@ const ActionButton = ({
               count,
               "Publish all tutorials",
               TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_ACTIONS_PUBLISH,
-              `/${ROUTE_TUTORIALS}`
+              `/${ROUTE_TUTORIALS}`,
+              header ? header.bucket : "<<<undefined>>>"
             );
 
             if (config.environment != "TST") {

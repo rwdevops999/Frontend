@@ -140,8 +140,14 @@ export const buildTutopediaForFindByKeyword = (
   description: string,
   sender: string,
   routeURL: string,
-  keywords?: string[]
+  keywords?: string[],
+  bucket?: string
 ): TutopediaState => {
+  const headerBuilder: HeaderBuilder = new HeaderBuilder();
+  if (bucket) {
+    headerBuilder.setBucket(bucket);
+  }
+
   const appBuilder: ApplicationBuilder = new ApplicationBuilder();
   appBuilder.setApiURL("/find/keywords/");
 
@@ -161,7 +167,8 @@ export const buildTutopediaForFindByKeyword = (
     sender,
     routeURL,
     layoutBuilder.build(),
-    appBuilder.build()
+    appBuilder.build(),
+    headerBuilder.build()
   );
 };
 
@@ -171,8 +178,14 @@ export const buildTutopediaForCreate = (
   sender: string,
   routeURL: string,
   id?: number,
-  reload?: boolean
+  reload?: boolean,
+  bucket?: string
 ): TutopediaState => {
+  const headerBuilder: HeaderBuilder = new HeaderBuilder();
+  if (bucket) {
+    headerBuilder.setBucket(bucket);
+  }
+
   const dataBuilder: DataBuilder = new DataBuilder();
   dataBuilder.setUpdateMode(false);
   if (id) {
@@ -197,7 +210,8 @@ export const buildTutopediaForCreate = (
     sender,
     routeURL,
     layoutBuilder.build(),
-    appBuilder.build()
+    appBuilder.build(),
+    headerBuilder.build()
   );
 };
 
@@ -235,8 +249,14 @@ export const buildTutopediaForViewAllTutorials = (
   description: string,
   sender: string,
   routeURL: string,
-  reload?: boolean | undefined
+  reload?: boolean | undefined,
+  bucket?: string
 ): TutopediaState => {
+  const headerBuilder: HeaderBuilder = new HeaderBuilder();
+  if (bucket) {
+    headerBuilder.setBucket(bucket);
+  }
+
   const dataBuilder: DataBuilder = new DataBuilder();
   dataBuilder.setReset(true);
 
@@ -258,7 +278,8 @@ export const buildTutopediaForViewAllTutorials = (
     sender,
     routeURL,
     layoutBuilder.build(),
-    appBuilder.build()
+    appBuilder.build(),
+    headerBuilder.build()
   );
 };
 
@@ -267,8 +288,14 @@ export const buildTutopediaForViewAllPublishedTutorials = (
   description: string,
   sender: string,
   routeURL: string,
-  reload?: boolean | undefined
+  reload?: boolean | undefined,
+  bucket?: string
 ): TutopediaState => {
+  const headerBuilder: HeaderBuilder = new HeaderBuilder();
+  if (bucket) {
+    headerBuilder.setBucket(bucket);
+  }
+
   const dataBuilder: DataBuilder = new DataBuilder();
   dataBuilder.setListMode(true);
   dataBuilder.setReset(true);
@@ -291,7 +318,8 @@ export const buildTutopediaForViewAllPublishedTutorials = (
     sender,
     routeURL,
     layoutBuilder.build(),
-    appBuilder.build()
+    appBuilder.build(),
+    headerBuilder.build()
   );
 };
 
@@ -299,8 +327,14 @@ export const buildTutopediaForViewAllNonPublishedTutorials = (
   count: number,
   description: string,
   sender: string,
-  routeURL: string
+  routeURL: string,
+  bucket?: string
 ): TutopediaState => {
+  const headerBuilder: HeaderBuilder = new HeaderBuilder();
+  if (bucket) {
+    headerBuilder.setBucket(bucket);
+  }
+
   const dataBuilder: DataBuilder = new DataBuilder();
   dataBuilder.setListMode(false);
   dataBuilder.setReset(true);
@@ -319,7 +353,8 @@ export const buildTutopediaForViewAllNonPublishedTutorials = (
     sender,
     routeURL,
     layoutBuilder.build(),
-    appBuilder.build()
+    appBuilder.build(),
+    headerBuilder.build()
   );
 };
 
@@ -328,8 +363,14 @@ export const buildTutopediaForFindById = (
   description: string,
   sender: string,
   routeURL: string,
-  tutorialId?: number
+  tutorialId?: number,
+  bucket?: string
 ): TutopediaState => {
+  const headerBuilder: HeaderBuilder = new HeaderBuilder();
+  if (bucket) {
+    headerBuilder.setBucket(bucket);
+  }
+
   const appBuilder: ApplicationBuilder = new ApplicationBuilder();
   appBuilder.setApiURL("/find");
 
@@ -350,7 +391,8 @@ export const buildTutopediaForFindById = (
     sender,
     routeURL,
     layoutBuilder.build(),
-    appBuilder.build()
+    appBuilder.build(),
+    headerBuilder.build()
   );
 };
 
@@ -381,8 +423,14 @@ export const buildTutopediaForPublishAll = (
   count: number,
   description: string,
   sender: string,
-  routeURL: string
+  routeURL: string,
+  bucket?: string
 ): TutopediaState => {
+  const headerBuilder: HeaderBuilder = new HeaderBuilder();
+  if (bucket) {
+    headerBuilder.setBucket(bucket);
+  }
+
   const dataBuilder: DataBuilder = new DataBuilder();
   dataBuilder.setListMode(true);
 
@@ -400,7 +448,8 @@ export const buildTutopediaForPublishAll = (
     sender,
     routeURL,
     layoutBuilder.build(),
-    appBuilder.build()
+    appBuilder.build(),
+    headerBuilder.build()
   );
 };
 
