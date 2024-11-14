@@ -181,7 +181,12 @@ const BucketContainer = ({
   };
 
   const handleChangeDefault = async (bucket: Bucket) => {
-    log(debug, "BucketsPage.Display.Container", "Changing default");
+    log(
+      debug,
+      "BucketsPage.Display.Container",
+      "Changing default",
+      bucket.name
+    );
     await axios.put("/bucket/default/" + bucket.id).then(() => {
       let tutopedia = undefined;
       if (isAdmin) {

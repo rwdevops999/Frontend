@@ -6,10 +6,14 @@ export const log = (
   isObject: boolean = false
 ) => {
   if (isDebug) {
-    if (isObject) {
+    if (isObject && object) {
       console.log(`[${caller}] ${message}: ${JSON.stringify(object)}`);
     } else {
-      console.log(`[${caller}] ${message}: ${object}`);
+      if (object) {
+        console.log(`[${caller}] ${message}: ${object}`);
+      } else {
+        console.log(`[${caller}] ${message}`);
+      }
     }
   }
 };

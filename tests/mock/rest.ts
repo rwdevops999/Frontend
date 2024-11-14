@@ -1,5 +1,6 @@
 import { http, HttpResponse } from "msw";
 import { database } from "./database";
+import { log } from "../../src/utils/LogUtil";
 
 const getRandomInt = (max: number) => {
   return Math.floor(Math.random() * max);
@@ -172,6 +173,7 @@ export const tutorialRestHandler = [
     return HttpResponse.json({ status: 200 });
   }),
   http.get("http://localhost:8081/api/bucket/default", () => {
+    log(true, "REST", "INTERCEPT DEFAULT BUCKET CALL");
     const bucket = database.bucket.findFirst({
       where: {
         selected: {
@@ -179,6 +181,7 @@ export const tutorialRestHandler = [
         },
       },
     });
+    log(true, "REST", "DEFAULT BUCKET", bucket, true);
 
     return HttpResponse.json(bucket);
   }),

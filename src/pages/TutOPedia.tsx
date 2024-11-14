@@ -37,6 +37,7 @@ function TutOPedia() {
 
   let location = useLocation();
   log(debug, "Tutopedia", "Location: ", location, true);
+  log(debug, "Tutopedia", "STATE IN", location.state, true);
 
   const [defaultBucket, setDefaultBucket] = useState<Bucket | undefined>(
     undefined
@@ -68,23 +69,32 @@ function TutOPedia() {
     getDefaultBucket();
   }, []);
 
+  log(debug, "Tutopedia", "Checking default bucket");
   let count = 0;
   if (location.state !== null) {
     count = location.state.tutopedia.count;
-    let doSetDefaultBucket: boolean = true;
+    let doSetDefaultBucket: boolean = false;
     if (location.state.tutopedia.header) {
-      if (location.state.tutopedia.header.bucket) {
-        // setDefaultBucket(location.state.tutopedia.header.bucket);
+      if (
+        location.state.tutopedia.header.bucket &&
+        location.state.tutopedia.header.bucket === "<<<undefined>>>"
+      ) {
+        log(debug, "Tutopedia", "Change state bucket", defaultBucket?.name);
+        location.state.tutopedia.header.bucket = defaultBucket?.name;
         doSetDefaultBucket = false;
       }
     }
+
     count++;
     log(debug, "Tutopedia", "Count", count);
 
     if (defaultBucket && doSetDefaultBucket) {
+      log(debug, "Tutopedia", "STEP 1");
       if (location.state.tutopedia.header) {
+        log(debug, "Tutopedia", "STEP 2");
         location.state.tutopedia.header.bucket = defaultBucket.name;
       } else {
+        log(debug, "Tutopedia", "STEP 3");
         location.state.tutopedia.header = {
           bucket: defaultBucket.name,
         };
@@ -92,6 +102,7 @@ function TutOPedia() {
     }
   } else {
     log(debug, "Tutopedia", "No State defined ... building one");
+    log(debug, "Tutopedia", "STEP 4", defaultBucket, true);
     let tutopedia = undefined;
 
     switch (location.pathname) {
@@ -159,6 +170,7 @@ function TutOPedia() {
   }
 
   const state = location.state;
+  log(debug, "Tutopedia", "STATE CHECK", location.state, true);
   const { header } = useTutopediaState(state);
   log(debug, "Tutopedia", "Header", header, true);
 

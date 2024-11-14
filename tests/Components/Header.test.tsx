@@ -149,8 +149,10 @@ describe("Header with bucket", () => {
 
     renderRoute(`${ROUTE_TUTOPEDIA}`);
 
+    screen.debug(undefined, Infinity);
     await waitFor(() => {
       expect(screen.getByText(/^buckettest$/)).toBeInTheDocument();
     });
+    screen.debug(undefined, Infinity);
   });
 });
