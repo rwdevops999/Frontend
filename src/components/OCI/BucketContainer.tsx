@@ -63,7 +63,7 @@ const BucketContainer = ({
   const { config } = useConfig();
   const navigate = useNavigate();
   const { debug } = useDebugContext();
-  const { location } = useLocation();
+  const location = useLocation();
 
   log(debug, "BucketsPage.Display.Container", "Setup", bucket, true);
 
