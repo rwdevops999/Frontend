@@ -13,6 +13,7 @@ const SocialMediaItem = ({ media }: { media: SocialMedia }) => {
         src={`/src/assets/${media.name}.svg`}
         title={`${media.name}`}
         alt={media.name}
+        className="icon-24"
       />
     </a>
   );

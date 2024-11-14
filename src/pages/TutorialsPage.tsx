@@ -28,24 +28,31 @@ const TutorialsPage = () => {
   log(debug, "TutorialsPage", "count", count);
 
   return (
-    <header data-title={TUTOPEDIA_CONTENT_TUTORIALS_PAGE}>
-      <Box data-title={TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR}>
+    <Box
+      data-title={TUTOPEDIA_CONTENT_TUTORIALS_PAGE}
+      sx={{ width: "100%", height: "100%" }}
+    >
+      <Box
+        data-title={TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR}
+        sx={{ height: "8%" }}
+      >
         <NavigationBar
           count={count}
           layout={layout}
           application={application}
         />
       </Box>
-      <Box display="flex">
+
+      <Box display="flex" sx={{ height: "92%" }}>
         <Box
-          sx={{ width: "100%" }}
+          sx={{ width: "100%", height: "98%" }}
           data-title={TUTOPEDIA_CONTENT_TUTORIALS_PAGE_CONTENT}
         >
           <Outlet />
-          {config.environment != "TST" && <Toaster />}
+          <Toaster />
         </Box>
       </Box>
-    </header>
+    </Box>
   );
 };
 

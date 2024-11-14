@@ -1,5 +1,5 @@
 export interface DynamicConfig {
-  environment: "DEV" | "TST" | "ACC" | "PROD";
+  environment: "DEV" | "TST" | "ACC" | "PRD";
 }
 
 export const defaultConfig: DynamicConfig = {

@@ -14,6 +14,8 @@ import {
 import { useLocation } from "react-router-dom";
 import { log } from "../../utils/LogUtil";
 import useDebugContext from "../../hooks/useDebugContext";
+import toast from "react-hot-toast";
+import { DynamicConfig } from "../../configuration/config";
 
 const Header = ({
   header,
@@ -47,12 +49,16 @@ const Header = ({
   };
 
   const handleChangeMode = () => {
-    if (config.environment === "TST") {
-      setConfig({ environment: "DEV" });
-    } else {
-      setConfig({ environment: "TST" });
+    let newMode: "DEV" | "TST" | "ACC" | "PRD" = "DEV";
+
+    if (config.environment !== "TST") {
+      newMode = "TST";
     }
-    log(debug, "Tutopedia.Header", "New Config", config, true);
+
+    setConfig({ environment: newMode });
+    toast(`Current environment: ${newMode}`, { icon: "👏" });
+
+    log(debug, "Tutopedia.Header", "New Config", newMode);
   };
 
   return (
@@ -61,6 +67,7 @@ const Header = ({
         data-title={TUTOPEDIA_HEADER_TITLE}
         sx={{
           width: "40%",
+          marginTop: "10px",
         }}
       >
         <img
@@ -77,8 +84,10 @@ const Header = ({
       <Box
         data-title={TUTOPEDIA_HEADER_BUCKET_NAME}
         sx={{
+          marginLeft: "-145px",
           width: "15%",
           color: "green",
+          marginTop: "15px",
         }}
       >
         <FaBucket />
@@ -95,6 +104,8 @@ const Header = ({
         sx={{
           width: "15%",
           color: "green",
+          marginTop: "15px",
+          marginRight: "145px",
         }}
       >
         <FaUser />

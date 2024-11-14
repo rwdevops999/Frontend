@@ -29,7 +29,9 @@ function TutOPedia() {
   let { debug, setDebug } = useDebugContext();
   const { config } = useConfig();
 
-  toast(`Current environment: ${config.environment}`, { icon: "👏" });
+  useEffect(() => {
+    toast(`Current environment: ${config.environment}`, { icon: "👏" });
+  }, []);
 
   setDebug(true);
 
@@ -176,40 +178,40 @@ function TutOPedia() {
   log(debug, "Tutopedia", "Header", header, true);
 
   return (
-    <header data-title={TUTOPEDIA}>
-      <Providers>
-        <Box
-          display="flex"
-          data-title={TUTOPEDIA_HEADER}
-          component="section"
-          sx={{
-            height: "20%",
-          }}
-        >
-          <Header header={header ? header : undefined} count={count} />
-        </Box>
-        <Box
-          data-title={TUTOPEDIA_CONTENT}
-          component="section"
-          sx={{
-            height: "550px",
-          }}
-        >
-          <Outlet />
-        </Box>
-        <Box
-          display="flex"
-          data-title={TUTOPEDIA_FOOTER}
-          component="section"
-          sx={{
-            height: "20%",
-            color: "#666",
-          }}
-        >
-          <Footer />
-        </Box>
-      </Providers>
-    </header>
+    <Box data-title={TUTOPEDIA} sx={{ width: "100%", height: "100%" }}>
+      <Box
+        display="flex"
+        data-title={TUTOPEDIA_HEADER}
+        // component="section"
+        sx={{
+          height: "6%",
+        }}
+      >
+        <Header header={header ? header : undefined} count={count} />
+      </Box>
+
+      <Box
+        data-title={TUTOPEDIA_CONTENT}
+        // component="section"
+        sx={{
+          height: "736px",
+        }}
+      >
+        <Outlet />
+      </Box>
+
+      <Box
+        display="flex"
+        data-title={TUTOPEDIA_FOOTER}
+        component="section"
+        sx={{
+          height: "4%",
+          color: "#666",
+        }}
+      >
+        <Footer />
+      </Box>
+    </Box>
   );
 }
 

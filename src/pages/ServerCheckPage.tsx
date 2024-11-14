@@ -37,20 +37,21 @@ const ServerCheckPage = () => {
   const { header } = useTutopediaState(state);
 
   return (
-    <header data-title={TUTOPEDIA_CONTENT_SERVER_CHECK_PAGE}>
-      <Box>
+    <Box sx={{ height: "100%" }}>
+      <Box display="flex" sx={{ height: "50%" }}>
         <Box
           data-title={TUTOPEDIA_CONTENT_SERVER_CHECK_PAGE_LOADER}
-          marginTop={25}
+          sx={{ marginLeft: "44%", marginTop: "10%" }}
         >
           <ServerLoader connectState={connectState} />
         </Box>
+      </Box>
+      <Box display="flex" component="section" sx={{ height: "50%" }}>
         {(connectState === ConnectionState.connected ||
           connectState === ConnectionState.failed) && (
           <Box
             data-title={TUTOPEDIA_CONTENT_SERVER_CHECK_PAGE_ACTION}
-            marginTop={-2}
-            marginLeft={87}
+            sx={{ marginLeft: "45%" }}
           >
             <ServerCheckPageButton
               count={count}
@@ -61,7 +62,7 @@ const ServerCheckPage = () => {
           </Box>
         )}
       </Box>
-    </header>
+    </Box>
   );
 };
 

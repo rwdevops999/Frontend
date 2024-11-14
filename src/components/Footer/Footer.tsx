@@ -38,6 +38,8 @@ const Footer = () => {
         data-title={TUTOPEDIA_FOOTER_COPYRIGHT}
         sx={{
           width: "38%",
+          marginTop: "10px",
+          marginLeft: "10px",
         }}
       >
         &copy;2024 Rudi Welter (Powered by ReactTS)&nbsp;
@@ -47,15 +49,18 @@ const Footer = () => {
         data-title={TUTOPEDIA_FOOTER_SOCIAL_MEDIA}
         sx={{
           width: "52%",
+          marginTop: "20px",
+          marginLeft: "100px",
         }}
       >
-        <SocialMedia update={updateAll.current} />
+        <SocialMedia />
       </Box>
 
       <Box
         data-title={TUTOPEDIA_FOOTER_TIME}
         sx={{
           width: "10%",
+          marginTop: "10px",
         }}
       >
         {timeStr}

@@ -26,24 +26,24 @@ const NavigationBar = ({
   log(debug, "NavigationBar", "Setup");
 
   return (
-    <Box display="flex" sx={{ width: "100%" }} marginTop={1}>
+    <Box display="flex" sx={{ width: "100%", height: "100%" }}>
       <Box
         data-title={TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_GROUPS}
-        sx={{ width: "28%" }}
+        sx={{ marginTop: "0.2%", marginLeft: "0.2%", width: "28%" }}
       >
         <NavigationGroup count={count} selectedPage={layout?.selectedPage} />
       </Box>
 
       <Box
         data-title={TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS}
-        sx={{ width: "32%" }}
+        sx={{ marginLeft: "1%", marginTop: "0.2%", width: "32%" }}
       >
         <DisplayView count={count} selectedView={layout?.selectedView} />
       </Box>
 
       <Box
         data-title={TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_SEARCH}
-        sx={{ width: "20%" }}
+        sx={{ marginLeft: "2%", marginTop: "0.2%", width: "18%" }}
       >
         <SearchGroup
           count={count}
@@ -54,7 +54,7 @@ const NavigationBar = ({
 
       <Box
         data-title={TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_ACTIONS}
-        sx={{ width: "20%" }}
+        sx={{ marginLeft: "1%", marginTop: "0.2%", width: "17%" }}
       >
         <ActionGroup count={count} selectedPage={layout?.selectedPage} />
       </Box>

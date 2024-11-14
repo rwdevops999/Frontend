@@ -212,8 +212,8 @@ const TutorialsListPage = () => {
             overflow={"hidden"}
             sx={{
               width: "100%",
-              height: "700px",
-              maxHeight: "700px",
+              height: "100%",
+              maxHeight: "660px",
             }}
             marginTop={1}
           >
@@ -233,10 +233,15 @@ const TutorialsListPage = () => {
 
   return (
     <>
-      <input alt="pagination" defaultValue={tutorialsPerPage} hidden />
-      <header data-title={TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE}>
+      {/* <input alt="pagination" defaultValue={tutorialsPerPage} hidden /> */}
+      <Box
+        data-title="TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE"
+        sx={{ height: "100%" }}
+      >
         {renderTutorials()}
-      </header>
+      </Box>
+      {/* <header data-title={TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE} sx={{height: "50%"}}>
+      </header> */}
     </>
   );
 };
