@@ -22,6 +22,8 @@ const BucketsPage = () => {
   let { state } = useLocation();
   const { config } = useConfig();
 
+  log(debug, "BucketsPage", "In, State", state, true);
+
   let count = state.tutopedia.count;
   if (count >= 0) {
     count++;
