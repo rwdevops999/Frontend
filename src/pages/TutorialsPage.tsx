@@ -2,7 +2,6 @@ import { Box } from "@mui/material";
 import { Outlet, useLocation } from "react-router-dom";
 import NavigationBar from "../components/Navigation/NavigationBar";
 import { Toaster } from "react-hot-toast";
-import { useConfig } from "../configuration/useConfig";
 import {
   TUTOPEDIA_CONTENT_TUTORIALS_PAGE,
   TUTOPEDIA_CONTENT_TUTORIALS_PAGE_CONTENT,
