@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import {
   buildState,
   buildTutopediaForAdmin,
-  buildTutopediaForServerCheckPage,
+  buildTutopediaForHome,
 } from "../../builders/Builders";
 import "./HeaderActionButton.css";
 import {
@@ -44,9 +44,9 @@ const HeaderActionButton = ({
 
     if (action.actionId === TUTOPEDIA_HEADER_ACTION_BUTTON_HOME) {
       log(debug, "Tutopedia.Header.Actions.Button", "To Home");
-      const tutopedia = buildTutopediaForServerCheckPage(
+      const tutopedia = buildTutopediaForHome(
         count,
-        "Restart",
+        "Home button pressed",
         TUTOPEDIA_HEADER_ACTION_BUTTON_HOME,
         "/",
         bucket
