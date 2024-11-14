@@ -29,7 +29,7 @@ import {
   buildTutopediaForAdmin,
   buildTutopediaForOCI,
 } from "../../builders/Builders";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   BUCKET_CONTAINER,
   BUCKET_CONTAINER_BUCKET,
@@ -63,6 +63,7 @@ const BucketContainer = ({
   const { config } = useConfig();
   const navigate = useNavigate();
   const { debug } = useDebugContext();
+  const { location } = useLocation();
 
   log(debug, "BucketsPage.Display.Container", "Setup", bucket, true);
 
@@ -82,6 +83,17 @@ const BucketContainer = ({
     }
   });
 
+  const setBucketInHeader = (name: String) => {
+    log(debug, "BucketContainer", "Set Default Bucket in Header", name);
+    if (location.state.tutopedia.header) {
+      location.state.tutopedia.header.bucket = name;
+    } else {
+      location.state.tutopedia.header = {
+        bucket: name,
+      };
+    }
+  };
+
   const handleCreateBucket = async (creationAllowed: boolean) => {
     if (creationAllowed && isAdmin) {
       const input: any = document.getElementById("bucketName");
@@ -97,8 +109,19 @@ const BucketContainer = ({
         }
         await axios
           .post("/bucket/create", bucket)
-          .then(() => {
-            log(debug, "BucketsPage.Display.Container", "Bucket created");
+          .then((response) => {
+            log(
+              debug,
+              "BucketsPage.Display.Container",
+              "Bucket created",
+              response.data,
+              true
+            );
+            let newbucket: Bucket = response.data;
+            if (newbucket.selected) {
+              setBucketInHeader(newbucket.name!);
+            }
+
             setReload((x: any) => x + 1);
           })
           .catch((error) => {

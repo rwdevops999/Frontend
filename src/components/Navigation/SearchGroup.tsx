@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { DataState } from "../../data/states";
 import { NavigationPageNames } from "../../data/data";
 import { buildState, buildTutopediaForFindById } from "../../builders/Builders";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { TutopediaTextFieldOutlined } from "../MUI/TutopediaTextFieldOutlined";
 import {
   ROUTE_TUTORIALS,
@@ -14,6 +14,7 @@ import {
 } from "../../data/layout/layout";
 import { log } from "../../utils/LogUtil";
 import useDebugContext from "../../hooks/useDebugContext";
+import { useTutopediaState } from "../../hooks/states/useTutopediaState";
 
 const iconStyles: CSS.Properties = {
   color: "#0D3B69",
@@ -33,8 +34,11 @@ const SearchGroup = ({
 }) => {
   const navigate = useNavigate();
   const { debug } = useDebugContext();
+  const { state } = useLocation();
 
   log(debug, "NavigationBar.Search", "Setup");
+
+  const { header } = useTutopediaState(state);
 
   const [searchId, setSearchId] = useState<string | undefined>(
     data ? data.searchId?.toString() : undefined
@@ -47,7 +51,8 @@ const SearchGroup = ({
       "Search By Id",
       TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_SEARCH_INPUT,
       `/${ROUTE_TUTORIALS}`,
-      tutorialId
+      tutorialId,
+      header ? header.bucket : "<<<undefined>>>"
     );
 
     navigate(tutopedia.routeURL!, buildState(tutopedia));
