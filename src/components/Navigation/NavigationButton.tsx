@@ -11,7 +11,7 @@ import { TutopediaState } from "../../data/states";
 import {
   buildState,
   buildTutopediaForCreate,
-  buildTutopediaForFindByKeyword,
+  buildTutopediaForFind,
   buildTutopediaForHome,
   buildTutopediaForOCI,
 } from "../../builders/Builders";
@@ -72,7 +72,7 @@ const NavigationButton = ({
         break;
       case NavigationPageNames.Find:
         log(debug, "NavigationBar.Group.Button", "Change to Find...");
-        tutopedia = buildTutopediaForFindByKeyword(
+        tutopedia = buildTutopediaForFind(
           count,
           "Render the find by keywords page",
           TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_GROUPS_FIND,

@@ -172,6 +172,43 @@ export const buildTutopediaForFindByKeyword = (
   );
 };
 
+export const buildTutopediaForFind = (
+  count: number,
+  description: string,
+  sender: string,
+  routeURL: string,
+  keywords?: string[],
+  bucket?: string
+): TutopediaState => {
+  const headerBuilder: HeaderBuilder = new HeaderBuilder();
+  if (bucket) {
+    headerBuilder.setBucket(bucket);
+  }
+
+  const appBuilder: ApplicationBuilder = new ApplicationBuilder();
+  appBuilder.setApiURL("/find/keywords/");
+
+  if (keywords) {
+    let dataBuilder: DataBuilder = new DataBuilder();
+
+    dataBuilder.setKeywords(keywords);
+    appBuilder.setData(dataBuilder.build());
+  }
+
+  const layoutBuilder: LayoutBuilder = new LayoutBuilder();
+  layoutBuilder.setSelectedPage(NavigationPageNames.Find);
+
+  return buildTutopedia(
+    count,
+    description,
+    sender,
+    routeURL,
+    layoutBuilder.build(),
+    appBuilder.build(),
+    headerBuilder.build()
+  );
+};
+
 export const buildTutopediaForCreate = (
   count: number,
   description: string,

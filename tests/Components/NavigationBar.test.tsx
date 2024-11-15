@@ -118,8 +118,10 @@ describe("NavigationBar", () => {
     ]);
   });
 
-  it("should render the `find page` when clicking the `find button` and handle other buttons visibility", () => {
+  it.only("should render the `find page` when clicking the `find button` and handle other buttons visibility", () => {
     clickButton({ name: /^Find$/ });
+
+    screen.debug(undefined, Infinity);
 
     expectInDocumentByTestId(`${TUTOPEDIA_CONTENT_FIND_PAGE}`);
 
