@@ -105,6 +105,12 @@ const TutorialsListPage = () => {
               toast.dismiss();
             }
 
+            if (response.data.length === 0) {
+              if (config.environment !== "TST") {
+                toast.dismiss();
+                toast("No Tutorials Found");
+              }
+            }
             // setBeginOffset(0);
             setLoading(false);
           } else {
