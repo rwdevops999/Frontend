@@ -10,12 +10,13 @@ const Footer = () => {
   const [timeStr, setTimeStr] = useState<string>(
     new Date().toLocaleTimeString() + "/ 00:00:00"
   );
+  const start = useRef<number>(new Date().getTime());
 
   const updateAll = useRef<boolean>(true);
 
-  let start: number = 0;
-
   const msToTime = (s: number): string => {
+    console.log("CONVERT = " + s);
+
     const pad = (n: number, z?: number): string => {
       z = z || 2;
       return ("00" + n).slice(-z);
@@ -28,20 +29,24 @@ const Footer = () => {
     var mins = s % 60;
     var hrs = (s - mins) / 60;
 
+    console.log("CONVERTED = " + pad(hrs) + ":" + pad(mins) + ":" + pad(secs));
+
     return pad(hrs) + ":" + pad(mins) + ":" + pad(secs);
   };
 
   useEffect(() => {
-    start = new Date().getMilliseconds();
+    start.current = new Date().getTime();
+    console.log("START = " + start);
   }, []);
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       let now = new Date();
+      console.log("NOW = " + now.getMilliseconds());
       setTimeStr(
         now.toLocaleTimeString() +
           " / " +
-          msToTime(now.getMilliseconds() - start)
+          msToTime(now.getTime() - start.current)
       );
       updateAll.current = false;
     }, 1000);
