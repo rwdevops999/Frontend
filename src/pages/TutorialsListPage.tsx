@@ -111,6 +111,7 @@ const TutorialsListPage = () => {
             log(debug, "TutorialsListPage", "NO TUTORIALS LOADED");
             if (config.environment !== "TST") {
               toast.dismiss();
+              toast("No Tutorials Found");
             }
           }
         })

@@ -159,7 +159,7 @@ export const buildTutopediaForFindByKeyword = (
   }
 
   const layoutBuilder: LayoutBuilder = new LayoutBuilder();
-  layoutBuilder.setSelectedPage(NavigationPageNames.Find);
+  layoutBuilder.setSelectedPage(NavigationPageNames.Home);
 
   return buildTutopedia(
     count,
