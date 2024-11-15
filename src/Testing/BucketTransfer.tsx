@@ -1,6 +1,3 @@
-import { ReactNode, useState } from "react";
-import { Tutorial } from "../entities/Tutorial";
-import Grid from "@mui/material/Grid2";
 import {
   Button,
   Card,
@@ -15,6 +12,10 @@ import {
   Paper,
   styled,
 } from "@mui/material";
+import { Tutorial } from "../entities/Tutorial";
+import { useState } from "react";
+import Grid from "@mui/material/Grid2";
+
 import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
 import SwipeLeftIcon from "@mui/icons-material/SwipeLeft";
 import SwipeRightIcon from "@mui/icons-material/SwipeRight";
@@ -53,7 +54,7 @@ function intersection(source: Tutorial[], destination: Tutorial[]) {
   return result;
 }
 
-const Test = () => {
+const BucketTransfer = ({ tutorials }: { tutorials: Tutorial[] }) => {
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: "#fff",
     ...theme.typography.body2,
@@ -65,7 +66,7 @@ const Test = () => {
     }),
   }));
 
-  const PREFIX = "Test";
+  const PREFIX = "BucketTransfer";
   const classes = {
     root: `${PREFIX}-root`,
     button: `${PREFIX}-button`,
@@ -74,7 +75,7 @@ const Test = () => {
     list: `${PREFIX}-list`,
   };
 
-  const Root = styled("div")(({ theme }) => ({
+  const BucketTransfer = styled("div")(({ theme }) => ({
     [`&.${classes.root}`]: {},
     [`& .${classes.button}`]: {
       margin: theme.spacing(0.5, 0),
@@ -98,66 +99,8 @@ const Test = () => {
     },
   }));
 
-  const t0: Tutorial = {
-    id: 0,
-    title: "tutorial0",
-    description: "description0",
-    published: false,
-    filename: "filename0",
-  };
-  const t1: Tutorial = {
-    id: 1,
-    title: "tutorial1",
-    description: "description1",
-    published: false,
-    filename: "filename1",
-  };
-  const t2: Tutorial = {
-    id: 2,
-    title: "tutorial2",
-    description: "description2",
-    published: false,
-    filename: "filename2",
-  };
-  const t3: Tutorial = {
-    id: 3,
-    title: "tutorial3",
-    description: "description3",
-    published: false,
-    filename: "filename3",
-  };
-  const t4: Tutorial = {
-    id: 4,
-    title: "tutorial4",
-    description: "description4",
-    published: false,
-    filename: "filename4",
-  };
-  const t5: Tutorial = {
-    id: 5,
-    title: "tutorial5",
-    description: "description5",
-    published: false,
-    filename: "filename5",
-  };
-  const t6: Tutorial = {
-    id: 6,
-    title: "tutorial6",
-    description: "description6",
-    published: false,
-    filename: "filename6",
-  };
-  const t7: Tutorial = {
-    id: 7,
-    title: "tutorial7",
-    description: "description7",
-    published: false,
-    filename: "filename7",
-  };
-
   const [checked, setChecked] = useState<Tutorial[]>([]);
-  const [left, setLeft] = useState<Tutorial[]>([t0, t1, t2, t3]);
-  // const [right, setRight] = useState<Tutorial[]>([t4, t5, t6, t7]);
+  const [left, setLeft] = useState<Tutorial[]>(tutorials);
   const [right, setRight] = useState<Tutorial[]>([]);
 
   const leftChecked = intersection(checked, left);
@@ -167,14 +110,25 @@ const Test = () => {
     return intersection(checked, items).length;
   };
 
+  const sortTutorials = (tutorials: Tutorial[], side: string) => {
+    const copyItems = [...tutorials].sort((a, b) =>
+      a.filename! > b.filename! ? 1 : -1
+    );
+    if (side === "right") {
+      setRight(copyItems);
+    } else {
+      setLeft(copyItems);
+    }
+  };
+
   const moveCheckedToRight = () => {
-    handleSortClick(right.concat(leftChecked), "right");
+    sortTutorials(right.concat(leftChecked), "right");
     setLeft(not(left, leftChecked));
     setChecked(not(checked, leftChecked));
   };
 
   const moveCheckedToLeft = () => {
-    handleSortClick(left.concat(rightChecked), "left");
+    sortTutorials(left.concat(rightChecked), "left");
     setRight(not(right, rightChecked));
     setChecked(not(checked, rightChecked));
   };
@@ -216,18 +170,7 @@ const Test = () => {
     }
   };
 
-  const handleSortClick = (tutorials: Tutorial[], side: string) => {
-    const copyItems = [...tutorials].sort((a, b) =>
-      a.filename! > b.filename! ? 1 : -1
-    );
-    if (side === "right") {
-      setRight(copyItems);
-    } else {
-      setLeft(copyItems);
-    }
-  };
-
-  const CardSelector = (title: ReactNode, tutorials: Tutorial[]) => {
+  const renderTutorialsList = (title: ReactNode, tutorials: Tutorial[]) => {
     const [expanded, setExpanded] = useState(true);
 
     const handleExpandClick = () => {
@@ -301,10 +244,10 @@ const Test = () => {
   };
 
   return (
-    <Root className="{classes.root}">
+    <BucketTransfer className="{classes.root}">
       <Grid container spacing={2} justifyContent="center" alignItems="center">
         <Item>
-          <Paper elevation={3}>{CardSelector("Bucket", left)}</Paper>
+          <Paper elevation={3}>{renderTutorialsList("Bucket", left)}</Paper>
         </Item>
 
         <Item>
@@ -342,11 +285,11 @@ const Test = () => {
         </Item>
 
         <Item>
-          <Paper elevation={3}>{CardSelector("Tutorials", right)}</Paper>
+          <Paper elevation={3}>{renderTutorialsList("Tutorials", right)}</Paper>
         </Item>
       </Grid>
-    </Root>
+    </BucketTransfer>
   );
 };
 
-export default Test;
+export default BucketTransfer;
