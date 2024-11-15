@@ -110,7 +110,6 @@ const FindPage = () => {
   });
 
   const { header } = useTutopediaState(state);
-  log(debug, "FindPage", "HEADER >>>", header, true);
 
   const navigateToHome = (): void => {
     log(debug, "FindPage", "Back to home...");

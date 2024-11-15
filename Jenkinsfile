@@ -124,6 +124,24 @@ pipeline {
 					docker push ${USER}/${IMAGE}
 				'''
 			}
+
+			post {
+				success {
+					sh '''
+						docker rmi ${IMAGE}:latest
+						docker rmi ${USER}/${IMAGE}:latest
+					'''					
+			        script {
+        			    isValid = true
+        			}
+				}
+
+				failure {
+			        script {
+        			    isValid = false
+        			}
+				}
+			}
        }
 
 		stage("finalize") {

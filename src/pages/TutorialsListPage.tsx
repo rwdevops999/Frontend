@@ -101,14 +101,15 @@ const TutorialsListPage = () => {
             );
             setTutorials(response.data);
             setPage(response.data);
-            if (config.environment != "TST") {
+            if (config.environment !== "TST") {
               toast.dismiss();
             }
 
             // setBeginOffset(0);
             setLoading(false);
           } else {
-            if (config.environment != "TST") {
+            log(debug, "TutorialsListPage", "NO TUTORIALS LOADED");
+            if (config.environment !== "TST") {
               toast.dismiss();
             }
           }
