@@ -79,7 +79,9 @@ const ActionButton = ({
           .catch((err) => {
             log(debug, "NavigationBar.Action.Button", "Error publishing all");
             if (config.environment != "TST") {
-              toast(`ERROR PUBLISH ALL TUTORIALS: ${err.message}`);
+              toast(
+                `Error publishing all tutorials: Is default bucket defined?`
+              );
             }
           });
         break;

@@ -107,7 +107,7 @@ const TutorialsListPage = () => {
 
             if (response.data.length === 0) {
               if (config.environment !== "TST") {
-                toast("No Tutorials Found");
+                toast.error("No Tutorials Found");
               }
             }
             // setBeginOffset(0);
@@ -116,7 +116,7 @@ const TutorialsListPage = () => {
             log(debug, "TutorialsListPage", "NO TUTORIALS LOADED");
             if (config.environment !== "TST") {
               toast.dismiss();
-              toast("No Tutorials Found");
+              toast.error("No Tutorials Found");
             }
           }
         })

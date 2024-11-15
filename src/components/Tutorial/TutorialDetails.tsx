@@ -83,7 +83,9 @@ const TutorialDetails = ({
       })
       .catch((err) => {
         if (config.environment != "TST") {
-          toast(`ERROR PUBLISH TUTORIAL ${id}: ${err.message}`);
+          toast(
+            `Error publishing tutorial with ID: ${id}: Is default bucket defined?`
+          );
         }
       });
   };
