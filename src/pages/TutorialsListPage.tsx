@@ -81,9 +81,9 @@ const TutorialsListPage = () => {
     setBeginOffset(newOffset);
   };
 
-  if (config.environment != "TST") {
-    toast.dismiss();
-  }
+  // if (config.environment != "TST") {
+  //   toast.dismiss();
+  // }
 
   useEffect(() => {
     async function getData() {
@@ -107,7 +107,6 @@ const TutorialsListPage = () => {
 
             if (response.data.length === 0) {
               if (config.environment !== "TST") {
-                toast.dismiss();
                 toast("No Tutorials Found");
               }
             }
