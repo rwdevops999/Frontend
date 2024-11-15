@@ -8,15 +8,41 @@ import {
 } from "../../data/layout/layout";
 const Footer = () => {
   const [timeStr, setTimeStr] = useState<string>(
-    new Date().toLocaleTimeString()
+    new Date().toLocaleTimeString() + "/ 00:00:00"
   );
 
   const updateAll = useRef<boolean>(true);
 
+  let start: number = 0;
+
+  const msToTime = (s: number): string => {
+    const pad = (n: number, z?: number): string => {
+      z = z || 2;
+      return ("00" + n).slice(-z);
+    };
+
+    var ms = s % 1000;
+    s = (s - ms) / 1000;
+    var secs = s % 60;
+    s = (s - secs) / 60;
+    var mins = s % 60;
+    var hrs = (s - mins) / 60;
+
+    return pad(hrs) + ":" + pad(mins) + ":" + pad(secs);
+  };
+
+  useEffect(() => {
+    start = new Date().getMilliseconds();
+  }, []);
+
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       let now = new Date();
-      setTimeStr(now.toLocaleTimeString());
+      setTimeStr(
+        now.toLocaleTimeString() +
+          " / " +
+          msToTime(now.getMilliseconds() - start)
+      );
       updateAll.current = false;
     }, 1000);
 
