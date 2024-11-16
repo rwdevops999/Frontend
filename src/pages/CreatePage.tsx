@@ -220,7 +220,7 @@ const CreatePage = () => {
               navigateToHome(TUTOPEDIA_CONTENT_CREATE_PAGE_UPDATE_BUTTON);
             })
             .catch((error) => {
-              console.log("[CreatePage: UPDATE] ERROR: " + error.message);
+              log(debug, "CreatePage", "UPDATE ERROR", error.message);
             });
         } else {
           let data: FormData = new FormData();

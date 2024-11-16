@@ -69,7 +69,6 @@ const OCIPage = () => {
               toast.error("No Buckets found");
             } else {
               log(debug, "OCIPage", "Find Buckets, ERROR", error.message);
-              console.log("[OCIPage] SET ERROR");
               setError(error.message);
             }
           } else {

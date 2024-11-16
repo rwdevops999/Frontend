@@ -39,7 +39,6 @@ const Footer = () => {
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       let now = new Date();
-      console.log("NOW = " + now.getMilliseconds());
       setTimeStr(now.toLocaleTimeString());
       durationStr.current = msToTime(now.getTime() - start.current);
       updateAll.current = false;

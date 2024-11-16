@@ -35,9 +35,7 @@ const OCIPanel = () => {
             "Error retrieving setting",
             error.message
           );
-          console.log(
-            `[OCIPanel] : Error retrieving setting: ${error.message}`
-          );
+          log(debug, "OCIPanel", "Error retrieving setting", error.message);
         });
     }
 
