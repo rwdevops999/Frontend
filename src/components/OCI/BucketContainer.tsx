@@ -252,8 +252,6 @@ const BucketContainer = ({
     setOpen(false);
   };
 
-  const tutorials: Tutorial[] = [];
-
   return (
     <div id={bucket.name} data-title={BUCKET_CONTAINER}>
       <Box
