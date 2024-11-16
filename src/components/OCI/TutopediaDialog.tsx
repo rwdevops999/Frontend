@@ -40,7 +40,9 @@ const TutopediaDialog = (props: BucketDialogRawProps) => {
 
   const { onClose, open, tutorials, bucketName, ...other } = props;
 
-  const handleEntering = () => {};
+  const handleEntering = () => {
+    console.log("ENTERING THE DIALOG");
+  };
 
   const handleCancel = () => {
     onClose();
