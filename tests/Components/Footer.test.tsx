@@ -1,6 +1,8 @@
+import { render, screen } from "@testing-library/react";
 import {
   ROUTE_TUTOPEDIA,
   TUTOPEDIA_FOOTER_COPYRIGHT,
+  TUTOPEDIA_FOOTER_SESSION_TIME,
   TUTOPEDIA_FOOTER_SOCIAL_MEDIA,
   TUTOPEDIA_FOOTER_TIME,
 } from "../../src/data/layout/layout";
@@ -35,5 +37,9 @@ describe("Footer", () => {
 
   it("should contain the `time`", () => {
     expectInDocumentByTestId(`${TUTOPEDIA_FOOTER_TIME}`);
+  });
+
+  it("should contain the `session time`", () => {
+    expectInDocumentByTestId(`${TUTOPEDIA_FOOTER_SESSION_TIME}`);
   });
 });
