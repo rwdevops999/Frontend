@@ -426,7 +426,6 @@ const BucketContainer = ({
         keepMounted
         open={open}
         onClose={handleClose}
-        tutorials={tutorials}
       />
     </div>
   );

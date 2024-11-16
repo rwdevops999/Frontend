@@ -10,12 +10,13 @@ import {
   styled,
 } from "@mui/material";
 import { TransitionProps } from "@mui/material/transitions";
-import { forwardRef, ReactElement, Ref, useEffect } from "react";
+import { forwardRef, ReactElement, Ref, useEffect, useState } from "react";
 import Draggable from "react-draggable";
 import { Tutorial } from "../../entities/Tutorial";
 import BucketTransfer from "./BucketTransfer";
 import { log } from "../../utils/LogUtil";
 import useDebugContext from "../../hooks/useDebugContext";
+import axios from "axios";
 
 const Transition = forwardRef(function Transition(
   props: TransitionProps & {
@@ -31,17 +32,44 @@ export interface BucketDialogRawProps {
   keepMounted: boolean;
   open: boolean;
   onClose: (value?: string) => void;
-  tutorials: Tutorial[];
   bucketName: string;
 }
 
 const TutopediaDialog = (props: BucketDialogRawProps) => {
   const { debug } = useDebugContext();
+  const [tutorials, setTutorials] = useState<Tutorial[]>([]);
 
-  const { onClose, open, tutorials, bucketName, ...other } = props;
+  const { onClose, open, bucketName, ...other } = props;
 
-  const handleEntering = () => {
-    console.log("ENTERING THE DIALOG");
+  const handleEntering = async () => {
+    await axios
+      .get(`/bucket/${bucketName}`)
+      .then((response) => {
+        if (response.data) {
+          log(
+            debug,
+            "TutopediaDialog",
+            "Tutorials loaded",
+            response.data,
+            true
+          );
+          log(
+            debug,
+            "TutopediaDialog",
+            "LOADED FOR TRANSFER: " + response.data,
+            true
+          );
+          setTutorials(response.data);
+        }
+      })
+      .catch(function (error) {
+        log(
+          debug,
+          "TutorialsListPage",
+          "Error loading tutorials",
+          error.message
+        );
+      });
   };
 
   const handleCancel = () => {
@@ -99,7 +127,7 @@ const TutopediaDialog = (props: BucketDialogRawProps) => {
       TransitionProps={{ onEntering: handleEntering }}
       {...other}
     >
-      <DialogTitle style={{ cursor: "move" }} className={classes.content}>
+      <DialogTitle className={classes.content}>
         {"Unpublish tutorials?"}
       </DialogTitle>
 
