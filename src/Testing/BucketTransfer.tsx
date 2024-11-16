@@ -13,7 +13,7 @@ import {
   styled,
 } from "@mui/material";
 import { Tutorial } from "../entities/Tutorial";
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import Grid from "@mui/material/Grid2";
 
 import SwapHorizIcon from "@mui/icons-material/SwapHoriz";

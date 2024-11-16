@@ -1,6 +1,60 @@
+import Dialog from "@mui/material/Dialog";
 import BucketTransfer from "./BucketTransfer";
+import { forwardRef, Fragment, ReactElement, Ref, useState } from "react";
+import { TransitionProps } from "@mui/material/transitions";
+import {
+  Button,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Paper,
+  PaperProps,
+  Slide,
+  styled,
+} from "@mui/material";
+import { Tutorial } from "../entities/Tutorial";
+import Draggable from "react-draggable";
+
+const Transition = forwardRef(function Transition(
+  props: TransitionProps & {
+    children: ReactElement<any, any>;
+  },
+  ref: Ref<unknown>
+) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 const Test = () => {
+  const [open, setOpen] = useState(false);
+
+  const PREFIX = "Dialog";
+  const classes = {
+    root: `${PREFIX}-root`,
+    button: `${PREFIX}-button`,
+    dialog: `${PREFIX}-dialog`,
+    content: `${PREFIX}-dialog-content`,
+    actions: `${PREFIX}-dialog-actions`,
+  };
+
+  const TutopediaDialog = styled("div")(({ theme }) => ({
+    [`&.${classes.root}`]: {},
+    [`& .${classes.button}`]: {
+      backgroundColor: "#FF0000",
+    },
+  }));
+
+  const MyDialog = styled(Dialog)(({ theme }) => ({
+    [`&.${classes.root}`]: {},
+    [`& .${classes.content}`]: {
+      backgroundColor: "#FF0000 !important",
+    },
+    [`& .${classes.actions}`]: {
+      justifyContent: "center",
+      backgroundColor: "#00FF00 !important",
+    },
+  }));
+
   const t0: Tutorial = {
     id: 0,
     title: "tutorial0",
@@ -44,7 +98,60 @@ const Test = () => {
     filename: "filename5",
   };
 
-  return <BucketTransfer tutorials={[t0, t1, t2, t3, t4, t5]} />;
+  function PaperComponent(props: PaperProps) {
+    return (
+      <Draggable
+        handle="#draggable-dialog-title"
+        cancel={'[class*="MuiDialogContent-root"]'}
+      >
+        <Paper {...props} />
+      </Draggable>
+    );
+  }
+
+  const handleOpenDialog = () => {
+    setOpen(true);
+  };
+
+  const handleCloseDialog = () => {
+    setOpen(false);
+  };
+
+  return (
+    <>
+      <TutopediaDialog id="topdialog1" className={classes.root}>
+        <Button
+          variant="outlined"
+          onClick={handleOpenDialog}
+          className={classes.button}
+        >
+          Bucket transfers ...
+        </Button>
+        <MyDialog
+          open={open}
+          TransitionComponent={Transition}
+          keepMounted
+          onClose={handleCloseDialog}
+          PaperComponent={PaperComponent}
+          aria-labelledby="draggable-dialog-title"
+        >
+          <DialogTitle style={{ cursor: "move" }} className={classes.content}>
+            {"Unpublish tutorials?"}
+          </DialogTitle>
+
+          <DialogContent className={classes.content}>
+            <BucketTransfer tutorials={[t0, t1, t2, t3, t4, t5]} />
+          </DialogContent>
+          <DialogActions className={classes.actions}>
+            <Button autoFocus onClick={handleCloseDialog}>
+              Cancel
+            </Button>
+            <Button onClick={handleCloseDialog}>Apply</Button>
+          </DialogActions>
+        </MyDialog>
+      </TutopediaDialog>
+    </>
+  );
 };
 
 export default Test;
