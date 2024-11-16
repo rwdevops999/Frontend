@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import SocialMedia from "../SocialMedia/SocialMedia";
 import {
   TUTOPEDIA_FOOTER_COPYRIGHT,
+  TUTOPEDIA_FOOTER_SESSION_TIME,
   TUTOPEDIA_FOOTER_SOCIAL_MEDIA,
   TUTOPEDIA_FOOTER_TIME,
 } from "../../data/layout/layout";
@@ -84,7 +85,7 @@ const Footer = () => {
         {timeStr}
       </Box>
       <Box
-        data-title={TUTOPEDIA_FOOTER_TIME}
+        data-title={TUTOPEDIA_FOOTER_SESSION_TIME}
         sx={{
           width: "5%",
           marginTop: "10px",
