@@ -117,6 +117,33 @@ const Test = () => {
     setOpen(false);
   };
 
+  const renderDialog = () => {
+    return (
+      <MyDialog
+        open={open}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={handleCloseDialog}
+        PaperComponent={PaperComponent}
+        aria-labelledby="draggable-dialog-title"
+      >
+        <DialogTitle style={{ cursor: "move" }} className={classes.content}>
+          {"Unpublish tutorials?"}
+        </DialogTitle>
+
+        <DialogContent className={classes.content}>
+          <BucketTransfer tutorials={[t0, t1, t2, t3, t4, t5]} />
+        </DialogContent>
+        <DialogActions className={classes.actions}>
+          <Button autoFocus onClick={handleCloseDialog}>
+            Cancel
+          </Button>
+          <Button onClick={handleCloseDialog}>Apply</Button>
+        </DialogActions>
+      </MyDialog>
+    );
+  };
+
   return (
     <>
       <TutopediaDialog id="topdialog1" className={classes.root}>
@@ -127,28 +154,7 @@ const Test = () => {
         >
           Bucket transfers ...
         </Button>
-        <MyDialog
-          open={open}
-          TransitionComponent={Transition}
-          keepMounted
-          onClose={handleCloseDialog}
-          PaperComponent={PaperComponent}
-          aria-labelledby="draggable-dialog-title"
-        >
-          <DialogTitle style={{ cursor: "move" }} className={classes.content}>
-            {"Unpublish tutorials?"}
-          </DialogTitle>
-
-          <DialogContent className={classes.content}>
-            <BucketTransfer tutorials={[t0, t1, t2, t3, t4, t5]} />
-          </DialogContent>
-          <DialogActions className={classes.actions}>
-            <Button autoFocus onClick={handleCloseDialog}>
-              Cancel
-            </Button>
-            <Button onClick={handleCloseDialog}>Apply</Button>
-          </DialogActions>
-        </MyDialog>
+        {renderDialog()}
       </TutopediaDialog>
     </>
   );
