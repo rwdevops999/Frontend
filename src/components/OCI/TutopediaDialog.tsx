@@ -10,7 +10,7 @@ import {
   styled,
 } from "@mui/material";
 import { TransitionProps } from "@mui/material/transitions";
-import { forwardRef, ReactElement, Ref } from "react";
+import { forwardRef, ReactElement, Ref, useEffect } from "react";
 import Draggable from "react-draggable";
 import { Tutorial } from "../../entities/Tutorial";
 import BucketTransfer from "./BucketTransfer";
@@ -32,12 +32,13 @@ export interface BucketDialogRawProps {
   open: boolean;
   onClose: (value?: string) => void;
   tutorials: Tutorial[];
+  bucketName: string;
 }
 
 const TutopediaDialog = (props: BucketDialogRawProps) => {
   const { debug } = useDebugContext();
 
-  const { onClose, open, tutorials, ...other } = props;
+  const { onClose, open, tutorials, bucketName, ...other } = props;
 
   const handleEntering = () => {};
 
@@ -49,6 +50,10 @@ const TutopediaDialog = (props: BucketDialogRawProps) => {
     // onClose(value);
     onClose();
   };
+
+  useEffect(() => {
+    console.log(`LOAD TUTORIALS FOR ${bucketName}`);
+  }, [bucketName]);
 
   const PREFIX = "Dialog";
   const classes = {

@@ -422,6 +422,7 @@ const BucketContainer = ({
       </Box>
       <TutopediaDialog
         id="bucket-transfer"
+        bucketName={bucket.name!}
         keepMounted
         open={open}
         onClose={handleClose}
