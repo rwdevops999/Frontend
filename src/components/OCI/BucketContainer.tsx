@@ -46,8 +46,8 @@ import {
 } from "../../data/layout/layout";
 import useDebugContext from "../../hooks/useDebugContext";
 import { log } from "../../utils/LogUtil";
-import TutopediaDialog from "../../Testing/TutopediaDialog";
 import { Tutorial } from "../../entities/Tutorial";
+import TutopediaDialog from "./TutopediaDialog";
 
 const BucketContainer = ({
   isAdmin,
