@@ -9,11 +9,11 @@ import "./main.css";
 import App from "./App";
 import ConfigProvider from "./configuration/useConfig";
 import { Toaster } from "react-hot-toast";
-import Test from "./Testing/Test";
+// import Test from "./Testing/Test";
 createRoot(document.getElementById("root")!).render(
-  // <ConfigProvider>
-  //   <App />
-  //   <Toaster />
-  // </ConfigProvider>
-  <Test />
+  <ConfigProvider>
+    <App />
+    <Toaster />
+  </ConfigProvider>
+  // <Test />
 );

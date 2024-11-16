@@ -12,7 +12,6 @@ import {
   Paper,
   styled,
 } from "@mui/material";
-import { Tutorial } from "../entities/Tutorial";
 import { ReactNode, useRef, useState } from "react";
 import Grid from "@mui/material/Grid2";
 
@@ -21,6 +20,7 @@ import SwipeLeftIcon from "@mui/icons-material/SwipeLeft";
 import SwipeRightIcon from "@mui/icons-material/SwipeRight";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { Tutorial } from "../../entities/Tutorial";
 
 function valueNotInDestination(value: number, arr: Tutorial[]) {
   return arr.filter((tutorial) => tutorial.id !== value);

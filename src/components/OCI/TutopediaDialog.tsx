@@ -11,9 +11,11 @@ import {
 } from "@mui/material";
 import { TransitionProps } from "@mui/material/transitions";
 import { forwardRef, ReactElement, Ref } from "react";
-import { Tutorial } from "../entities/Tutorial";
 import Draggable from "react-draggable";
+import { Tutorial } from "../../entities/Tutorial";
 import BucketTransfer from "./BucketTransfer";
+import { log } from "../../utils/LogUtil";
+import useDebugContext from "../../hooks/useDebugContext";
 
 const Transition = forwardRef(function Transition(
   props: TransitionProps & {
@@ -32,7 +34,9 @@ export interface BucketDialogRawProps {
   tutorials: Tutorial[];
 }
 
-function TutopediaDialog(props: BucketDialogRawProps) {
+const TutopediaDialog = (props: BucketDialogRawProps) => {
+  const { debug } = useDebugContext();
+
   const { onClose, open, tutorials, ...other } = props;
 
   const handleEntering = () => {};
@@ -55,7 +59,7 @@ function TutopediaDialog(props: BucketDialogRawProps) {
     actions: `${PREFIX}-dialog-actions`,
   };
 
-  const RootDialog = styled(Dialog)(({ theme }) => ({
+  const RootDialog = styled(Dialog)(({}) => ({
     [`&.${classes.root}`]: {},
     [`& .${classes.content}`]: {},
     [`& .${classes.actions}`]: {
@@ -75,7 +79,8 @@ function TutopediaDialog(props: BucketDialogRawProps) {
   }
 
   const handleNotify = (left: Tutorial[], right: Tutorial[]) => {
-    console.log("NOTIFY");
+    log(debug, "TutopediaDialog", "left", left, true);
+    log(debug, "TutopediaDialog", "right", right, true);
   };
 
   return (
@@ -101,6 +106,6 @@ function TutopediaDialog(props: BucketDialogRawProps) {
       </DialogActions>
     </RootDialog>
   );
-}
+};
 
 export default TutopediaDialog;

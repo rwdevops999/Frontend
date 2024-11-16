@@ -81,7 +81,7 @@ const TutorialDetails = ({
 
         navigate(tutopedia.routeURL!, buildState(tutopedia));
       })
-      .catch((err) => {
+      .catch(() => {
         if (config.environment != "TST") {
           toast(
             `Error publishing tutorial with ID: ${id}: Is default bucket defined?`

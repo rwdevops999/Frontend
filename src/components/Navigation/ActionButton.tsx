@@ -76,7 +76,7 @@ const ActionButton = ({
             }
             navigate(tutopedia.routeURL!, buildState(tutopedia));
           })
-          .catch((err) => {
+          .catch(() => {
             log(debug, "NavigationBar.Action.Button", "Error publishing all");
             if (config.environment != "TST") {
               toast(
