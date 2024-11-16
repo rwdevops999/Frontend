@@ -13,7 +13,7 @@ import {
   styled,
 } from "@mui/material";
 import { Tutorial } from "../entities/Tutorial";
-import { ReactNode, useState } from "react";
+import { ReactNode, useRef, useState } from "react";
 import Grid from "@mui/material/Grid2";
 
 import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
@@ -94,7 +94,7 @@ const BucketTransfer = ({ tutorials }: { tutorials: Tutorial[] }) => {
       height: 230,
       maxHeight: 230,
       backgroundColor: theme.palette.background.paper,
-      overflowY: "auto",
+      overflow: "auto",
       marginTop: 4,
     },
   }));
@@ -102,6 +102,9 @@ const BucketTransfer = ({ tutorials }: { tutorials: Tutorial[] }) => {
   const [checked, setChecked] = useState<Tutorial[]>([]);
   const [left, setLeft] = useState<Tutorial[]>(tutorials);
   const [right, setRight] = useState<Tutorial[]>([]);
+  const autoFocusId = useRef<number>(
+    tutorials.length > 0 ? tutorials[0].id! : -1
+  );
 
   const leftChecked = intersection(checked, left);
   const rightChecked = intersection(checked, right);
@@ -138,7 +141,7 @@ const BucketTransfer = ({ tutorials }: { tutorials: Tutorial[] }) => {
     setLeft(right);
   };
 
-  const indexOfChecked = (v: string, tutorial: Tutorial): number => {
+  const indexOfChecked = (tutorial: Tutorial): number => {
     let result: number = -1;
     checked.forEach((t: Tutorial, index: number) => {
       if (t.id === tutorial.id) {
@@ -150,7 +153,7 @@ const BucketTransfer = ({ tutorials }: { tutorials: Tutorial[] }) => {
   };
 
   const handleToggle = (tutorial: Tutorial) => () => {
-    const currentIndex = indexOfChecked("toggle", tutorial);
+    const currentIndex = indexOfChecked(tutorial);
     const newChecked = [...checked];
 
     if (currentIndex === -1) {
@@ -160,6 +163,8 @@ const BucketTransfer = ({ tutorials }: { tutorials: Tutorial[] }) => {
     }
 
     setChecked(newChecked);
+
+    autoFocusId.current = tutorial.id!;
   };
 
   const handleToggleAll = (items: Tutorial[]) => () => {
@@ -168,6 +173,14 @@ const BucketTransfer = ({ tutorials }: { tutorials: Tutorial[] }) => {
     } else {
       setChecked(union(checked, items));
     }
+
+    const id: number = items[0].id!;
+
+    autoFocusId.current = id;
+  };
+
+  const isFocused = (tutorial: Tutorial): boolean => {
+    return tutorial.id! === autoFocusId.current;
   };
 
   const renderTutorialsList = (title: ReactNode, tutorials: Tutorial[]) => {
@@ -222,13 +235,10 @@ const BucketTransfer = ({ tutorials }: { tutorials: Tutorial[] }) => {
                   key={tutorial.id}
                   role="listItem"
                   onClick={handleToggle(tutorial)}
+                  autoFocus={isFocused(tutorial)}
                 >
                   <ListItemIcon>
-                    <Checkbox
-                      checked={
-                        indexOfChecked("test for checked", tutorial) !== -1
-                      }
-                    />
+                    <Checkbox checked={indexOfChecked(tutorial) !== -1} />
                   </ListItemIcon>
                   <ListItemText
                     id={id}
