@@ -1,4 +1,3 @@
-import { render, screen } from "@testing-library/react";
 import {
   ROUTE_TUTOPEDIA,
   TUTOPEDIA_FOOTER_COPYRIGHT,
