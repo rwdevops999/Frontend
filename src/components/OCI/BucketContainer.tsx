@@ -397,7 +397,6 @@ const BucketContainer = ({
             width: "30%",
             height: 36,
             paddingLeft: "70px",
-            marginRight: "-2px",
             borderRight: 1,
             borderBottom: 1,
             borderColor: "primary.main",

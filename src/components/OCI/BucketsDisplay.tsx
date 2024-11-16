@@ -40,13 +40,7 @@ const BucketsDisplay = ({
         }}
       >
         {buckets.map((bucket, index) => (
-          <Grid
-            key={index}
-            marginLeft={7}
-            width={200}
-            height={195}
-            marginTop="5px"
-          >
+          <Grid key={index} marginLeft={7} marginTop="5px">
             <BucketContainer
               isAdmin={isAdmin}
               count={count}
