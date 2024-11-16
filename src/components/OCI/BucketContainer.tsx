@@ -46,6 +46,8 @@ import {
 } from "../../data/layout/layout";
 import useDebugContext from "../../hooks/useDebugContext";
 import { log } from "../../utils/LogUtil";
+import TutopediaDialog from "../../Testing/TutopediaDialog";
+import { Tutorial } from "../../entities/Tutorial";
 
 const BucketContainer = ({
   isAdmin,
@@ -240,6 +242,18 @@ const BucketContainer = ({
     });
   };
 
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const tutorials: Tutorial[] = [];
+
   return (
     <div id={bucket.name} data-title={BUCKET_CONTAINER}>
       <Box
@@ -401,12 +415,19 @@ const BucketContainer = ({
                   color: "#A0A0A0",
                   marginLeft: "-5px",
                 }}
-                onClick={() => alert("SHOW FILES")}
+                onClick={handleOpen}
               />
             </IconButton>
           )}
         </Box>
       </Box>
+      <TutopediaDialog
+        id="bucket-transfer"
+        keepMounted
+        open={open}
+        onClose={handleClose}
+        tutorials={tutorials}
+      />
     </div>
   );
 };
