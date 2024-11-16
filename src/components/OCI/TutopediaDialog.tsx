@@ -41,36 +41,42 @@ const TutopediaDialog = (props: BucketDialogRawProps) => {
 
   const { onClose, open, bucketName, ...other } = props;
 
-  const handleEntering = async () => {
-    await axios
-      .get(`/bucket/${bucketName}`)
-      .then((response) => {
-        if (response.data) {
+  const handleEntering = () => {};
+
+  useEffect(() => {
+    async function getBucketTutorials() {
+      await axios
+        .get(`/bucket/${bucketName}`)
+        .then((response) => {
+          if (response.data) {
+            log(
+              debug,
+              "TutopediaDialog",
+              "Tutorials loaded",
+              response.data,
+              true
+            );
+            log(
+              debug,
+              "TutopediaDialog",
+              "LOADED FOR TRANSFER: " + response.data,
+              true
+            );
+            setTutorials(response.data);
+          }
+        })
+        .catch(function (error) {
           log(
             debug,
-            "TutopediaDialog",
-            "Tutorials loaded",
-            response.data,
-            true
+            "TutorialsListPage",
+            "Error loading tutorials",
+            error.message
           );
-          log(
-            debug,
-            "TutopediaDialog",
-            "LOADED FOR TRANSFER: " + response.data,
-            true
-          );
-          setTutorials(response.data);
-        }
-      })
-      .catch(function (error) {
-        log(
-          debug,
-          "TutorialsListPage",
-          "Error loading tutorials",
-          error.message
-        );
-      });
-  };
+        });
+    }
+
+    getBucketTutorials();
+  }, []);
 
   const handleCancel = () => {
     onClose();
