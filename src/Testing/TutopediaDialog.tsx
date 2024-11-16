@@ -1,23 +1,19 @@
-import Dialog from "@mui/material/Dialog";
 import {
   Button,
-  createTheme,
+  Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
-  Modal,
   Paper,
   PaperProps,
   Slide,
   styled,
-  ThemeProvider,
 } from "@mui/material";
+import { TransitionProps } from "@mui/material/transitions";
 import { forwardRef, ReactElement, Ref } from "react";
+import { Tutorial } from "../entities/Tutorial";
 import Draggable from "react-draggable";
 import BucketTransfer from "./BucketTransfer";
-import { TransitionProps } from "@mui/material/transitions";
-import "./Test.css";
-import { Tutorial } from "../entities/Tutorial";
 
 const Transition = forwardRef(function Transition(
   props: TransitionProps & {
@@ -28,25 +24,27 @@ const Transition = forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const TutopediaDialog = ({
-  open,
-  handleCloseDialog,
-  tutorials,
-}: {
+export interface BucketDialogRawProps {
+  id: string;
+  keepMounted: boolean;
   open: boolean;
-  handleCloseDialog(): void;
+  onClose: (value?: string) => void;
   tutorials: Tutorial[];
-}) => {
-  const customTheme = createTheme({
-    palette: {
-      primary: {
-        main: "#1976d2",
-        dark: "#000000",
-        light: "#FFFFFF",
-        contrastText: "white",
-      },
-    },
-  });
+}
+
+function TutopediaDialog(props: BucketDialogRawProps) {
+  const { onClose, open, tutorials, ...other } = props;
+
+  const handleEntering = () => {};
+
+  const handleCancel = () => {
+    onClose();
+  };
+
+  const handleOk = () => {
+    // onClose(value);
+    onClose();
+  };
 
   const PREFIX = "Dialog";
   const classes = {
@@ -59,12 +57,9 @@ const TutopediaDialog = ({
 
   const RootDialog = styled(Dialog)(({ theme }) => ({
     [`&.${classes.root}`]: {},
-    [`& .${classes.content}`]: {
-      // backgroundColor: theme.palette.primary.dark,
-    },
+    [`& .${classes.content}`]: {},
     [`& .${classes.actions}`]: {
       justifyContent: "center",
-      // backgroundColor: "#00FF00 !important",
     },
   }));
 
@@ -79,32 +74,33 @@ const TutopediaDialog = ({
     );
   }
 
+  const handleNotify = (left: Tutorial[], right: Tutorial[]) => {
+    console.log("NOTIFY");
+  };
+
   return (
-    // <ThemeProvider theme={customTheme}>
     <RootDialog
       open={open}
       TransitionComponent={Transition}
-      keepMounted
-      onClose={handleCloseDialog}
       PaperComponent={PaperComponent}
-      aria-labelledby="draggable-dialog-title"
+      aria-labelledby="bucket-transfer-dialog"
+      TransitionProps={{ onEntering: handleEntering }}
+      {...other}
     >
-      <>
-        <DialogTitle style={{ cursor: "move" }} className={classes.content}>
-          {"Unpublish tutorials?"}
-        </DialogTitle>
+      <DialogTitle style={{ cursor: "move" }} className={classes.content}>
+        {"Unpublish tutorials?"}
+      </DialogTitle>
 
-        <DialogContent className={classes.content}>
-          <BucketTransfer tutorials={tutorials} />
-        </DialogContent>
-        <DialogActions className={classes.actions}>
-          <Button onClick={handleCloseDialog}>Cancel</Button>
-          <Button onClick={handleCloseDialog}>Apply</Button>
-        </DialogActions>
-      </>
-    </Dialog>
-    // </ThemeProvider>
+      <DialogContent className={classes.content}>
+        <BucketTransfer tutorials={tutorials} onNotify={handleNotify} />
+      </DialogContent>
+
+      <DialogActions className={classes.actions}>
+        <Button onClick={handleCancel}>Cancel</Button>
+        <Button onClick={handleOk}>Ok</Button>
+      </DialogActions>
+    </RootDialog>
   );
-};
+}
 
 export default TutopediaDialog;

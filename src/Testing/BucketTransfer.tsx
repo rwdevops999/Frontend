@@ -54,7 +54,13 @@ function intersection(source: Tutorial[], destination: Tutorial[]) {
   return result;
 }
 
-const BucketTransfer = ({ tutorials }: { tutorials: Tutorial[] }) => {
+const BucketTransfer = ({
+  tutorials,
+  onNotify,
+}: {
+  tutorials: Tutorial[];
+  onNotify(left: Tutorial[], right: Tutorial[]): void;
+}) => {
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: "#fff",
     ...theme.typography.body2,
@@ -128,17 +134,20 @@ const BucketTransfer = ({ tutorials }: { tutorials: Tutorial[] }) => {
     sortTutorials(right.concat(leftChecked), "right");
     setLeft(not(left, leftChecked));
     setChecked(not(checked, leftChecked));
+    onNotify(left, right);
   };
 
   const moveCheckedToLeft = () => {
     sortTutorials(left.concat(rightChecked), "left");
     setRight(not(right, rightChecked));
     setChecked(not(checked, rightChecked));
+    onNotify(left, right);
   };
 
   const swapItems = () => {
     setRight(left);
     setLeft(right);
+    onNotify(left, right);
   };
 
   const indexOfChecked = (tutorial: Tutorial): number => {
