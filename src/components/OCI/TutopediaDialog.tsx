@@ -10,7 +10,14 @@ import {
   styled,
 } from "@mui/material";
 import { TransitionProps } from "@mui/material/transitions";
-import { forwardRef, ReactElement, Ref, useEffect, useState } from "react";
+import {
+  forwardRef,
+  ReactElement,
+  Ref,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import Draggable from "react-draggable";
 import { Tutorial } from "../../entities/Tutorial";
 import BucketTransfer from "./BucketTransfer";
@@ -42,7 +49,7 @@ const TutopediaDialog = (props: BucketDialogRawProps) => {
   const { config } = useConfig();
 
   const [tutorials, setTutorials] = useState<Tutorial[]>([]);
-  const [unpublish, setUnpublish] = useState<Tutorial[]>([]);
+  const unpublish = useRef<Tutorial[]>([]);
 
   const { onClose, open, bucketName, ...other } = props;
 
@@ -110,8 +117,8 @@ const TutopediaDialog = (props: BucketDialogRawProps) => {
 
     onClose();
 
-    if (unpublish.length > 0) {
-      unpublishTutorials(unpublish);
+    if (unpublish.current.length > 0) {
+      unpublishTutorials(unpublish.current);
     }
   };
 
