@@ -3,7 +3,6 @@ import useDebugContext from "../hooks/useDebugContext";
 import { Bucket } from "../entities/Bucket";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
-import { useConfig } from "../configuration/useConfig";
 import toast from "react-hot-toast";
 import { Box, Pagination } from "@mui/material";
 import Loader from "../components/Loader/Loader";
@@ -16,11 +15,12 @@ import {
   TUTOPEDIA_CONTENT_OCI_PAGE_LOADER,
 } from "../data/layout/layout";
 import { log } from "../utils/LogUtil";
+import { useConfiguration } from "../configuration/UseConfiguration";
 
 const OCIPage = () => {
   let { debug } = useDebugContext();
   let { state } = useLocation();
-  const { config } = useConfig();
+  const [config] = useConfiguration();
 
   let count = state.tutopedia.count;
   if (count >= 0) {

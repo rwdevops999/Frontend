@@ -11,7 +11,6 @@ import {
 } from "../builders/Builders";
 import axios from "axios";
 import useDebugContext from "../hooks/useDebugContext";
-import { useConfig } from "../configuration/useConfig";
 import { useEffect, useState } from "react";
 import { Bucket } from "../entities/Bucket";
 import {
@@ -22,11 +21,12 @@ import {
 } from "../data/layout/layout";
 import { log } from "../utils/LogUtil";
 import Providers from "../providers/Providers";
+import { useConfiguration } from "../configuration/UseConfiguration";
 
 function TutOPedia() {
   // let { debug, setDebug } = useDebugContext();
   let { debug } = useDebugContext();
-  const { config } = useConfig();
+  const [config] = useConfiguration();
 
   // setDebug(true);
 

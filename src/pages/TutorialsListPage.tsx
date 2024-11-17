@@ -7,7 +7,6 @@ import ErrorBanner from "../components/Error/ErrorBanner";
 import TutorialDetails from "../components/Tutorial/TutorialDetails";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { useConfig } from "../configuration/useConfig";
 import {
   TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE,
   TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_ERROR,
@@ -16,9 +15,10 @@ import {
 } from "../data/layout/layout";
 import { log } from "../utils/LogUtil";
 import useDebugContext from "../hooks/useDebugContext";
+import { useConfiguration } from "../configuration/UseConfiguration";
 
 const TutorialsListPage = () => {
-  const { config } = useConfig();
+  const [config] = useConfiguration();
   const { debug } = useDebugContext();
 
   let location = useLocation();

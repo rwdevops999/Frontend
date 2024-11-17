@@ -3,7 +3,6 @@ import { FaBucket, FaUser } from "react-icons/fa6";
 import { useAuth0 } from "@auth0/auth0-react";
 import HeaderActions from "./HeaderActions";
 import "./Header.css";
-import { useConfig } from "../../configuration/useConfig";
 import {
   TUTOPEDIA_HEADER_ACTION_BUTTONS,
   TUTOPEDIA_HEADER_BUCKET_NAME,
@@ -15,6 +14,7 @@ import { log } from "../../utils/LogUtil";
 import useDebugContext from "../../hooks/useDebugContext";
 import toast from "react-hot-toast";
 import { useTutopediaState } from "../../hooks/states/useTutopediaState";
+import { useConfiguration } from "../../configuration/UseConfiguration";
 
 const Header = ({
   // header,
@@ -24,7 +24,7 @@ const Header = ({
   count: number;
 }) => {
   const { user, isAuthenticated } = useAuth0();
-  const { config, setConfig } = useConfig();
+  const [config, setConfig] = useConfiguration();
   const { debug } = useDebugContext();
   const { state } = useLocation();
 
@@ -33,12 +33,12 @@ const Header = ({
   log(debug, "Tutopedia.Header", "Setup", header, true);
 
   const getClassName = (icon: boolean = true): string => {
-    console.log("Get CLASS NAME " + config.environment.toLowerCase());
+    console.log("Get CLASS NAME " + config.environment);
     if (config.environment) {
       if (icon) {
-        return "icon_30" + " color_" + config.environment.toLowerCase();
+        return "icon_30" + " color_" + config.environment;
       } else {
-        return "title" + " color_" + config.environment.toLowerCase();
+        return "title" + " color_" + config.environment;
       }
     } else {
       if (icon) {

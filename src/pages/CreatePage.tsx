@@ -22,7 +22,6 @@ import {
   buildState,
   buildTutopediaForViewAllTutorials,
 } from "../builders/Builders";
-import { useConfig } from "../configuration/useConfig";
 import axios from "axios";
 import toast from "react-hot-toast";
 import {
@@ -40,10 +39,11 @@ import {
 import { log } from "../utils/LogUtil";
 import useDebugContext from "../hooks/useDebugContext";
 import { useTutopediaState } from "../hooks/states/useTutopediaState";
+import { useConfiguration } from "../configuration/UseConfiguration";
 
 const CreatePage = () => {
   const navigate = useNavigate();
-  const { config } = useConfig();
+  const [config] = useConfiguration();
   let { state } = useLocation();
   const { debug } = useDebugContext();
 

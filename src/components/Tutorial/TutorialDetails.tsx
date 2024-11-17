@@ -18,7 +18,6 @@ import {
 } from "../../builders/Builders";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { useConfig } from "../../configuration/useConfig";
 import {
   ROUTE_CREATE,
   ROUTE_TUTORIALS,
@@ -30,6 +29,7 @@ import {
 } from "../../data/layout/layout";
 import { log } from "../../utils/LogUtil";
 import useDebugContext from "../../hooks/useDebugContext";
+import { useConfiguration } from "../../configuration/UseConfiguration";
 
 const TutorialDetails = ({
   count,
@@ -41,7 +41,7 @@ const TutorialDetails = ({
   setReload(value: any): any;
 }) => {
   const navigate = useNavigate();
-  const { config } = useConfig();
+  const [config] = useConfiguration();
   const { debug } = useDebugContext();
 
   log(debug, "TutorialsListPage.Details", "Setup");

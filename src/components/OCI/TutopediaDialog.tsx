@@ -24,8 +24,8 @@ import BucketTransfer from "./BucketTransfer";
 import { log } from "../../utils/LogUtil";
 import useDebugContext from "../../hooks/useDebugContext";
 import axios from "axios";
-import { useConfig } from "../../configuration/useConfig";
 import toast from "react-hot-toast";
+import { useConfiguration } from "../../configuration/UseConfiguration";
 
 const Transition = forwardRef(function Transition(
   props: TransitionProps & {
@@ -47,7 +47,7 @@ export interface BucketDialogRawProps {
 
 const TutopediaDialog = (props: BucketDialogRawProps) => {
   const { debug } = useDebugContext();
-  const { config } = useConfig();
+  const [config] = useConfiguration();
 
   log(debug, "TutoPediaDialog", "IN, bucket = " + props.bucketName);
 

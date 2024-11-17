@@ -7,7 +7,7 @@ COPY package*.json  ./
 RUN npm install
 
 COPY . .
-COPY config_dev.json ./public/config.json
+COPY .env.dev .env
 
 EXPOSE 5173
 

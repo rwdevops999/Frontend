@@ -65,7 +65,7 @@ pipeline {
 
             steps {
                 sh '''
-					cp config_tst.json public/config.json
+					cp .env.tst .env
 					npx vitest --reporter=junit --outputFile=./test-results/test-result.xml
 				'''
             }
@@ -97,7 +97,7 @@ pipeline {
 
 			steps {
 				sh '''
-					cp config_dev.json public/config.json
+					cp .env.dev .env
 					security unlock-keychain -p ${KEYCHAIN_PSW}
 					docker login -u ${DOCKERHUB_ACCESSKEY_USR} -p ${DOCKERHUB_ACCESSKEY_PSW}
 					docker build . -t ${IMAGE}

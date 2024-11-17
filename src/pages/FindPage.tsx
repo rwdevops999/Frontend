@@ -19,7 +19,6 @@ import {
   buildTutopediaForViewAllTutorials,
 } from "../builders/Builders";
 import toast from "react-hot-toast";
-import { useConfig } from "../configuration/useConfig";
 import {
   ROUTE_TUTORIALS,
   TUTOPEDIA_CONTENT_FIND_PAGE,
@@ -31,10 +30,11 @@ import {
 import { log } from "../utils/LogUtil";
 import useDebugContext from "../hooks/useDebugContext";
 import { useTutopediaState } from "../hooks/states/useTutopediaState";
+import { useConfiguration } from "../configuration/UseConfiguration";
 
 const FindPage = () => {
   const navigate = useNavigate();
-  const { config } = useConfig();
+  const [config] = useConfiguration();
   const { debug } = useDebugContext();
 
   let { state } = useLocation();

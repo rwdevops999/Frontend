@@ -8,7 +8,6 @@ import {
 } from "../../builders/Builders";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { useConfig } from "../../configuration/useConfig";
 import {
   ROUTE_TUTORIALS,
   TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_ACTIONS,
@@ -18,6 +17,7 @@ import {
 import useDebugContext from "../../hooks/useDebugContext";
 import { log } from "../../utils/LogUtil";
 import { useTutopediaState } from "../../hooks/states/useTutopediaState";
+import { useConfiguration } from "../../configuration/UseConfiguration";
 
 const ActionButton = ({
   count,
@@ -28,7 +28,7 @@ const ActionButton = ({
   action: string;
   selectedPage: string | undefined;
 }) => {
-  const { config } = useConfig();
+  const [config] = useConfiguration();
   const { debug } = useDebugContext();
   const { state } = useLocation();
 

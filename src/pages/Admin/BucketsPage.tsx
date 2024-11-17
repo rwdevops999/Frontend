@@ -4,7 +4,6 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { Box, Pagination } from "@mui/material";
 import useDebugContext from "../../hooks/useDebugContext";
-import { useConfig } from "../../configuration/useConfig";
 import { Bucket } from "../../entities/Bucket";
 import Loader from "../../components/Loader/Loader";
 import ErrorBanner from "../../components/Error/ErrorBanner";
@@ -16,11 +15,12 @@ import {
   BUCKETS_PAGE_LOADER,
 } from "../../data/layout/layout";
 import { log } from "../../utils/LogUtil";
+import { useConfiguration } from "../../configuration/UseConfiguration";
 
 const BucketsPage = () => {
   let { debug } = useDebugContext();
   let { state } = useLocation();
-  const { config } = useConfig();
+  const [config] = useConfiguration();
 
   log(debug, "BucketsPage", "In, State", state, true);
 

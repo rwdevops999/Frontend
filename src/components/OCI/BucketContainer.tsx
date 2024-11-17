@@ -23,7 +23,6 @@ import "./BucketContainer.css";
 import axios, { AxiosError } from "axios";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { useConfig } from "../../configuration/useConfig";
 import {
   buildState,
   buildTutopediaForAdmin,
@@ -47,6 +46,7 @@ import {
 import useDebugContext from "../../hooks/useDebugContext";
 import { log } from "../../utils/LogUtil";
 import TutopediaDialog from "./TutopediaDialog";
+import { useConfiguration } from "../../configuration/UseConfiguration";
 
 const BucketContainer = ({
   isAdmin,
@@ -61,7 +61,7 @@ const BucketContainer = ({
   setReload(val: any): void;
   setError(val: string): void;
 }) => {
-  const { config } = useConfig();
+  const [config] = useConfiguration();
   const navigate = useNavigate();
   const { debug } = useDebugContext();
 
