@@ -65,6 +65,7 @@ pipeline {
 
             steps {
                 sh '''
+					more .env.tst
 					cp .env.tst .env
 					npx vitest --reporter=junit --outputFile=./test-results/test-result.xml
 				'''
@@ -97,6 +98,7 @@ pipeline {
 
 			steps {
 				sh '''
+					more .env.dev
 					cp .env.dev .env
 					security unlock-keychain -p ${KEYCHAIN_PSW}
 					docker login -u ${DOCKERHUB_ACCESSKEY_USR} -p ${DOCKERHUB_ACCESSKEY_PSW}
