@@ -120,11 +120,6 @@ const TutopediaDialog = (props: BucketDialogRawProps) => {
     );
   }
 
-  const handleNotify = (left: Tutorial[], right: Tutorial[]) => {
-    log(debug, "TutopediaDialog", "left", left, true);
-    log(debug, "TutopediaDialog", "right", right, true);
-  };
-
   return (
     <RootDialog
       open={open}
