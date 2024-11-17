@@ -120,6 +120,7 @@ const TutopediaDialog = (props: BucketDialogRawProps) => {
 
     if (unpublish.current.length > 0) {
       unpublishTutorials(unpublish.current);
+      log(debug, "TutopediaDialog", "Trigger reload");
       setReload((x: any) => x + 1);
     }
   };

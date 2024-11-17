@@ -94,6 +94,7 @@ const BucketsPage = () => {
 
     setError(undefined);
 
+    log(debug, "BucketsPage", "Load Buckets");
     getBuckets();
   }, [reload, setReload]);
 
