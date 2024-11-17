@@ -20,10 +20,12 @@ const App = () => {
     axios
       .get(dynamicConfigUrl)
       .then((response) => {
+        console.log("[INIT] READ " + response.data);
         setConfig(response.data);
         setConfigLoadingState("ready");
       })
       .catch((error) => {
+        console.log("[INIT] ERROR");
         console.log(
           configLoadingErrorMessage +
             ` Have you provided the config file '${dynamicConfigUrl}'?` +

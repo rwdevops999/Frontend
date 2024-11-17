@@ -6,4 +6,4 @@ export const defaultConfig: DynamicConfig = {
   environment: "TST",
 };
 
-export const dynamicConfigUrl = "config.json";
+export const dynamicConfigUrl = "public/config.json";
