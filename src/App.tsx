@@ -20,7 +20,7 @@ const App = () => {
     axios
       .get(dynamicConfigUrl)
       .then((response) => {
-        console.log("[INIT] READ " + response.data);
+        console.log("[INIT] READ " + JSON.stringify(response.data));
         setConfig(response.data);
         setConfigLoadingState("ready");
       })
