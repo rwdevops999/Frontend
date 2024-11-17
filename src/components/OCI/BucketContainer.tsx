@@ -423,6 +423,7 @@ const BucketContainer = ({
         keepMounted
         open={open}
         onClose={handleClose}
+        setReload={setReload}
       />
     </div>
   );
