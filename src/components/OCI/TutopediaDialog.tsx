@@ -87,10 +87,6 @@ const TutopediaDialog = (props: BucketDialogRawProps) => {
     getBucketTutorials();
   }, []);
 
-  useEffect(() => {
-    log(debug, "TutopediaDialog", "Unpublishing", unpublish, true);
-  }, [unpublish, setUnpublish]);
-
   const handleCancel = () => {
     onClose();
   };
@@ -110,7 +106,7 @@ const TutopediaDialog = (props: BucketDialogRawProps) => {
   };
 
   const handleOk = () => {
-    log(debug, "TutopediaDialog", "Unpublish", unpublish, true);
+    log(debug, "TutopediaDialog", "OK: Unpublish", unpublish, true);
 
     onClose();
 
@@ -118,10 +114,6 @@ const TutopediaDialog = (props: BucketDialogRawProps) => {
       unpublishTutorials(unpublish);
     }
   };
-
-  useEffect(() => {
-    console.log(`LOAD TUTORIALS FOR ${bucketName}`);
-  }, [bucketName]);
 
   const PREFIX = "Dialog";
   const classes = {
