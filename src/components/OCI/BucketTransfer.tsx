@@ -117,9 +117,7 @@ const BucketTransfer = ({
   );
 
   useEffect(() => {
-    log(debug, "BucketTransfer", "right changed");
     if (right.length > 0) {
-      log(debug, "BucketTransfer", "right changed, set unpublish", right);
       setUnpublish(right);
     }
   }, [right, setRight]);
