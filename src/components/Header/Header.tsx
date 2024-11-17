@@ -33,6 +33,7 @@ const Header = ({
   log(debug, "Tutopedia.Header", "Setup", header, true);
 
   const getClassName = (icon: boolean = true): string => {
+    console.log("Get CLASS NAME " + config.environment.toLowerCase());
     if (config.environment) {
       if (icon) {
         return "icon_30" + " color_" + config.environment.toLowerCase();
