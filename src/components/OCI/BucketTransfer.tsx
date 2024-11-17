@@ -204,6 +204,35 @@ const BucketTransfer = ({
     return tutorial.id! === autoFocusId.current;
   };
 
+  const renderTutorials = () => {
+    if (tutorials) {
+      return;
+      {
+        tutorials.map((tutorial: Tutorial) => {
+          const id = `${tutorial.id}-label`;
+          return (
+            <ListItemButton
+              key={tutorial.id}
+              role="listItem"
+              onClick={handleToggle(tutorial)}
+              autoFocus={isFocused(tutorial)}
+            >
+              <ListItemIcon>
+                <Checkbox checked={indexOfChecked(tutorial) !== -1} />
+              </ListItemIcon>
+              <ListItemText
+                id={id}
+                primary={`${tutorial.filename} [${tutorial.id}]`}
+              />
+            </ListItemButton>
+          );
+        });
+      }
+    }
+
+    return <></>;
+  };
+
   const renderTutorialsList = (title: ReactNode, tutorials: Tutorial[]) => {
     const [expanded, setExpanded] = useState(true);
 
@@ -249,27 +278,7 @@ const BucketTransfer = ({
         />
         <Collapse in={expanded} className={classes.collapse}>
           <List className={classes.list} dense component="div" role="list">
-            (tutorials ?{" "}
-            {tutorials.map((tutorial: Tutorial) => {
-              const id = `${tutorial.id}-label`;
-              return (
-                <ListItemButton
-                  key={tutorial.id}
-                  role="listItem"
-                  onClick={handleToggle(tutorial)}
-                  autoFocus={isFocused(tutorial)}
-                >
-                  <ListItemIcon>
-                    <Checkbox checked={indexOfChecked(tutorial) !== -1} />
-                  </ListItemIcon>
-                  <ListItemText
-                    id={id}
-                    primary={`${tutorial.filename} [${tutorial.id}]`}
-                  />
-                </ListItemButton>
-              );
-            })}{" "}
-            : <></>)
+            {renderTutorials()}
           </List>
         </Collapse>
       </Card>
