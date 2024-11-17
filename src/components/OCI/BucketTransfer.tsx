@@ -206,28 +206,25 @@ const BucketTransfer = ({
 
   const renderTutorials = () => {
     if (tutorials) {
-      return;
-      {
-        tutorials.map((tutorial: Tutorial) => {
-          const id = `${tutorial.id}-label`;
-          return (
-            <ListItemButton
-              key={tutorial.id}
-              role="listItem"
-              onClick={handleToggle(tutorial)}
-              autoFocus={isFocused(tutorial)}
-            >
-              <ListItemIcon>
-                <Checkbox checked={indexOfChecked(tutorial) !== -1} />
-              </ListItemIcon>
-              <ListItemText
-                id={id}
-                primary={`${tutorial.filename} [${tutorial.id}]`}
-              />
-            </ListItemButton>
-          );
-        });
-      }
+      return tutorials.map((tutorial: Tutorial) => {
+        const id = `${tutorial.id}-label`;
+        return (
+          <ListItemButton
+            key={tutorial.id}
+            role="listItem"
+            onClick={handleToggle(tutorial)}
+            autoFocus={isFocused(tutorial)}
+          >
+            <ListItemIcon>
+              <Checkbox checked={indexOfChecked(tutorial) !== -1} />
+            </ListItemIcon>
+            <ListItemText
+              id={id}
+              primary={`${tutorial.filename} [${tutorial.id}]`}
+            />
+          </ListItemButton>
+        );
+      });
     }
 
     return <></>;
