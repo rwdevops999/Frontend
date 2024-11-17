@@ -99,7 +99,7 @@ const TutopediaDialog = (props: BucketDialogRawProps) => {
     log(debug, "TutopediaDialog", "Unpublishing Tutorials");
 
     await axios
-      .put("/unpublish", unpublish)
+      .put("/unpublish", tutorials)
       .then(() => {
         setUnpublish([]);
       })
