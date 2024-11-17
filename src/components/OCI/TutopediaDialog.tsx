@@ -79,6 +79,10 @@ const TutopediaDialog = (props: BucketDialogRawProps) => {
     getBucketTutorials();
   }, []);
 
+  useEffect(() => {
+    log(debug, "TutopediaDialog", "Unpublishing", unpublish, true);
+  }, [unpublish, setUnpublish]);
+
   const handleCancel = () => {
     onClose();
   };
