@@ -44,6 +44,10 @@ const TutopediaDialog = (props: BucketDialogRawProps) => {
 
   const handleEntering = () => {};
 
+  const handleExiting = () => {
+    log(debug, "TutopediaDialog", "onExiting", unpublish, true);
+  };
+
   useEffect(() => {
     async function getBucketTutorials() {
       await axios
@@ -130,7 +134,7 @@ const TutopediaDialog = (props: BucketDialogRawProps) => {
       TransitionComponent={Transition}
       PaperComponent={PaperComponent}
       aria-labelledby="bucket-transfer-dialog"
-      TransitionProps={{ onEntering: handleEntering }}
+      TransitionProps={{ onEntering: handleEntering, onExiting: handleExiting }}
       {...other}
     >
       <DialogTitle className={classes.content}>

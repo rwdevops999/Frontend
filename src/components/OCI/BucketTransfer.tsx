@@ -12,7 +12,7 @@ import {
   Paper,
   styled,
 } from "@mui/material";
-import { ReactNode, useRef, useState } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 import Grid from "@mui/material/Grid2";
 
 import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
@@ -21,6 +21,8 @@ import SwipeRightIcon from "@mui/icons-material/SwipeRight";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Tutorial } from "../../entities/Tutorial";
+import useDebugContext from "../../hooks/useDebugContext";
+import { log } from "../../utils/LogUtil";
 
 function valueNotInDestination(value: number, arr: Tutorial[]) {
   return arr.filter((tutorial) => tutorial.id !== value);
@@ -61,6 +63,8 @@ const BucketTransfer = ({
   tutorials: Tutorial[];
   setUnpublish(tutorials: Tutorial[]): void;
 }) => {
+  const { debug } = useDebugContext();
+
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: "#fff",
     ...theme.typography.body2,
@@ -112,6 +116,14 @@ const BucketTransfer = ({
     tutorials.length > 0 ? tutorials[0].id! : -1
   );
 
+  useEffect(() => {
+    log(debug, "BucketTransfer", "right changed");
+    if (right.length > 0) {
+      log(debug, "BucketTransfer", "right changedset unpublsih", right);
+      setUnpublish(right);
+    }
+  }, [right, setRight]);
+
   const leftChecked = intersection(checked, left);
   const rightChecked = intersection(checked, right);
 
@@ -134,20 +146,17 @@ const BucketTransfer = ({
     sortTutorials(right.concat(leftChecked), "right");
     setLeft(not(left, leftChecked));
     setChecked(not(checked, leftChecked));
-    setUnpublish(right);
   };
 
   const moveCheckedToLeft = () => {
     sortTutorials(left.concat(rightChecked), "left");
     setRight(not(right, rightChecked));
     setChecked(not(checked, rightChecked));
-    setUnpublish(right);
   };
 
   const swapItems = () => {
     setRight(left);
     setLeft(right);
-    setUnpublish(right);
   };
 
   const indexOfChecked = (tutorial: Tutorial): number => {
