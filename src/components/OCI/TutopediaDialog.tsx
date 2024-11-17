@@ -51,12 +51,16 @@ const TutopediaDialog = (props: BucketDialogRawProps) => {
   const [tutorials, setTutorials] = useState<Tutorial[]>([]);
   const unpublish = useRef<Tutorial[]>([]);
 
+  const setUnpublish = (tutorials: Tutorial[]) => {
+    unpublish.current = tutorials;
+  };
+
   const { onClose, open, bucketName, ...other } = props;
 
   const handleEntering = () => {};
 
   const handleExiting = () => {
-    log(debug, "TutopediaDialog", "onExiting", unpublish, true);
+    log(debug, "TutopediaDialog", "onExiting", unpublish.current, true);
   };
 
   useEffect(() => {
@@ -164,8 +168,7 @@ const TutopediaDialog = (props: BucketDialogRawProps) => {
       </DialogTitle>
 
       <DialogContent className={classes.content}>
-        {/* <BucketTransfer tutorials={tutorials} setUnpublish={setUnpublish} /> */}
-        <BucketTransfer tutorials={tutorials} />
+        <BucketTransfer tutorials={tutorials} setUnpublish={setUnpublish} />
       </DialogContent>
 
       <DialogActions className={classes.actions}>

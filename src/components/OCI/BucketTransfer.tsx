@@ -58,10 +58,10 @@ function intersection(source: Tutorial[], destination: Tutorial[]) {
 
 const BucketTransfer = ({
   tutorials,
-}: // setUnpublish,
-{
+  setUnpublish,
+}: {
   tutorials: Tutorial[];
-  // setUnpublish(tutorials: Tutorial[]): void;
+  setUnpublish(tutorials: Tutorial[]): void;
 }) => {
   const { debug } = useDebugContext();
 
@@ -120,7 +120,7 @@ const BucketTransfer = ({
     log(debug, "BucketTransfer", "right changed");
     if (right.length > 0) {
       log(debug, "BucketTransfer", "right changed, set unpublish", right);
-      //      setUnpublish(right);
+      setUnpublish(right);
     }
   }, [right, setRight]);
 
