@@ -67,7 +67,7 @@ pipeline {
                 sh '''
 					cp config_tst.json public/config.json
 					npx vitest --reporter=junit --outputFile=./test-results/test-result.xml
-				'``
+				'''
             }
 
             post {
