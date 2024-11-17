@@ -417,16 +417,14 @@ const BucketContainer = ({
           )}
         </Box>
       </Box>
-      {open && (
-        <TutopediaDialog
-          id="bucket-transfer"
-          bucketName={bucket.name!}
-          keepMounted
-          open={open}
-          onClose={handleClose}
-          setReload={setReload}
-        />
-      )}
+      <TutopediaDialog
+        id="bucket-transfer"
+        bucketName={bucket.name!}
+        keepMounted
+        open={open}
+        onClose={handleClose}
+        setReload={setReload}
+      />
     </div>
   );
 };

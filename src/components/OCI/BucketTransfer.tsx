@@ -48,15 +48,11 @@ function union(source: Tutorial[], destination: Tutorial[]) {
 function intersection(source: Tutorial[], destination: Tutorial[]) {
   let result: Tutorial[] = [];
 
-  log(true, "BucketTransfer", "source", source, true);
-  log(true, "BucketTransfer", "destination", destination, true);
-
   if (destination && destination.length > 0) {
     destination.map((value) => {
       result = [...result, ...valueInDestination(value.id!, source)];
     });
   } else {
-    log(true, "BucketTransfer", "XXX");
     result = source;
   }
 

@@ -48,8 +48,6 @@ const TutopediaDialog = (props: BucketDialogRawProps) => {
   const { debug } = useDebugContext();
   const [config] = useConfiguration();
 
-  log(debug, "TutoPediaDialog", "IN, bucket = " + props.bucketName);
-
   const [tutorials, setTutorials] = useState<Tutorial[]>([]);
   const unpublish = useRef<Tutorial[]>([]);
 
@@ -58,6 +56,12 @@ const TutopediaDialog = (props: BucketDialogRawProps) => {
   };
 
   const { onClose, open, bucketName, setReload, ...other } = props;
+
+  log(
+    debug,
+    "TutoPediaDialo",
+    `IN, bucket =  ${props.bucketName}, OPEN = ${open}`
+  );
 
   const handleEntering = () => {};
 
@@ -150,29 +154,33 @@ const TutopediaDialog = (props: BucketDialogRawProps) => {
     return <Paper {...props} />;
   }
 
-  return (
-    <RootDialog
-      open={open}
-      TransitionComponent={Transition}
-      PaperComponent={PaperComponent}
-      aria-labelledby="bucket-transfer-dialog"
-      TransitionProps={{ onEntering: handleEntering }}
-      {...other}
-    >
-      <DialogTitle className={classes.content}>
-        {"Unpublish tutorials?"}
-      </DialogTitle>
+  if (open) {
+    return (
+      <RootDialog
+        open={open}
+        TransitionComponent={Transition}
+        PaperComponent={PaperComponent}
+        aria-labelledby="bucket-transfer-dialog"
+        TransitionProps={{ onEntering: handleEntering }}
+        {...other}
+      >
+        <DialogTitle className={classes.content}>
+          {"Unpublish tutorials?"}
+        </DialogTitle>
 
-      <DialogContent className={classes.content}>
-        <BucketTransfer tutorials={tutorials} setUnpublish={setUnpublish} />
-      </DialogContent>
+        <DialogContent className={classes.content}>
+          <BucketTransfer tutorials={tutorials} setUnpublish={setUnpublish} />
+        </DialogContent>
 
-      <DialogActions className={classes.actions}>
-        <Button onClick={handleCancel}>Cancel</Button>
-        <Button onClick={handleOk}>Ok</Button>
-      </DialogActions>
-    </RootDialog>
-  );
+        <DialogActions className={classes.actions}>
+          <Button onClick={handleCancel}>Cancel</Button>
+          <Button onClick={handleOk}>Ok</Button>
+        </DialogActions>
+      </RootDialog>
+    );
+  }
+
+  return <></>;
 };
 
 export default TutopediaDialog;
