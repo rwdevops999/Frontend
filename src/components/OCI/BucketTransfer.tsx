@@ -204,7 +204,7 @@ const BucketTransfer = ({
     return tutorial.id! === autoFocusId.current;
   };
 
-  const renderTutorials = () => {
+  const renderTutorials = (tutorials: Tutorial[]) => {
     if (tutorials) {
       return tutorials.map((tutorial: Tutorial) => {
         const id = `${tutorial.id}-label`;
@@ -275,7 +275,7 @@ const BucketTransfer = ({
         />
         <Collapse in={expanded} className={classes.collapse}>
           <List className={classes.list} dense component="div" role="list">
-            {renderTutorials()}
+            {renderTutorials(tutorials)}
           </List>
         </Collapse>
       </Card>
