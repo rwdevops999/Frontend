@@ -100,9 +100,7 @@ const TutopediaDialog = (props: BucketDialogRawProps) => {
 
     await axios
       .put("/unpublish", tutorials)
-      .then(() => {
-        setUnpublish([]);
-      })
+      .then(() => {})
       .catch(() => {
         log(debug, "TutopediaDialog", "Error unpublish");
         if (config.environment != "TST") {
@@ -113,11 +111,12 @@ const TutopediaDialog = (props: BucketDialogRawProps) => {
 
   const handleOk = () => {
     log(debug, "TutopediaDialog", "Unpublish", unpublish, true);
+
+    onClose();
+
     if (unpublish.length > 0) {
       unpublishTutorials(unpublish);
     }
-
-    onClose();
   };
 
   useEffect(() => {
