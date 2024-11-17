@@ -3,7 +3,7 @@ import { renderRoute } from "../render/render";
 import { User } from "@auth0/auth0-react";
 import { clickButtonById, mockAuthState } from "../testutils";
 import user from "@testing-library/user-event";
-import { createBuckets } from "../mock/database";
+import { createBuckets, createSetting } from "../mock/database";
 import {
   BUCKET_CONTAINER,
   BUCKET_CONTAINER_BUCKET_INPUT,
@@ -59,6 +59,8 @@ describe("BucketPage", () => {
     });
 
     createBuckets(1);
+    createSetting(1, true, { key: "OCI_Tenant", value: "Tenant" });
+    createSetting(1, false, { key: "OCI_Region", value: "Region" });
 
     renderRoute(`${ROUTE_TUTOPEDIA}`);
 
@@ -68,6 +70,8 @@ describe("BucketPage", () => {
     await waitForElementToBeRemoved(
       screen.queryByTestId(`${BUCKETS_PAGE_LOADER}`)
     );
+
+    screen.debug(undefined, Infinity);
 
     const button = screen.getByTestId(`${BUCKET_CONTAINER_DELETE_BUTTON}`);
     await user.click(button);

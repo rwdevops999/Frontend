@@ -42,6 +42,8 @@ function TutOPedia() {
     undefined
   );
 
+  log(debug, "Tutopedia", "IN: Default Bucket", defaultBucket, true);
+
   useEffect(() => {
     async function getDefaultBucket() {
       await axios
@@ -70,37 +72,28 @@ function TutOPedia() {
   log(debug, "Tutopedia", "Checking default bucket");
   let count = 0;
   if (location.state !== null) {
+    log(debug, "Tutopedia", "STEP1");
     count = location.state.tutopedia.count;
-    let doSetDefaultBucket: boolean = false;
     if (location.state.tutopedia.header) {
+      log(debug, "Tutopedia", "STEP2");
       if (
         location.state.tutopedia.header.bucket &&
         location.state.tutopedia.header.bucket === "<<<undefined>>>"
       ) {
+        log(debug, "Tutopedia", "STEP3");
         log(debug, "Tutopedia", "Change state bucket", defaultBucket?.name);
-        location.state.tutopedia.header.bucket = defaultBucket?.name;
-        doSetDefaultBucket = false;
+        if (defaultBucket) {
+          location.state.tutopedia.header.bucket = defaultBucket.name;
+        }
       }
     }
 
+    log(debug, "Tutopedia", "STEP5");
     count++;
     log(debug, "Tutopedia", "Count", count);
-
-    if (defaultBucket && doSetDefaultBucket) {
-      log(debug, "Tutopedia", "STEP 1");
-      if (location.state.tutopedia.header) {
-        log(debug, "Tutopedia", "STEP 2");
-        location.state.tutopedia.header.bucket = defaultBucket.name;
-      } else {
-        log(debug, "Tutopedia", "STEP 3");
-        location.state.tutopedia.header = {
-          bucket: defaultBucket.name,
-        };
-      }
-    }
   } else {
     log(debug, "Tutopedia", "No State defined ... building one");
-    log(debug, "Tutopedia", "STEP 4", defaultBucket, true);
+    log(debug, "Tutopedia", "STEP9", defaultBucket, true);
     let tutopedia = undefined;
 
     switch (location.pathname) {

@@ -141,7 +141,7 @@ describe("Header with mocked authorization", () => {
 });
 
 describe("Header with bucket", () => {
-  it("should contain the bucket `bucketname`", async () => {
+  it("should contain the bucket `buckettest`", async () => {
     createBuckets(1, true, {
       name: "buckettest",
       selected: true,
@@ -150,9 +150,11 @@ describe("Header with bucket", () => {
     renderRoute(`${ROUTE_TUTOPEDIA}`);
 
     screen.debug(undefined, Infinity);
+
     await waitFor(() => {
       expect(screen.getByText(/^buckettest$/)).toBeInTheDocument();
     });
+
     screen.debug(undefined, Infinity);
   });
 });

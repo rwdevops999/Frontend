@@ -18,7 +18,6 @@ import {
   useRef,
   useState,
 } from "react";
-import Draggable from "react-draggable";
 import { Tutorial } from "../../entities/Tutorial";
 import BucketTransfer from "./BucketTransfer";
 import { log } from "../../utils/LogUtil";
@@ -148,14 +147,7 @@ const TutopediaDialog = (props: BucketDialogRawProps) => {
   }));
 
   function PaperComponent(props: PaperProps) {
-    return (
-      <Draggable
-        handle="#draggable-dialog-title"
-        cancel={'[class*="MuiDialogContent-root"]'}
-      >
-        <Paper {...props} />
-      </Draggable>
-    );
+    return <Paper {...props} />;
   }
 
   return (

@@ -21,6 +21,7 @@ import SwipeRightIcon from "@mui/icons-material/SwipeRight";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Tutorial } from "../../entities/Tutorial";
+import { log } from "../../utils/LogUtil";
 
 function valueNotInDestination(value: number, arr: Tutorial[]) {
   return arr.filter((tutorial) => tutorial.id !== value);
@@ -47,9 +48,17 @@ function union(source: Tutorial[], destination: Tutorial[]) {
 function intersection(source: Tutorial[], destination: Tutorial[]) {
   let result: Tutorial[] = [];
 
-  destination.map((value) => {
-    result = [...result, ...valueInDestination(value.id!, source)];
-  });
+  log(true, "BucketTransfer", "source", source, true);
+  log(true, "BucketTransfer", "destination", destination, true);
+
+  if (destination && destination.length > 0) {
+    destination.map((value) => {
+      result = [...result, ...valueInDestination(value.id!, source)];
+    });
+  } else {
+    log(true, "BucketTransfer", "XXX");
+    result = source;
+  }
 
   return result;
 }
@@ -240,6 +249,7 @@ const BucketTransfer = ({
         />
         <Collapse in={expanded} className={classes.collapse}>
           <List className={classes.list} dense component="div" role="list">
+            (tutorials ?{" "}
             {tutorials.map((tutorial: Tutorial) => {
               const id = `${tutorial.id}-label`;
               return (
@@ -258,7 +268,8 @@ const BucketTransfer = ({
                   />
                 </ListItemButton>
               );
-            })}
+            })}{" "}
+            : <></>)
           </List>
         </Collapse>
       </Card>

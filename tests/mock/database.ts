@@ -2,6 +2,7 @@ import { faker } from "@faker-js/faker";
 import { factory, oneOf, primaryKey } from "@mswjs/data";
 import { Tutorial } from "../../src/entities/Tutorial";
 import { Bucket } from "../../src/entities/Bucket";
+import { Setting } from "../../src/entities/Setting";
 
 export const database = factory({
   tutorial: {
@@ -26,6 +27,11 @@ export const database = factory({
     fileContent: faker.string.binary,
     bucket: oneOf("bucket"),
   },
+  setting: {
+    id: primaryKey(faker.number.int),
+    key: faker.string.alpha,
+    value: faker.string.alpha,
+  },
 });
 
 export const createDBTutorial = (tutorial: Tutorial): Tutorial => {
@@ -44,8 +50,17 @@ export const createDBBucket = (bucket: Bucket): Bucket => {
   return newBucket;
 };
 
+export const createDBSetting = (setting: Setting): Setting => {
+  let newSetting = database.setting.create({
+    ...setting,
+  });
+
+  return newSetting;
+};
+
 let tutorialIds = new Array();
 let bucketIds = new Array();
+let settingIds = new Array();
 
 const defaultTutorial: Tutorial = {
   id: undefined,
@@ -64,6 +79,12 @@ const defaultBucket: Bucket = {
   updateDate: new Date(),
 };
 
+const defaultSetting: Setting = {
+  id: undefined,
+  key: "Key1",
+  value: "Value1",
+};
+
 export const removeDBTutorials = () => {
   database.tutorial.deleteMany({ where: { id: { in: tutorialIds } } });
   tutorialIds = new Array();
@@ -72,6 +93,11 @@ export const removeDBTutorials = () => {
 export const removeDBBuckets = () => {
   database.bucket.deleteMany({ where: { id: { gt: 0 } } });
   bucketIds = new Array();
+};
+
+export const removeDBSettings = () => {
+  database.setting.deleteMany({ where: { id: { gt: 0 } } });
+  settingIds = new Array();
 };
 
 export const createTutorials = (
@@ -118,6 +144,23 @@ export const createBuckets = (
   }
 };
 
+export const createSetting = (
+  num: number,
+  remove: boolean = true,
+  setting?: Setting
+) => {
+  if (remove) {
+    removeDBSettings();
+  }
+
+  for (let i = 0; i < num; i++) {
+    let { id } = createDBSetting({
+      ...defaultSetting,
+      ...setting,
+    });
+    settingIds.push(id);
+  }
+};
 export const getDBTutorialByIndex = (index: number): Tutorial => {
   return database.tutorial.findFirst({
     where: { id: { equals: tutorialIds[index] } },

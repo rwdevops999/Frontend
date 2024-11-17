@@ -6,7 +6,9 @@ export const useConfiguration = (): [
   Dispatch<ApplicationConfiguration>
 ] => {
   const env = import.meta.env.VITE_ENV;
-  const [config, setConfig] = useState<ApplicationConfiguration>({});
+  const [config, setConfig] = useState<ApplicationConfiguration>({
+    environment: env,
+  });
 
   useEffect(() => {
     setConfig({ environment: env ?? "" });

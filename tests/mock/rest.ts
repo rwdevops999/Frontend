@@ -75,6 +75,9 @@ export const tutorialRestHandler = [
     "http://localhost:8081/api/update/:id",
     async ({ params, request }) => {
       let tutorialId = parseInt(params.id as string);
+      console.log(
+        "[REST INTERCEPT] http://localhost:8081/api/update/" + tutorialId
+      );
       const data = await request.clone().json();
 
       let obj = JSON.parse(JSON.stringify(data));
@@ -159,6 +162,7 @@ export const tutorialRestHandler = [
   }),
   http.put("http://localhost:8081/api/bucket/default/:id", ({ params }) => {
     let bucketId = parseInt(params.id as string);
+    log(true, "[REST INTERCEPT]", "UPDATE DEFAULT BUCKET", bucketId);
 
     database.bucket.updateMany({
       where: { selected: { equals: true } },
@@ -169,6 +173,14 @@ export const tutorialRestHandler = [
       where: { id: { equals: bucketId } },
       data: { selected: true },
     });
+
+    log(
+      true,
+      "[REST BUCKET DB]",
+      "BUCKET DATABASE",
+      database.bucket.findMany({}),
+      true
+    );
 
     return HttpResponse.json({ status: 200 });
   }),
@@ -184,6 +196,34 @@ export const tutorialRestHandler = [
     log(true, "REST", "DEFAULT BUCKET", bucket, true);
 
     return HttpResponse.json(bucket);
+  }),
+  http.get("http://localhost:8081/api/bucket/:bucket", ({ params }) => {
+    let bucketName: string = params.bucket as string;
+    log(true, "REST", "INTERCEPT BUCKET/BUCkET CALL", bucketName);
+    const bucket = database.bucket.findFirst({
+      where: {
+        name: {
+          equals: bucketName,
+        },
+      },
+    });
+    log(true, "REST", "FOUND  BUCKET", bucket, true);
+
+    return HttpResponse.json(bucket);
+  }),
+  http.get("http://localhost:8081/api/settings/:key", ({ params }) => {
+    let key: string = params.key as string;
+    log(true, "REST", "INTERCEPT SETTINGS CALL FOR KEY = ", key);
+    const setting = database.setting.findFirst({
+      where: {
+        key: {
+          equals: key,
+        },
+      },
+    });
+    log(true, "REST", "FOUND  SETTING", setting, true);
+
+    return HttpResponse.json(setting);
   }),
 ];
 

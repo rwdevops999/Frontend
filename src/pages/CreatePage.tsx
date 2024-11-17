@@ -205,8 +205,10 @@ const CreatePage = () => {
     });
 
     const handleSubmitForm = async (values: any) => {
+      log(debug, "CreatePage", "Submit Form");
       if (isUpdateMode) {
         if (config.environment === "TST" && tutorialId) {
+          log(debug, "CreatePage", "TST Env, Tutorial ID = ", tutorialId);
           await fetch("http://localhost:8081/api/update/" + tutorialId, {
             method: "PUT",
             body: JSON.stringify({

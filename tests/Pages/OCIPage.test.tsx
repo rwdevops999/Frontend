@@ -201,8 +201,8 @@ describe("OCIPage", () => {
     );
 
     // GET ALL CONTAINERS (EACH BUCKET IS IN ITS OWN CONTAINER)
-    let elements = screen.getAllByTestId(`${BUCKET_CONTAINER}`);
     // WE EXPECT 3 CONTAINERS
+    let elements = screen.getAllByTestId(`${BUCKET_CONTAINER}`);
     expect(elements.length).toBe(3);
 
     /**
@@ -210,45 +210,47 @@ describe("OCIPage", () => {
      */
 
     // FOR EACH CONTAINER
+    // GET THE CHECKBOX
+    // GET THE INPUT FIELD UNDER THE CHECKBOX
+    // THE FIRST MUST BE DISABLED, THE OTHER TWO ENABLED
+    // CLICK THE CHECKBOX FOR THE SECONDS BUCKET
     for (let i = 0; i < elements.length; i++) {
-      // GET THE CHECKBOX
       const checkbox = within(elements[i]).getByTestId(
         `${BUCKET_CONTAINER_BUCKET_DEFAULT}`
       );
 
-      // GET THE INPUT FIELD UNDER THE CHECKBOX
       const input = within(checkbox).getByPlaceholderText(
         `${BUCKET_CONTAINER_BUCKET_DEFAULT_INPUT}`
       );
 
-      // THE FIRST MUST BE DISABLED, THE OTHER TWO ENABLED
       if (i === 0) {
         expectElementToBeDisabled(input);
       } else {
         expectElementToBeEnabled(input);
 
-        // CLICK THE CHECKBOX FOR THE SECONDS BUCKET
         if (i === 1) {
           await userEvent.click(checkbox);
         }
       }
     }
 
+    screen.debug(undefined, Infinity);
+
     // GET AGAIN THE CONTAINERS
-    elements = screen.getAllByTestId(`${BUCKET_CONTAINER}`);
+    // elements = screen.getAllByTestId(`${BUCKET_CONTAINER}`);
 
     // FOR EACH CONTAINER
+    // GET THE CHECKBOX
+    // AND THE INPUT INSIDE THIS CHECKBOX
+    // NOW THE SECOND MUST BE DISABLED AND THE FIRST AND THE THIRD ENABLED
     elements.forEach((element, index) => {
-      // GET THE CHECKBOX
       const checkbox = within(element).getByTestId(
         `${BUCKET_CONTAINER_BUCKET_DEFAULT}`
       );
-      // AND THE INPUT INSIDE THIS CHECKBOX
       const input = within(checkbox).getByPlaceholderText(
         `${BUCKET_CONTAINER_BUCKET_DEFAULT_INPUT}`
       );
 
-      // NOW THE SECOND MUST BE DISABLED AND THE FIRST AND THE THIRD ENABLED
       if (index === 1) {
         expectElementToBeDisabled(input);
       } else {
@@ -256,9 +258,8 @@ describe("OCIPage", () => {
       }
     });
 
-    // CHECK BUCKETNAME IN HEADER TO BE NAM OF THE SECOND BUCKET
+    // CHECK BUCKETNAME IN HEADER TO BE NAME OF THE SECOND BUCKET
     const header = screen.getByTestId(`${TUTOPEDIA_HEADER_BUCKET_NAME}`);
-    // const element = within(header).getByText(`${bucket.name}`);
     const element = within(header).getByText("bucketname2");
 
     expectElementInDocument(element);
