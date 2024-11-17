@@ -59,7 +59,7 @@ const TutopediaDialog = (props: BucketDialogRawProps) => {
 
   log(
     debug,
-    "TutoPediaDialo",
+    "TutoPediaDialog",
     `IN, bucket =  ${props.bucketName}, OPEN = ${open}`
   );
 
@@ -157,6 +157,8 @@ const TutopediaDialog = (props: BucketDialogRawProps) => {
   if (open) {
     return (
       <RootDialog
+        fullWidth={false}
+        maxWidth="md"
         open={open}
         TransitionComponent={Transition}
         PaperComponent={PaperComponent}

@@ -92,6 +92,7 @@ const BucketTransfer = ({
       margin: theme.spacing(0.5, 0),
     },
     [`& .${classes.cardheader}`]: {
+      flex: 1,
       padding: theme.spacing(1, 2),
       boxShadow: "0px 4px 80px grey",
     },
@@ -236,7 +237,7 @@ const BucketTransfer = ({
     return (
       <Card
         style={{ display: "flex", flexDirection: "column" }}
-        component={Paper}
+        // component={Paper}
       >
         <CardHeader
           className={classes.cardheader}
@@ -280,7 +281,13 @@ const BucketTransfer = ({
 
   return (
     <BucketTransfer className="{classes.root}">
-      <Grid container spacing={2} justifyContent="center" alignItems="center">
+      <Grid
+        container
+        spacing={2}
+        justifyContent="center"
+        alignItems="center"
+        sx={{ width: "700px" }}
+      >
         <Item>
           <Paper elevation={3}>{renderTutorialsList("Bucket", left)}</Paper>
         </Item>
