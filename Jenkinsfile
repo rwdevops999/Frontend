@@ -64,7 +64,10 @@ pipeline {
             }
 
             steps {
-                sh 'npx vitest --reporter=junit --outputFile=./test-results/test-result.xml'
+                sh '''
+					cp config_tst.json public/config.json
+					npx vitest --reporter=junit --outputFile=./test-results/test-result.xml
+				'``
             }
 
             post {
@@ -94,6 +97,7 @@ pipeline {
 
 			steps {
 				sh '''
+					cp config_dev.json public/config.json
 					security unlock-keychain -p ${KEYCHAIN_PSW}
 					docker login -u ${DOCKERHUB_ACCESSKEY_USR} -p ${DOCKERHUB_ACCESSKEY_PSW}
 					docker build . -t ${IMAGE}
