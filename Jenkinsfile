@@ -65,7 +65,7 @@ pipeline {
 
             steps {
                 sh '''
-					more .env.tst
+					more ./.env.tst
 					cp .env.tst .env
 					npx vitest --reporter=junit --outputFile=./test-results/test-result.xml
 				'''
