@@ -38,6 +38,7 @@ export interface BucketDialogRawProps {
 const TutopediaDialog = (props: BucketDialogRawProps) => {
   const { debug } = useDebugContext();
   const [tutorials, setTutorials] = useState<Tutorial[]>([]);
+  const [unpublish, setUnpublish] = useState<Tutorial[]>([]);
 
   const { onClose, open, bucketName, ...other } = props;
 
@@ -83,7 +84,7 @@ const TutopediaDialog = (props: BucketDialogRawProps) => {
   };
 
   const handleOk = () => {
-    // onClose(value);
+    log(debug, "TutopediaDialog", "Unpublish", unpublish, true);
     onClose();
   };
 
@@ -138,7 +139,7 @@ const TutopediaDialog = (props: BucketDialogRawProps) => {
       </DialogTitle>
 
       <DialogContent className={classes.content}>
-        <BucketTransfer tutorials={tutorials} onNotify={handleNotify} />
+        <BucketTransfer tutorials={tutorials} setUnpublish={setUnpublish} />
       </DialogContent>
 
       <DialogActions className={classes.actions}>
