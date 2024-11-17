@@ -41,6 +41,7 @@ export interface BucketDialogRawProps {
   keepMounted: boolean;
   open: boolean;
   onClose: (value?: string) => void;
+  setReload(val: any): void;
   bucketName: string;
 }
 
@@ -55,7 +56,7 @@ const TutopediaDialog = (props: BucketDialogRawProps) => {
     unpublish.current = tutorials;
   };
 
-  const { onClose, open, bucketName, ...other } = props;
+  const { onClose, open, bucketName, setReload, ...other } = props;
 
   const handleEntering = () => {};
 
@@ -119,6 +120,7 @@ const TutopediaDialog = (props: BucketDialogRawProps) => {
 
     if (unpublish.current.length > 0) {
       unpublishTutorials(unpublish.current);
+      setReload((x: any) => x + 1);
     }
   };
 
