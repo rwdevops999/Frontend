@@ -21,8 +21,6 @@ import SwipeRightIcon from "@mui/icons-material/SwipeRight";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Tutorial } from "../../entities/Tutorial";
-import useDebugContext from "../../hooks/useDebugContext";
-import { log } from "../../utils/LogUtil";
 
 function valueNotInDestination(value: number, arr: Tutorial[]) {
   return arr.filter((tutorial) => tutorial.id !== value);
@@ -63,8 +61,6 @@ const BucketTransfer = ({
   tutorials: Tutorial[];
   setUnpublish(tutorials: Tutorial[]): void;
 }) => {
-  const { debug } = useDebugContext();
-
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: "#fff",
     ...theme.typography.body2,
