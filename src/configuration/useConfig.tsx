@@ -14,14 +14,14 @@ const configContextObject = React.createContext<DynamicConfigContext>({
 export const useConfig = () => useContext(configContextObject);
 
 const ConfigContextProvider = ({ children }: { children: any }) => {
-  const [configState, setConfigState] = useState(defaultConfig);
+  // const [configState, setConfigState] = useState(defaultConfig);
 
   let cs = defaultConfig;
 
   const setInitConfig = (config: DynamicConfig) => {
     console.log("SET CONFIG IN STATE: " + JSON.stringify(config));
     cs = config;
-    setConfigState(config);
+    // setConfigState(config);
   };
 
   return (
