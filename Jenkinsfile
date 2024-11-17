@@ -97,6 +97,7 @@ pipeline {
 
 			steps {
 				sh '''
+					cp config_tst.json public/config.json
 					security unlock-keychain -p ${KEYCHAIN_PSW}
 					docker login -u ${DOCKERHUB_ACCESSKEY_USR} -p ${DOCKERHUB_ACCESSKEY_PSW}
 					docker build . -t ${IMAGE}
