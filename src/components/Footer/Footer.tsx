@@ -29,7 +29,7 @@ const Footer = () => {
     var mins = s % 60;
     var hrs = (s - mins) / 60;
 
-    return pad(hrs) + ":" + pad(mins) + ":" + pad(secs);
+    return pad(hrs) + "h " + pad(mins) + "m " + pad(secs) + "s";
   };
 
   useEffect(() => {
