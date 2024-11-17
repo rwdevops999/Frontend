@@ -16,11 +16,21 @@ export const useConfig = () => useContext(configContextObject);
 const ConfigContextProvider = ({ children }: { children: any }) => {
   const [configState, setConfigState] = useState(defaultConfig);
 
+  const setInitConfig = (config: DynamicConfig) => {
+    console.log("SET CONFIG IN STATE: " + JSON.stringify(config));
+    setConfigState(config);
+  };
+
+  const getInitConfig = (): DynamicConfig => {
+    console.log("GET CONFIG FROM STATE; " + JSON.stringify(configState));
+    return configState;
+  };
+
   return (
     <configContextObject.Provider
       value={{
-        config: configState,
-        setConfig: setConfigState,
+        config: getInitConfig(),
+        setConfig: setInitConfig,
       }}
     >
       {children}
