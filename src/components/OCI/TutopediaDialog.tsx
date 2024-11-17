@@ -17,6 +17,8 @@ import BucketTransfer from "./BucketTransfer";
 import { log } from "../../utils/LogUtil";
 import useDebugContext from "../../hooks/useDebugContext";
 import axios from "axios";
+import { useConfig } from "../../configuration/useConfig";
+import toast from "react-hot-toast";
 
 const Transition = forwardRef(function Transition(
   props: TransitionProps & {
@@ -37,6 +39,8 @@ export interface BucketDialogRawProps {
 
 const TutopediaDialog = (props: BucketDialogRawProps) => {
   const { debug } = useDebugContext();
+  const { config } = useConfig();
+
   const [tutorials, setTutorials] = useState<Tutorial[]>([]);
   const [unpublish, setUnpublish] = useState<Tutorial[]>([]);
 
@@ -91,8 +95,28 @@ const TutopediaDialog = (props: BucketDialogRawProps) => {
     onClose();
   };
 
+  const unpublishTutorials = async (tutorials: Tutorial[]) => {
+    log(debug, "TutopediaDialog", "Unpublishing Tutorials");
+
+    await axios
+      .put("/unpublish", unpublish)
+      .then(() => {
+        setUnpublish([]);
+      })
+      .catch(() => {
+        log(debug, "TutopediaDialog", "Error unpublish");
+        if (config.environment != "TST") {
+          toast(`Error unpublishing tutorials`);
+        }
+      });
+  };
+
   const handleOk = () => {
     log(debug, "TutopediaDialog", "Unpublish", unpublish, true);
+    if (unpublish.length > 0) {
+      unpublishTutorials(unpublish);
+    }
+
     onClose();
   };
 
