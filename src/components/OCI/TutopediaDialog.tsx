@@ -49,6 +49,8 @@ const TutopediaDialog = (props: BucketDialogRawProps) => {
   const { debug } = useDebugContext();
   const { config } = useConfig();
 
+  log(debug, "TutoPediaDialog", "IN, bucket = " + props.bucketName);
+
   const [tutorials, setTutorials] = useState<Tutorial[]>([]);
   const unpublish = useRef<Tutorial[]>([]);
 
@@ -92,7 +94,9 @@ const TutopediaDialog = (props: BucketDialogRawProps) => {
         });
     }
 
-    getBucketTutorials();
+    if (props.bucketName) {
+      getBucketTutorials();
+    }
   }, []);
 
   const handleCancel = () => {
@@ -104,7 +108,10 @@ const TutopediaDialog = (props: BucketDialogRawProps) => {
 
     await axios
       .put("/unpublish", tutorials)
-      .then(() => {})
+      .then(() => {
+        log(debug, "TutopediaDialog", "Trigger reload");
+        setReload((x: any) => x + 1);
+      })
       .catch(() => {
         log(debug, "TutopediaDialog", "Error unpublish");
         if (config.environment != "TST") {
@@ -120,8 +127,6 @@ const TutopediaDialog = (props: BucketDialogRawProps) => {
 
     if (unpublish.current.length > 0) {
       unpublishTutorials(unpublish.current);
-      log(debug, "TutopediaDialog", "Trigger reload");
-      setReload((x: any) => x + 1);
     }
   };
 
