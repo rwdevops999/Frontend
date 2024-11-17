@@ -58,10 +58,10 @@ function intersection(source: Tutorial[], destination: Tutorial[]) {
 
 const BucketTransfer = ({
   tutorials,
-  setUnpublish,
-}: {
+}: // setUnpublish,
+{
   tutorials: Tutorial[];
-  setUnpublish(tutorials: Tutorial[]): void;
+  // setUnpublish(tutorials: Tutorial[]): void;
 }) => {
   const { debug } = useDebugContext();
 

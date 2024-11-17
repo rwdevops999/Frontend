@@ -157,7 +157,8 @@ const TutopediaDialog = (props: BucketDialogRawProps) => {
       </DialogTitle>
 
       <DialogContent className={classes.content}>
-        <BucketTransfer tutorials={tutorials} setUnpublish={setUnpublish} />
+        {/* <BucketTransfer tutorials={tutorials} setUnpublish={setUnpublish} /> */}
+        <BucketTransfer tutorials={tutorials} />
       </DialogContent>
 
       <DialogActions className={classes.actions}>
