@@ -21,7 +21,6 @@ import SwipeRightIcon from "@mui/icons-material/SwipeRight";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Tutorial } from "../../entities/Tutorial";
-import { log } from "../../utils/LogUtil";
 
 function valueNotInDestination(value: number, arr: Tutorial[]) {
   return arr.filter((tutorial) => tutorial.id !== value);
