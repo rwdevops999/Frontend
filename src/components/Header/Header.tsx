@@ -62,8 +62,6 @@ const Header = ({
     log(debug, "Tutopedia.Header", "New Config", newMode);
   };
 
-  const setColor = () => {};
-
   return (
     <>
       <Box
