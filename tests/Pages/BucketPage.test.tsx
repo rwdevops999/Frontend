@@ -71,8 +71,6 @@ describe("BucketPage", () => {
       screen.queryByTestId(`${BUCKETS_PAGE_LOADER}`)
     );
 
-    screen.debug(undefined, Infinity);
-
     const button = screen.getByTestId(`${BUCKET_CONTAINER_DELETE_BUTTON}`);
     await user.click(button);
 

@@ -234,8 +234,6 @@ describe("OCIPage", () => {
       }
     }
 
-    screen.debug(undefined, Infinity);
-
     // GET AGAIN THE CONTAINERS
     // elements = screen.getAllByTestId(`${BUCKET_CONTAINER}`);
 

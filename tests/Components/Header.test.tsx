@@ -152,7 +152,5 @@ describe("Header with bucket", () => {
     await waitFor(() => {
       expect(screen.getByText(/^buckettest$/)).toBeInTheDocument();
     });
-
-    screen.debug(undefined, Infinity);
   });
 });
