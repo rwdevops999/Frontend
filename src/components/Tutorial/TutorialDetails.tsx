@@ -9,7 +9,7 @@ import {
 import { FaFileAlt, FaTrashAlt } from "react-icons/fa";
 import { FaFileExport, FaPenFancy } from "react-icons/fa6";
 import "./TutorialDetails.css";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Tutorial } from "../../entities/Tutorial";
 import {
   buildState,
@@ -30,6 +30,7 @@ import {
 import { log } from "../../utils/LogUtil";
 import useDebugContext from "../../hooks/useDebugContext";
 import { useConfiguration } from "../../configuration/UseConfiguration";
+import { useTutopediaState } from "../../hooks/states/useTutopediaState";
 
 const TutorialDetails = ({
   count,
@@ -43,6 +44,7 @@ const TutorialDetails = ({
   const navigate = useNavigate();
   const [config] = useConfiguration();
   const { debug } = useDebugContext();
+  const { state } = useLocation();
 
   log(debug, "TutorialsListPage.Details", "Setup");
 
@@ -62,6 +64,8 @@ const TutorialDetails = ({
     navigate(tutopedia.routeURL!, state);
   };
 
+  const { header } = useTutopediaState(state);
+
   const publishTutorialById = async (id: number) => {
     log(debug, "TutorialsListPage.Details", "Publish tutorial", id);
     await axios
@@ -72,7 +76,8 @@ const TutorialDetails = ({
           "Publish tutorial",
           TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_ITEMS_PUBLISH,
           `/${ROUTE_TUTORIALS}`,
-          true
+          true,
+          header ? header.bucket : undefined
         );
 
         if (config.environment != "TST") {
@@ -83,9 +88,7 @@ const TutorialDetails = ({
       })
       .catch(() => {
         if (config.environment != "TST") {
-          toast(
-            `Error publishing tutorial with ID: ${id}: Is default bucket defined?`
-          );
+          toast.error(`No bucket defined to publish`);
         }
       });
   };

@@ -37,8 +37,8 @@ describe("Header", () => {
     expectInDocumentByTestId(`${TUTOPEDIA_HEADER_BUCKET_NAME}`);
   });
 
-  it("should contain the bucket `<<<undefined>>>`", () => {
-    expectInDocumentByText(/^<<<undefined>>>$/);
+  it("should contain the bucket `not set`", () => {
+    expectInDocumentByText(/^not set$/);
   });
 
   it("should contain the `user`", () => {
@@ -55,7 +55,7 @@ describe("Header", () => {
 });
 
 describe("Header with mocked authorization", () => {
-  it("should contain the user `<<<no user>>>` when not authenticated", () => {
+  it("should contain the user `no user` when not authenticated", () => {
     mockAuthState({
       isLoading: false,
       isAuthenticated: false,
@@ -64,7 +64,7 @@ describe("Header with mocked authorization", () => {
 
     renderRoute(`${ROUTE_TUTOPEDIA}`);
 
-    expectInDocumentByText(/^<<<no user>>>$/);
+    expectInDocumentByText(/^no user$/);
   });
 
   it("should contain the user `testuser` when authenticated", () => {
@@ -148,8 +148,6 @@ describe("Header with bucket", () => {
     });
 
     renderRoute(`${ROUTE_TUTOPEDIA}`);
-
-    screen.debug(undefined, Infinity);
 
     await waitFor(() => {
       expect(screen.getByText(/^buckettest$/)).toBeInTheDocument();

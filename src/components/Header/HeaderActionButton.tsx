@@ -38,7 +38,7 @@ const HeaderActionButton = ({
         "Go to admin page",
         TUTOPEDIA_HEADER_ACTION_BUTTON_ADMIN,
         "/admin",
-        header ? header.bucket : "<<<undefined>>>"
+        header ? header.bucket : undefined
       );
 
       navigate(tutopedia.routeURL!, buildState(tutopedia));
@@ -52,7 +52,7 @@ const HeaderActionButton = ({
         TUTOPEDIA_HEADER_ACTION_BUTTON_HOME,
         "/tutorials",
         undefined,
-        header ? header.bucket : "<<<undefined>>>"
+        header ? header.bucket : undefined
       );
       navigate(tutopedia.routeURL!, buildState(tutopedia)); //
     }

@@ -72,11 +72,20 @@ function TutOPedia() {
   log(debug, "Tutopedia", "Checking default bucket");
   let count = 0;
   if (location.state !== null) {
+    log(debug, "Tutopedia", "STEP1");
     count = location.state.tutopedia.count;
     if (location.state.tutopedia.header) {
+      log(
+        debug,
+        "Tutopedia",
+        "STEP2",
+        location.state.tutopedia.header.bucket,
+        true
+      );
       if (
-        location.state.tutopedia.header.bucket &&
-        location.state.tutopedia.header.bucket === "<<<undefined>>>"
+        Object(location.state.tutopedia.header).length === 0 ||
+        location.state.tutopedia.header.bucket === undefined ||
+        Object(location.state.tutopedia.header.bucket).length === 0
       ) {
         log(debug, "Tutopedia", "Change state bucket", defaultBucket?.name);
         if (defaultBucket) {
@@ -99,8 +108,8 @@ function TutOPedia() {
           "Startup",
           TUTOPEDIA,
           location.pathname,
-          "<<<undefined>>>",
-          defaultBucket ? defaultBucket.name : "<<<undefined>>>"
+          undefined,
+          defaultBucket ? defaultBucket.name : undefined
         );
         break;
       case "/tutorials":
@@ -110,8 +119,8 @@ function TutOPedia() {
           "TutOPedia create Mock",
           TUTOPEDIA,
           location.pathname,
-          "<<<undefined>>>",
-          defaultBucket ? defaultBucket.name : "<<<undefined>>>"
+          undefined,
+          defaultBucket ? defaultBucket.name : undefined
         );
         break;
       case "/tutorials/oci":
@@ -126,7 +135,7 @@ function TutOPedia() {
           "TutOPedia create Mock",
           TUTOPEDIA,
           location.pathname,
-          defaultBucket ? defaultBucket.name : "<<<undefined>>>"
+          defaultBucket ? defaultBucket.name : undefined
         );
         break;
       case "/admin":
@@ -141,7 +150,7 @@ function TutOPedia() {
           "TutOPedia create Mock",
           TUTOPEDIA,
           location.pathname,
-          defaultBucket ? defaultBucket.name : "<<<undefined>>>"
+          defaultBucket ? defaultBucket.name : undefined
         );
         break;
       default:

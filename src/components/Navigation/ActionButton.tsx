@@ -49,7 +49,7 @@ const ActionButton = ({
             TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_ACTIONS_DELETE,
             `/${ROUTE_TUTORIALS}`,
             true,
-            header ? header.bucket : "<<<undefined>>>"
+            header ? header.bucket : undefined
           );
 
           if (config.environment != "TST") {
@@ -59,31 +59,37 @@ const ActionButton = ({
         });
         break;
       case "PUBLISH":
-        log(debug, "NavigationBar.Action.Button", "PUBLISH ALL");
-        await axios
-          .put("/publish")
-          .then(() => {
-            const tutopedia = buildTutopediaForPublishAll(
-              count,
-              "Publish all tutorials",
-              TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_ACTIONS_PUBLISH,
-              `/${ROUTE_TUTORIALS}`,
-              header ? header.bucket : "<<<undefined>>>"
-            );
-
-            if (config.environment != "TST") {
-              toast.loading("Publishing tutorials");
-            }
-            navigate(tutopedia.routeURL!, buildState(tutopedia));
-          })
-          .catch(() => {
-            log(debug, "NavigationBar.Action.Button", "Error publishing all");
-            if (config.environment != "TST") {
-              toast(
-                `Error publishing all tutorials: Is default bucket defined?`
+        log(debug, "NavigationBar.Action.Button", "PUBLISH ALL", header, true);
+        if (header === undefined || header.bucket === undefined) {
+          if (config.environment !== "TST") {
+            toast.error("No bucket defined to publish");
+          }
+        } else {
+          await axios
+            .put("/publish")
+            .then(() => {
+              const tutopedia = buildTutopediaForPublishAll(
+                count,
+                "Publish all tutorials",
+                TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_ACTIONS_PUBLISH,
+                `/${ROUTE_TUTORIALS}`,
+                header ? header.bucket : undefined
               );
-            }
-          });
+
+              if (config.environment != "TST") {
+                toast.loading("Publishing tutorials");
+              }
+              navigate(tutopedia.routeURL!, buildState(tutopedia));
+            })
+            .catch(() => {
+              log(debug, "NavigationBar.Action.Button", "Error publishing all");
+              if (config.environment != "TST") {
+                toast(
+                  `Error publishing all tutorials: Is default bucket defined?`
+                );
+              }
+            });
+        }
         break;
       default:
         break;

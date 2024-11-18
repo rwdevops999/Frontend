@@ -52,7 +52,7 @@ const SearchGroup = ({
       TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_SEARCH_INPUT,
       `/${ROUTE_TUTORIALS}`,
       tutorialId,
-      header ? header.bucket : "<<<undefined>>>"
+      header ? header.bucket : undefined
     );
 
     navigate(tutopedia.routeURL!, buildState(tutopedia));

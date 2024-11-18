@@ -67,7 +67,7 @@ const DisplayButton = ({
           TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL,
           `/${ROUTE_TUTORIALS}`,
           undefined,
-          header ? header.bucket : "<<<undefined>>>"
+          header ? header.bucket : undefined
         );
         break;
       case NavigationViewNames.AllPub:
@@ -82,7 +82,7 @@ const DisplayButton = ({
           TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL_PUBLISHED,
           `/${ROUTE_TUTORIALS}`,
           undefined,
-          header ? header.bucket : "<<<undefined>>>"
+          header ? header.bucket : undefined
         );
         break;
       case NavigationViewNames.NonPub:
@@ -96,7 +96,7 @@ const DisplayButton = ({
           "Render All Non-Published Tutorials",
           TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_VIEWS_ALL_NON_PUBLISHED,
           `/${ROUTE_TUTORIALS}`,
-          header ? header.bucket : "<<<undefined>>>"
+          header ? header.bucket : undefined
         );
         break;
       default:

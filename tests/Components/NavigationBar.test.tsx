@@ -13,7 +13,7 @@ import {
   expectInDocumentByTestId,
   expectNotInDocumentByTestId,
 } from "../testutils";
-import { createTutorials } from "../mock/database";
+import { createBuckets, createTutorials } from "../mock/database";
 import {
   ROUTE_TUTORIALS,
   TUTOPEDIA_CONTENT_CREATE_PAGE,
@@ -295,8 +295,17 @@ describe("NavigationBar with Data", () => {
       `${TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE_ITEMS_ITEM}`
     );
   });
+});
 
+describe("NavigationBar With Default Bucket", () => {
   it("should publish all the tutorials when the `publish all` button is clicked", async () => {
+    createBuckets(1, true, {
+      name: "buckettest",
+      selected: true,
+    });
+
+    renderRoute(`/${ROUTE_TUTORIALS}`);
+
     /**
      * This can't be put in a function because the test must be async
      */
@@ -310,7 +319,6 @@ describe("NavigationBar with Data", () => {
 
     let nodes: HTMLCollectionOf<Element> =
       document.getElementsByClassName("MuiChip-label");
-
     for (let i = 0; i < nodes.length; i++) {
       expect(nodes[i].innerHTML).toBe("not published");
     }
@@ -322,7 +330,6 @@ describe("NavigationBar with Data", () => {
     });
 
     nodes = document.getElementsByClassName("MuiChip-label");
-
     for (let i = 0; i < nodes.length; i++) {
       expect(nodes[i].innerHTML).toBe("published");
     }

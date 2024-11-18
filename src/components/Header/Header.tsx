@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { FaBucket, FaUser } from "react-icons/fa6";
 import { useAuth0 } from "@auth0/auth0-react";
 import HeaderActions from "./HeaderActions";
@@ -62,6 +62,8 @@ const Header = ({
     log(debug, "Tutopedia.Header", "New Config", newMode);
   };
 
+  const setColor = () => {};
+
   return (
     <>
       <Box
@@ -91,13 +93,24 @@ const Header = ({
           marginTop: "15px",
         }}
       >
-        <FaBucket />
-        &nbsp;{" "}
-        {header
-          ? header.bucket
-            ? header.bucket
-            : "<<<undefined>>>"
-          : "<<<undefined>>>"}
+        {header && header.bucket && (
+          <Typography
+            variant="subtitle1"
+            sx={{ color: "green", marginTop: "-3px" }}
+          >
+            <FaBucket />
+            &nbsp; {header.bucket}
+          </Typography>
+        )}
+        {!(header && header.bucket) && (
+          <Typography
+            variant="subtitle1"
+            sx={{ color: "red", marginTop: "-3px" }}
+          >
+            <FaBucket />
+            &nbsp; {"not set"}
+          </Typography>
+        )}
       </Box>
 
       <Box
@@ -109,9 +122,24 @@ const Header = ({
           marginRight: "145px",
         }}
       >
-        <FaUser />
-        &nbsp;
-        {isAuthenticated ? `${user!.name}` : "<<<no user>>>"}
+        {isAuthenticated && (
+          <Typography
+            variant="subtitle1"
+            sx={{ color: "green", marginTop: "-3px" }}
+          >
+            <FaUser />
+            &nbsp; {user!.name}
+          </Typography>
+        )}
+        {!isAuthenticated && (
+          <Typography
+            variant="subtitle1"
+            sx={{ color: "red", marginTop: "-3px" }}
+          >
+            <FaUser />
+            &nbsp; {"no user"}
+          </Typography>
+        )}
       </Box>
 
       <Box

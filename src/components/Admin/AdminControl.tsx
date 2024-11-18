@@ -52,7 +52,7 @@ const AdminControl = ({ count }: { count: number }) => {
           "Go To Settings",
           TUTOPEDIA_CONTENT_ADMIN_PAGE_SETTINGS_BUTTON,
           `/${ROUTE_ADMIN}`,
-          header ? header.bucket : "<<<undefined>>>"
+          header ? header.bucket : undefined
         );
         break;
       case TUTOPEDIA_CONTENT_ADMIN_PAGE_BUCKETS:
@@ -62,7 +62,7 @@ const AdminControl = ({ count }: { count: number }) => {
           "Go To Buckets",
           TUTOPEDIA_CONTENT_ADMIN_PAGE_SETTINGS_BUTTON,
           `${ROUTE_BUCKETS}`,
-          header ? header.bucket : "<<<undefined>>>"
+          header ? header.bucket : undefined
         );
     }
 

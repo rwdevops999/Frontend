@@ -1,9 +1,11 @@
+import { render, screen } from "@testing-library/react";
 import {
   ROUTE_TUTORIALS,
   TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE,
   TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_ACTIONS_DELETE,
   TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_ACTIONS_PUBLISH,
 } from "../../src/data/layout/layout";
+import { createBuckets } from "../mock/database";
 import { renderRoute } from "../render/render";
 import { clickButtonById, expectInDocumentByTestId } from "../testutils";
 
@@ -34,12 +36,19 @@ describe("ActionGroup", () => {
     expectInDocumentByTestId(`${TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE}`);
   });
 
-  it("should render the `tutorials list page` when publish all button is clicked", () => {
+  it("should render the `tutorials list page` when publish all button is clicked and default bucket set", () => {
+    createBuckets(1, true, {
+      name: "buckettest",
+      selected: true,
+    });
+
     renderRoute(`/${ROUTE_TUTORIALS}`);
 
     clickButtonById(
       `${TUTOPEDIA_CONTENT_TUTORIALS_PAGE_NAVIGATION_BAR_ACTIONS_PUBLISH}`
     );
+
+    screen.debug(undefined, Infinity);
 
     expectInDocumentByTestId(`${TUTOPEDIA_CONTENT_TUTORIALS_LIST_PAGE}`);
   });

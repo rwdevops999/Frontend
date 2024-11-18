@@ -109,7 +109,7 @@ const CreatePage = () => {
       buttonName,
       `/${ROUTE_TUTORIALS}`,
       true,
-      header ? header.bucket : "<<<undefined>>>"
+      header ? header.bucket : undefined
     );
 
     navigate(tutopedia.routeURL!, buildState(tutopedia));

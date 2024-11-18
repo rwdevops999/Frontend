@@ -109,6 +109,10 @@ const TutopediaDialog = (props: BucketDialogRawProps) => {
   const unpublishTutorials = async (tutorials: Tutorial[]) => {
     log(debug, "TutopediaDialog", "Unpublishing Tutorials");
 
+    if (config.environment !== "TST") {
+      toast.loading("Unpublishing...");
+    }
+
     await axios
       .put("/unpublish", tutorials)
       .then(() => {

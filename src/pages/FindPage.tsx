@@ -119,7 +119,7 @@ const FindPage = () => {
       TUTOPEDIA_CONTENT_FIND_PAGE_BUTTONS_CANCEL_BUTTON,
       `/${ROUTE_TUTORIALS}`,
       true,
-      header ? header.bucket : "<<<undefined>>>"
+      header ? header.bucket : undefined
     );
     navigate(tutopedia.routeURL!, buildState(tutopedia));
   };
@@ -133,7 +133,7 @@ const FindPage = () => {
         TUTOPEDIA_CONTENT_FIND_PAGE_BUTTONS_FIND_BUTTON,
         `/${ROUTE_TUTORIALS}`,
         keywords,
-        header ? header.bucket : "<<<undefined>>>"
+        header ? header.bucket : undefined
       );
 
       navigate(tutopedia.routeURL!, buildState(tutopedia));
