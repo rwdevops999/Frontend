@@ -2,7 +2,7 @@ import {
   ROUTE_TUTOPEDIA,
   ROUTE_TUTORIALS,
   TUTOPEDIA_CONTENT,
-  TUTOPEDIA_CONTENT_SERVER_CHECK_PAGE,
+  TUTOPEDIA_CONTENT_IMAGE_PAGE,
   TUTOPEDIA_FOOTER,
   TUTOPEDIA_HEADER,
 } from "../../src/data/layout/layout";
@@ -22,13 +22,8 @@ describe("TutOPedia", () => {
     expectInDocumentByTestId(`${TUTOPEDIA_CONTENT}`);
   });
 
-  it("should contain the ServerCheckPage", () => {
-    expectInDocumentByTestId(`${TUTOPEDIA_CONTENT_SERVER_CHECK_PAGE}`);
-  });
-
-  it("should contain the TutorialsPage", () => {
-    renderRoute(`/${ROUTE_TUTORIALS}`);
-    expectInDocumentByTestId(`${TUTOPEDIA_CONTENT_SERVER_CHECK_PAGE}`);
+  it("should contain the IntroPage", () => {
+    expectInDocumentByTestId(`${TUTOPEDIA_CONTENT_IMAGE_PAGE}`);
   });
 
   it("should contain the footer", () => {

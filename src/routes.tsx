@@ -1,5 +1,4 @@
 import { RouteObject } from "react-router-dom";
-import ServerCheckPage from "./pages/ServerCheckPage";
 import TutorialsPage from "./pages/TutorialsPage";
 import TutOPedia from "./pages/TutOPedia";
 import TutorialsListPage from "./pages/TutorialsListPage";
@@ -18,13 +17,14 @@ import {
   ROUTE_TUTOPEDIA,
   ROUTE_TUTORIALS,
 } from "./data/layout/layout";
+import IntroPage from "./pages/IntroPage";
 
 const routes: RouteObject[] = [
   {
     path: ROUTE_TUTOPEDIA,
     element: <TutOPedia />,
     children: [
-      { index: true, element: <ServerCheckPage /> },
+      { index: true, element: <IntroPage /> },
       {
         path: ROUTE_TUTORIALS,
         element: <TutorialsPage />,

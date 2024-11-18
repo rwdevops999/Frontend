@@ -1,7 +1,4 @@
-import { ConnectionState } from "../hooks/useServerConnect";
 import {
-  TUTOPEDIA_CONTENT_SERVER_CHECK_PAGE_ACTION_APPLICATION,
-  TUTOPEDIA_CONTENT_SERVER_CHECK_PAGE_ACTION_RETRY,
   TUTOPEDIA_HEADER_ACTION_BUTTON_ADMIN,
   TUTOPEDIA_HEADER_ACTION_BUTTON_HOME,
 } from "./layout/layout";
@@ -21,23 +18,6 @@ export const HeaderActionButtons = [
     title: "home",
     src: "/src/assets/house.svg",
     actionId: TUTOPEDIA_HEADER_ACTION_BUTTON_HOME,
-  },
-];
-
-export const ServerPageButtons = [
-  {
-    type: ConnectionState.failed,
-    id: "RETRY",
-    title: "Retry",
-    icon: "/src/assets/retry.svg",
-    actionId: TUTOPEDIA_CONTENT_SERVER_CHECK_PAGE_ACTION_RETRY,
-  },
-  {
-    type: ConnectionState.connected,
-    id: "APPLICATION",
-    title: "To Application",
-    icon: "/src/assets/application.svg",
-    actionId: TUTOPEDIA_CONTENT_SERVER_CHECK_PAGE_ACTION_APPLICATION,
   },
 ];
 

@@ -72,15 +72,12 @@ function TutOPedia() {
   log(debug, "Tutopedia", "Checking default bucket");
   let count = 0;
   if (location.state !== null) {
-    log(debug, "Tutopedia", "STEP1");
     count = location.state.tutopedia.count;
     if (location.state.tutopedia.header) {
-      log(debug, "Tutopedia", "STEP2");
       if (
         location.state.tutopedia.header.bucket &&
         location.state.tutopedia.header.bucket === "<<<undefined>>>"
       ) {
-        log(debug, "Tutopedia", "STEP3");
         log(debug, "Tutopedia", "Change state bucket", defaultBucket?.name);
         if (defaultBucket) {
           location.state.tutopedia.header.bucket = defaultBucket.name;
@@ -88,12 +85,10 @@ function TutOPedia() {
       }
     }
 
-    log(debug, "Tutopedia", "STEP5");
     count++;
     log(debug, "Tutopedia", "Count", count);
   } else {
     log(debug, "Tutopedia", "No State defined ... building one");
-    log(debug, "Tutopedia", "STEP9", defaultBucket, true);
     let tutopedia = undefined;
 
     switch (location.pathname) {
