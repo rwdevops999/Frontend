@@ -75,9 +75,13 @@ const Header = ({
           src="/book.ico"
           className="icon_30"
           title={config.environment === "TST" ? "TST MODE" : "DEV MODE"}
+          style={{ cursor: "pointer" }}
         />
-        &nbsp;
-        <strong className={getClassName(false)} onClick={handleChangeMode}>
+        <strong
+          className={getClassName(false)}
+          onClick={handleChangeMode}
+          style={{ cursor: "pointer" }}
+        >
           Tut-O-Pedia
         </strong>
       </Box>
